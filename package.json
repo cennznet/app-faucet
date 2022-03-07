@@ -15,7 +15,7 @@
   "dependencies": {
     "@cennznet/api": "^2.1.0-alpha.1",
     "@cennznet/types": "^2.1.0-alpha.1",
-    "@cennznet/wallet": "^1.2.1",
+    "@cennznet/wallet": "^0.20.6",
     "@emotion/react": "^11.8.1",
     "@emotion/styled": "^11.8.1",
     "@mui/icons-material": "^5.3.1",

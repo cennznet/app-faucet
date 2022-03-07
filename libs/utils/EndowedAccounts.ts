@@ -1,9 +1,10 @@
 import { SimpleKeyring } from "@cennznet/wallet";
 import { errMsgFilter } from "@/libs/utils/errorHandling";
+import { Api } from "@cennznet/api";
 
 class EndowedAccount {
 	private _keyPair: any;
-	private _api: any;
+	private _api: Api;
 	private _nonce: number;
 	private _ongoingTx: {};
 	private _resetNonce: any;
@@ -21,9 +22,10 @@ class EndowedAccount {
 	}
 
 	async init() {
-		this._nonce = await this._api.query.system
-			.accountNonce(this._keyPair.address)
-			.then((x) => Number(x));
+		const accountNextNonce = await this._api.rpc.system.accountNextIndex(
+			this._keyPair.address
+		);
+		this._nonce = accountNextNonce.toNumber();
 		console.info(
 			`[${this.getDate().toISOString()}] INFO: init nonce ${
 				this._keyPair.address
@@ -177,12 +179,12 @@ class EndowedAccount {
 export class EndowedAccounts {
 	private _keyring: SimpleKeyring;
 	private _accounts: any[];
-	private _availableAccounts: any[];
 	private _unavailableAccounts: any[];
 	private _nextAccountIndex: number;
 	private _api: any;
 	private MAX_UNAVAILABLE: number;
 	private MIN_AVAILABLE: number;
+	_availableAccounts: any[];
 
 	constructor(api, seeds, keyType) {
 		this._keyring = new SimpleKeyring();

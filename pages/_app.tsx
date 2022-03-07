@@ -2,7 +2,7 @@ import type { AppProps } from "next/app";
 import { SessionProvider } from "next-auth/react";
 import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
-import theme from "@/lib/theme";
+import theme from "@/libs/theme";
 import Head from "next/head";
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {

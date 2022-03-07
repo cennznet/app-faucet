@@ -1,11 +1,13 @@
-import type { NextPage } from 'next'
+import type { NextPage } from "next";
+import TwitterHandler from "@/components/TwitterHandler";
 
 const Home: NextPage = () => {
-  return (
-    <div >
-      Cennznet faucet
-    </div>
-  )
-}
+	return (
+		<div>
+			<div>Cennznet faucet</div>
+			<TwitterHandler />
+		</div>
+	);
+};
 
-export default Home
+export default Home;

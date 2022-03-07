@@ -9,6 +9,6 @@ module.exports = {
 		return config;
 	},
 	eslint: {
-		dirs: ["pages", "lib/components", "lib/providers"],
+		dirs: ["pages", "libs/components", "libs/providers"],
 	},
 };

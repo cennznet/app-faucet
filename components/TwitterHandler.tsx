@@ -56,6 +56,7 @@ export const styles = {
 		font-weight: bold;
 	`,
 	buttonContainer: css`
+		cursor: pointer;
 		position: absolute;
 		top: 15px;
 		right: 10px;

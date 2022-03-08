@@ -1,10 +1,14 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { Api } from "@cennznet/api";
 import {
-	CENNZNET_PUBLIC_API_URL,
+	CENNZNET_LOCAL_API_URL,
+	CENNZNET_NIKAU_API_URL,
+	CENNZNET_RATA_API_URL,
 	ENDOWED_ACCOUNT_SEEDS,
+	TRANSFER_AMOUNT,
 } from "@/libs/constants";
 import { EndowedAccounts } from "@/libs/utils/EndowedAccounts";
+import { CENNZNET_NETWORK } from "@/libs/types";
 
 export default async function handler(
 	req: NextApiRequest,
@@ -14,15 +18,21 @@ export default async function handler(
 		const body = req.body;
 		if (!body.assetId) throw new Error("assetId Param not provided!");
 		if (!body.address) throw new Error("address Param not provided!");
-		const { assetId, address } = body;
-		const transferAmount = 2000000; //200 cennz
-		const api = await Api.create({ provider: CENNZNET_PUBLIC_API_URL });
+		if (!body.network) throw new Error("network Param not provided!");
+		const { assetId, address, network } = body;
+		const cennznetNetwork: CENNZNET_NETWORK = network;
+		let networkUrl: string;
+		if (cennznetNetwork === "nikau") networkUrl = CENNZNET_NIKAU_API_URL;
+		else if (cennznetNetwork === "rata") networkUrl = CENNZNET_RATA_API_URL;
+		else if (cennznetNetwork === "local") networkUrl = CENNZNET_LOCAL_API_URL;
+		console.info(networkUrl);
+		const api = await Api.create({ provider: networkUrl });
 		const endowedAccounts = new EndowedAccounts(api, ENDOWED_ACCOUNT_SEEDS);
 		await endowedAccounts.init();
 		const transfer = endowedAccounts.api.tx.genericAsset.transfer(
 			assetId,
 			address,
-			transferAmount
+			TRANSFER_AMOUNT
 		);
 		await endowedAccounts.send(transfer);
 		res.status(200).json({ success: true });

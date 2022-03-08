@@ -1,14 +1,14 @@
 /** @type {import('next').NextConfig} */
 module.exports = {
-  reactStrictMode: true,
-  webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
-    config.module.rules.push({
-      test: /\.(woff|woff2|eot|ttf|otf)$/i,
-      type: "asset/resource",
-    });
-    return config;
-  },
-  eslint: {
-    dirs: ["pages", "lib/components", "lib/providers"],
-  }
+	reactStrictMode: true,
+	webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
+		config.module.rules.push({
+			test: /\.(woff|woff2|eot|ttf|otf)$/i,
+			type: "asset/resource",
+		});
+		return config;
+	},
+	eslint: {
+		dirs: ["pages", "libs/components", "libs/providers"],
+	},
 };

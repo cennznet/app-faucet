@@ -11,7 +11,3 @@ export const TWITTER_ID: string = String(process.env.NEXT_PUBLIC_TWITTER_ID);
 export const TWITTER_SECRET: string = String(
 	process.env.NEXT_PUBLIC_TWITTER_SECRET
 );
-
-export const RAPIDAPI_KEY: string = String(
-	process.env.NEXT_PUBLIC_RAPIDAPI_KEY
-);

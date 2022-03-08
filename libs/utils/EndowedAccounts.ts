@@ -125,7 +125,6 @@ class EndowedAccount {
 					} else if (status.isInvalid || status.toString() === "Future") {
 						firstTryPromiseResolve();
 						if (!retry) {
-							// if status.toString() === 'Future', report nonce is too high
 							if (status.toString() === "Future") {
 								reject(
 									new Error(

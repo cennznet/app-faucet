@@ -1,5 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { Api } from "@cennznet/api";
+import { getSession } from "next-auth/react";
 import {
 	CENNZNET_PUBLIC_API_URL,
 	ENDOWED_ACCOUNT_SEEDS,
@@ -11,6 +12,12 @@ export default async function handler(
 	res: NextApiResponse
 ) {
 	try {
+		const session = await getSession({ req });
+		if (!session.validAccount) {
+			res
+				.status(401)
+				.json({ success: false, error: "Invalid Twitter Account" });
+		}
 		const body = req.body;
 		if (!body.assetId) throw new Error("assetId Param not provided!");
 		if (!body.address) throw new Error("address Param not provided!");

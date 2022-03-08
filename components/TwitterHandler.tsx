@@ -3,25 +3,25 @@ import { css } from "@emotion/react";
 import { signIn, signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 
-const imageDimension = 20;
-
 const TwitterHandler: FC = () => {
 	const { data: session } = useSession();
 
 	return (
 		<div>
-			{!!session?.user.name && (
-				<p css={styles.username}>Signed in as {session.user.name}</p>
+			{!!session?.username && (
+				<div css={styles.username}>
+					<p>@{session.username}</p>
+				</div>
 			)}
 			<button css={styles.buttonContainer}>
 				{!!session ? (
 					<div css={styles.authButton} onClick={async () => await signOut()}>
 						<Image
 							src={"/twitter.svg"}
-							width={imageDimension}
-							height={imageDimension}
+							width={20}
+							height={20}
 							alt="twitter-logo"
-							css={styles.logo(imageDimension)}
+							css={styles.logo}
 						/>
 						<p>Sign out</p>
 					</div>
@@ -32,15 +32,23 @@ const TwitterHandler: FC = () => {
 					>
 						<Image
 							src={"/twitter.svg"}
-							width={imageDimension}
-							height={imageDimension}
+							width={20}
+							height={20}
 							alt="twitter-logo"
-							css={styles.logo(imageDimension)}
+							css={styles.logo}
 						/>
 						<p>Sign in</p>
 					</div>
 				)}
 			</button>
+			{!!session?.validAccount ? (
+				<div>Account is valid</div>
+			) : (
+				<div>
+					Please sign in to an account that is over 30 days old, and with at
+					least 15 followers & 1 tweet
+				</div>
+			)}
 		</div>
 	);
 };
@@ -49,11 +57,17 @@ export default TwitterHandler;
 
 export const styles = {
 	username: css`
-		font-size: 14px;
 		position: absolute;
-		top: 8px;
-		right: 150px;
-		font-weight: bold;
+		top: 40px;
+		right: 10px;
+		width: 120px;
+		text-align: center;
+
+		p {
+			font-size: 14px;
+			font-weight: bold;
+			overflow: scroll;
+		}
 	`,
 	buttonContainer: css`
 		cursor: pointer;
@@ -82,7 +96,7 @@ export const styles = {
 			font-weight: bold;
 		}
 	`,
-	logo: (imageDimension: number) => css`
+	logo: css`
 		padding-left: 15px;
 		margin-left: 50px;
 	`,

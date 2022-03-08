@@ -6,21 +6,27 @@ import {
 } from "@/libs/constants";
 import { EndowedAccounts } from "@/libs/utils/EndowedAccounts";
 
-type Data = {
-	success: boolean;
-};
-
 export default async function handler(
 	req: NextApiRequest,
-	res: NextApiResponse<Data>
+	res: NextApiResponse
 ) {
-	const api = await Api.create({ provider: CENNZNET_PUBLIC_API_URL });
-	const seeds = ENDOWED_ACCOUNT_SEEDS;
-	const keyType = "sr25519";
-	const endowedAccounts = new EndowedAccounts(api, seeds, keyType);
-	await endowedAccounts.init();
-	console.log(
-		`Available accounts number: ${endowedAccounts._availableAccounts.length}`
-	);
-	res.status(200).json({ success: true });
+	try {
+		const body = req.body;
+		if (!body.assetId) throw new Error("assetId Param not provided!");
+		if (!body.address) throw new Error("address Param not provided!");
+		const { assetId, address } = body;
+		const transferAmount = 2000000; //200 cennz
+		const api = await Api.create({ provider: CENNZNET_PUBLIC_API_URL });
+		const endowedAccounts = new EndowedAccounts(api, ENDOWED_ACCOUNT_SEEDS);
+		await endowedAccounts.init();
+		const transfer = endowedAccounts.api.tx.genericAsset.transfer(
+			assetId,
+			address,
+			transferAmount
+		);
+		await endowedAccounts.send(transfer);
+		res.status(200).json({ success: true });
+	} catch (e) {
+		res.status(400).json({ success: false, error: e.message });
+	}
 }

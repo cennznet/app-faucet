@@ -1,6 +1,6 @@
-import { SimpleKeyring } from "@cennznet/wallet";
 import { errMsgFilter } from "@/libs/utils/errorHandling";
 import { Api } from "@cennznet/api";
+import { Keyring } from "@polkadot/keyring";
 
 class EndowedAccount {
 	private _keyPair: any;
@@ -10,8 +10,8 @@ class EndowedAccount {
 	private _resetNonce: any;
 	private TIMEOUT: number;
 
-	constructor(api, seed, keyring, type) {
-		this._keyPair = keyring.addFromUri(seed, {}, type);
+	constructor(api, seed, keyring) {
+		this._keyPair = keyring.addFromUri(seed);
 
 		this._api = api;
 		this._nonce = 0;
@@ -103,7 +103,7 @@ class EndowedAccount {
 					console.info(
 						`[${this.getDate().toISOString()}] INFO: Status ${
 							this._keyPair.address
-						} ${hash.toString()} ${status.toJSON()}`
+						} ${hash.toString()} ${status.toString()}`
 					);
 					if (status.isFinalized) {
 						firstTryPromiseResolve();
@@ -111,7 +111,7 @@ class EndowedAccount {
 						for (const event of events) {
 							if (
 								event.phase &&
-								event.phase.ApplyExtrinsic &&
+								event.phase.applyExtrinsic &&
 								event.event.index === "0x0000"
 							) {
 								resolve(hash);
@@ -177,7 +177,7 @@ class EndowedAccount {
 }
 
 export class EndowedAccounts {
-	private _keyring: SimpleKeyring;
+	private _keyring: Keyring;
 	private _accounts: any[];
 	private _unavailableAccounts: any[];
 	private _nextAccountIndex: number;
@@ -186,15 +186,15 @@ export class EndowedAccounts {
 	private MIN_AVAILABLE: number;
 	_availableAccounts: any[];
 
-	constructor(api, seeds, keyType) {
-		this._keyring = new SimpleKeyring();
+	constructor(api, seeds) {
+		this._keyring = new Keyring({ type: "sr25519" });
 		this._accounts = [];
 		this._availableAccounts = [];
 		this._unavailableAccounts = [];
 		this.MAX_UNAVAILABLE = 9;
 		this.MIN_AVAILABLE = 4;
 		seeds.map((seed) => {
-			const account = new EndowedAccount(api, seed, this._keyring, keyType);
+			const account = new EndowedAccount(api, seed, this._keyring);
 			this._accounts.push(account);
 			this._availableAccounts.push(account);
 		});

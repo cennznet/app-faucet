@@ -2,6 +2,10 @@ export const CENNZNET_PUBLIC_API_URL: string = String(
 	process.env.NEXT_PUBLIC_CENNZNET_API_URL
 );
 
+export const ENDOWED_ACCOUNT_SEEDS: string[] = String(
+	process.env.ENDOWED_ACCOUNT_SEEDS
+).split(",");
+
 export const NEXTAUTH_SECRET: string = String(
 	process.env.NEXT_PUBLIC_NEXTAUTH_SECRET
 );

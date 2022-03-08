@@ -41,14 +41,6 @@ const TwitterHandler: FC = () => {
 					</div>
 				)}
 			</button>
-			{!!session?.validAccount ? (
-				<div>Account is valid</div>
-			) : (
-				<div>
-					Please sign in to an account that is over 30 days old, and with at
-					least 15 followers & 1 tweet
-				</div>
-			)}
 		</div>
 	);
 };

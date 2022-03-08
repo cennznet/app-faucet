@@ -25,7 +25,6 @@ export default async function handler(
 		if (cennznetNetwork === "nikau") networkUrl = CENNZNET_NIKAU_API_URL;
 		else if (cennznetNetwork === "rata") networkUrl = CENNZNET_RATA_API_URL;
 		else if (cennznetNetwork === "local") networkUrl = CENNZNET_LOCAL_API_URL;
-		console.info("ENDOWED_ACCOUNT_SEEDS", ENDOWED_ACCOUNT_SEEDS);
 		const api = await Api.create({ provider: networkUrl });
 		const endowedAccounts = new EndowedAccounts(api, ENDOWED_ACCOUNT_SEEDS);
 		await endowedAccounts.init();

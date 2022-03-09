@@ -26,11 +26,11 @@ export const styles = {
 	wrapper: css`
 		border: 1px solid dimgray;
 		border-radius: 5px;
-		padding-bottom: 20px;
+		width: 617px;
+    padding: 15px 35px;	'
 	`,
 	container: css`
 		width: 90%;
-		margin: 0 auto;
 	`,
 	heading: css`
 		font-size: 19px;

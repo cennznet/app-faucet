@@ -54,7 +54,7 @@ export const styles = {
 		cursor: pointer;
 		width: 100%;
 		height: 30px;
-		margin: 0 auto;
+		margin: 15px 0;
 		text-align: center;
 		border-radius: 5px;
 		background-color: #1da1f2;

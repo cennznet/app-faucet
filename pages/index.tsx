@@ -24,6 +24,10 @@ export const styles = {
 	`,
 	container: css`
 		width: 50%;
-		margin: 0 auto;
+		margin: 35px auto;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
 	`,
 };

@@ -1,10 +1,10 @@
 import { FC, useState } from "react";
 import { css } from "@emotion/react";
 import { useSession } from "next-auth/react";
-import AccountIdenticon from "@/components/AccountIdenticon";
 import FaucetButton from "@/components/FaucetButton";
-import { PLACEHOLDER_ADDRESS, NETWORKS } from "@/libs/constants";
+import { NETWORKS } from "@/libs/constants";
 import { Divider } from "@mui/material";
+import FaucetAccountInput from "@/components/FaucetAccountInput";
 
 const Faucet: FC = () => {
 	const { data: session } = useSession();
@@ -19,22 +19,7 @@ const Faucet: FC = () => {
 				</p>
 				<Divider />
 				<p css={styles.heading}>Enter your CENNZnet Address:</p>
-				<div css={styles.addressWrapper}>
-					<AccountIdenticon
-						css={styles.accountIdenticon}
-						theme="beachball"
-						size={28}
-						value={address ? address : PLACEHOLDER_ADDRESS}
-					/>
-					<input
-						css={styles.input}
-						type="text"
-						placeholder={PLACEHOLDER_ADDRESS}
-						value={address}
-						onChange={(e) => setAddress(e.target.value)}
-						disabled={!!session?.validAccount}
-					/>
-				</div>
+				<FaucetAccountInput />
 				<div css={styles.networkContainer}>
 					<p css={styles.heading}>Select a network:</p>
 					<select
@@ -59,10 +44,11 @@ export const styles = {
 		border: 1px solid dimgray;
 		border-radius: 5px;
 		height: auto;
-		padding-bottom: 20px;
+		width: 617px;
+		padding: 15px 35px;
 	`,
 	faucetContainer: css`
-		width: 90%;
+		width: 100%;
 		margin: 0 auto;
 	`,
 	heading: css`

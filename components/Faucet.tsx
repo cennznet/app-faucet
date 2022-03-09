@@ -4,6 +4,7 @@ import { useSession } from "next-auth/react";
 import AccountIdenticon from "@/components/AccountIdenticon";
 import FaucetButton from "@/components/FaucetButton";
 import { PLACEHOLDER_ADDRESS, NETWORKS } from "@/libs/constants";
+import { Divider } from "@mui/material";
 
 const Faucet: FC = () => {
 	const { data: session } = useSession();
@@ -13,6 +14,10 @@ const Faucet: FC = () => {
 	return (
 		<div css={styles.faucetWrapper}>
 			<div css={styles.faucetContainer}>
+				<p css={styles.heading} style={{ fontWeight: "bold" }}>
+					Request Tokens
+				</p>
+				<Divider />
 				<p css={styles.heading}>Enter your CENNZnet Address:</p>
 				<div css={styles.addressWrapper}>
 					<AccountIdenticon
@@ -83,7 +88,7 @@ export const styles = {
 		width: 100%;
 		display: inline-flex;
 		align-content: center;
-		margin: 20px auto 30px;
+		margin: 20px auto 20px;
 		height: 60px;
 	`,
 	select: css`

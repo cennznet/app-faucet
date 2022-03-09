@@ -2,8 +2,7 @@ import { FC } from "react";
 import { css } from "@emotion/react";
 import TwitterHandler from "@/components/TwitterHandler";
 import Faucet from "@/components/Faucet";
-
-type Networks = "CENNZnet" | "Localhost";
+import FaucetDetails from "@/components/FaucetDetails";
 
 const Home: FC = () => {
 	return (
@@ -11,6 +10,8 @@ const Home: FC = () => {
 			<h1 css={styles.heading}>CENNZnet faucet</h1>
 			<TwitterHandler />
 			<Faucet />
+			<br />
+			<FaucetDetails />
 		</div>
 	);
 };

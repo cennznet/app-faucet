@@ -15,7 +15,7 @@ export default async function handler(
 	res: NextApiResponse
 ) {
 	try {
-		const body = req.body;
+		const body = JSON.parse(req.body);
 		if (!body.assetId) throw new Error("assetId Param not provided!");
 		if (!body.address) throw new Error("address Param not provided!");
 		if (!body.network) throw new Error("network Param not provided!");

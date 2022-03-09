@@ -3,13 +3,22 @@ import { css } from "@emotion/react";
 import { useSession } from "next-auth/react";
 import AccountIdenticon from "@/components/AccountIdenticon";
 import FaucetButton from "@/components/FaucetButton";
-import { PLACEHOLDER_ADDRESS, NETWORKS } from "@/libs/constants";
+import { NETWORKS, PLACEHOLDER_ADDRESS } from "@/libs/constants";
 import { Divider } from "@mui/material";
+import supplyAccount from "@/libs/utils/supplyAccount";
 
 const Faucet: FC = () => {
 	const { data: session } = useSession();
 	const [network, setNetwork] = useState<string>(NETWORKS[0]);
 	const [address, setAddress] = useState<string>("");
+	const [response, setResponse] = useState<string>();
+
+	const fetchSupplyResponse = async () => {
+		if (!address || !network) return;
+
+		const supplyResponse = await supplyAccount(address, network);
+		setResponse(JSON.stringify(supplyResponse));
+	};
 
 	return (
 		<div css={styles.faucetWrapper}>
@@ -46,7 +55,17 @@ const Faucet: FC = () => {
 						))}
 					</select>
 				</div>
-				<FaucetButton session={session} address={address} network={network} />
+				<FaucetButton
+					session={session}
+					address={address}
+					supplyAccount={fetchSupplyResponse}
+				/>
+				{!!response && (
+					<div>
+						<p css={styles.heading}>Response:</p>
+						<div css={styles.responseContainer}>{response}</div>
+					</div>
+				)}
 			</div>
 		</div>
 	);
@@ -107,5 +126,11 @@ export const styles = {
 		font-size: 15px;
 		align-self: center;
 		margin-left: 15px;
+	`,
+	responseContainer: css`
+		padding: 10px 10px 10px 10px;
+		border: 1px solid dimgray;
+		border-radius: 5px;
+		font-size: 15px;
 	`,
 };

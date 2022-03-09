@@ -1,33 +1,16 @@
-import { FC } from "react";
+import { FC, MouseEventHandler } from "react";
 import { css } from "@emotion/react";
 import { Session } from "next-auth";
-import { NETWORKS } from "@/libs/constants";
 
 const FaucetButton: FC<{
 	session: Session;
 	address: string;
-	network: string;
-}> = ({ session, address, network }) => {
-	const faucet = async () => {
-		//TODO: send address to faucet api
-		switch (network) {
-			default:
-			case NETWORKS[0]:
-				console.log("send tokens to nikau");
-				break;
-			case NETWORKS[1]:
-				console.log("send tokens to rata");
-				break;
-			case NETWORKS[2]:
-				console.log("send tokens to local node");
-				break;
-		}
-	};
-
+	supplyAccount: MouseEventHandler<HTMLDivElement>;
+}> = ({ session, address, supplyAccount }) => {
 	if (session?.validAccount) {
 		if (address) {
 			return (
-				<div css={styles.faucetButton} onClick={faucet}>
+				<div css={styles.faucetButton} onClick={supplyAccount}>
 					<p>SEND TOKENS</p>
 				</div>
 			);
@@ -41,7 +24,7 @@ const FaucetButton: FC<{
 	}
 
 	return (
-		<div css={styles.faucetButton}>
+		<div css={styles.faucetButton} onClick={supplyAccount}>
 			<p>PLEASE SIGN IN WITH A VALID TWITTER ACCOUNT</p>
 		</div>
 	);

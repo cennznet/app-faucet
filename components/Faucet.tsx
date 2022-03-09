@@ -74,6 +74,7 @@ export const styles = {
 		font-size: 16px;
 		margin-bottom: 10px;
 		letter-spacing: 0.5px;
+		font-weight: bold;
 	`,
 
 	addressWrapper: css`
@@ -98,6 +99,7 @@ export const styles = {
 		height: 60px;
 	`,
 	select: css`
+		cursor: pointer;
 		-webkit-appearance: none;
 		-moz-appearance: none;
 		appearance: none;

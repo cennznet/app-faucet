@@ -44,7 +44,7 @@ export const styles = {
 	details: css`
 		p {
 			font-size: 16px;
-			line-height: 80%;
+			line-height: 1.25;
 		}
 	`,
 	detailsHeading: css`

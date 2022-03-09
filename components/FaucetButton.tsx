@@ -53,17 +53,24 @@ export const styles = {
 	faucetButton: css`
 		cursor: pointer;
 		width: 100%;
-		height: 30px;
+		height: 40px;
 		margin: 15px 0;
 		text-align: center;
 		border-radius: 5px;
 		background-color: #1da1f2;
 		color: white;
 		letter-spacing: 0.5px;
+		justify-content: center;
+		align-items: center;
+		display: flex;
 
 		p {
 			font-size: 14px;
 			padding-top: 5px;
+			@media (max-width: 500px) {
+				height: 30px;
+				font-size: 10px;
+			}
 		}
 	`,
 };

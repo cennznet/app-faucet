@@ -18,7 +18,7 @@ export const TWITTER_SECRET: string = String(
 );
 
 export const ENDOWED_ACCOUNT_SEEDS: string[] = String(
-	process.env.NEXT_PUBLIC_ENDOWED_ACCOUNT_SEEDS
+	process.env.ENDOWED_ACCOUNT_SEEDS
 ).split(",");
 
 export const TRANSFER_AMOUNT: number = Number(

@@ -5,6 +5,7 @@ import FaucetButton from "@/components/FaucetButton";
 import { NETWORKS } from "@/libs/constants";
 import { Divider } from "@mui/material";
 import FaucetAccountInput from "@/components/FaucetAccountInput";
+import TokenPicker from "@/components/TokenPicker";
 
 const Faucet: FC = () => {
 	const { data: session } = useSession();
@@ -14,9 +15,12 @@ const Faucet: FC = () => {
 	return (
 		<div css={styles.faucetWrapper}>
 			<div css={styles.faucetContainer}>
-				<p css={styles.heading} style={{ fontWeight: "bold" }}>
-					Request Tokens
-				</p>
+				<div css={styles.headingContainer}>
+					<p css={styles.heading} style={{ fontWeight: "bold" }}>
+						Request Tokens
+					</p>
+					<TokenPicker />
+				</div>
 				<Divider />
 				<p css={styles.heading}>Enter your CENNZnet Address:</p>
 				<FaucetAccountInput />
@@ -46,6 +50,12 @@ export const styles = {
 		height: auto;
 		width: 617px;
 		padding: 15px 35px;
+	`,
+	headingContainer: css`
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		margin: 5px;
 	`,
 	faucetContainer: css`
 		width: 100%;

@@ -1,53 +1,47 @@
 import { FC, useState } from "react";
 import { css } from "@emotion/react";
-import AccountIdenticon from "@/components/AccountIdenticon";
-import CompareArrowsIcon from "@mui/icons-material/CompareArrows";
 import { useSession } from "next-auth/react";
+import AccountIdenticon from "@/components/AccountIdenticon";
 import FaucetButton from "@/components/FaucetButton";
+import { PLACEHOLDER_ADDRESS, NETWORKS } from "@/libs/constants";
 
 const Faucet: FC = () => {
 	const { data: session } = useSession();
-	const [localNetwork, setLocalNetwork] = useState<Boolean>(false);
+	const [network, setNetwork] = useState<string>(NETWORKS[0]);
 	const [address, setAddress] = useState<string>("");
 
 	return (
 		<div css={styles.faucetWrapper}>
 			<div css={styles.faucetContainer}>
-				<p css={styles.heading}>
-					Enter your CENNZnet Address to receive testnet tokens:
-				</p>
+				<p css={styles.heading}>Enter your CENNZnet Address:</p>
 				<div css={styles.addressWrapper}>
 					<AccountIdenticon
 						css={styles.accountIdenticon}
 						theme="beachball"
 						size={28}
-						value={
-							address
-								? address
-								: "5FbMzsoEpd2mt8eyKpKUxwJ5S9W7nJVJkCer2Jk7tvSpB1vF"
-						}
+						value={address ? address : PLACEHOLDER_ADDRESS}
 					/>
 					<input
 						css={styles.input}
 						type="text"
-						placeholder="5FbMzsoEpd2mt8eyKpKUxwJ5S9W7nJVJkCer2Jk7tvSpB1vF"
+						placeholder={PLACEHOLDER_ADDRESS}
 						value={address}
 						onChange={(e) => setAddress(e.target.value)}
 						disabled={!!session?.validAccount}
 					/>
 				</div>
-				<div css={styles.networks}>
-					<CompareArrowsIcon
-						css={styles.arrows}
-						onClick={() => setLocalNetwork(!localNetwork)}
-					/>
-					<p css={styles.networkText}>
-						{localNetwork
-							? "Send tokens to local node"
-							: "Send tokens to Nikau & Rata networks"}
-					</p>
+				<div css={styles.networkContainer}>
+					<p css={styles.heading}>Select a network:</p>
+					<select
+						css={styles.select}
+						onChange={(e) => setNetwork(e.target.value)}
+					>
+						{NETWORKS.map((network: string, i: number) => (
+							<option key={i}>{network}</option>
+						))}
+					</select>
 				</div>
-				<FaucetButton session={session} address={address} />
+				<FaucetButton session={session} address={address} network={network} />
 			</div>
 		</div>
 	);
@@ -67,12 +61,13 @@ export const styles = {
 		margin: 0 auto;
 	`,
 	heading: css`
-		font-size: 20px;
+		font-size: 19px;
 		margin-bottom: 10px;
+		letter-spacing: 0.5px;
 	`,
 	addressWrapper: css`
 		display: inline-flex;
-		width: 90%;
+		width: 100%;
 		align-content: center;
 	`,
 	accountIdenticon: css`
@@ -80,14 +75,23 @@ export const styles = {
 		margin-right: 5px;
 	`,
 	input: css`
-		width: 100%;
+		flex-grow: 1;
 		height: 50px;
 		font-size: 18px;
 	`,
-	networks: css`
-		margin-top: 20px;
+	networkContainer: css`
+		width: 100%;
 		display: inline-flex;
-		height: 30px;
+		align-content: center;
+		margin: 20px auto 30px;
+		height: 60px;
+	`,
+	select: css`
+		height: 40px;
+		font-size: 16px;
+		margin-left: 10px;
+		flex-grow: 1;
+		margin-top: 15px;
 	`,
 	arrows: css`
 		cursor: pointer;

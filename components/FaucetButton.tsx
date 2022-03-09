@@ -1,14 +1,27 @@
 import { FC } from "react";
 import { css } from "@emotion/react";
 import { Session } from "next-auth";
+import { NETWORKS } from "@/libs/constants";
 
-const FaucetButton: FC<{ session: Session; address: string }> = ({
-	session,
-	address,
-}) => {
+const FaucetButton: FC<{
+	session: Session;
+	address: string;
+	network: string;
+}> = ({ session, address, network }) => {
 	const faucet = async () => {
 		//TODO: send address to faucet api
-		console.log("sending test tokens");
+		switch (network) {
+			default:
+			case NETWORKS[0]:
+				console.log("send tokens to nikau");
+				break;
+			case NETWORKS[1]:
+				console.log("send tokens to rata");
+				break;
+			case NETWORKS[2]:
+				console.log("send tokens to local node");
+				break;
+		}
 	};
 
 	if (session?.validAccount) {

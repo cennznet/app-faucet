@@ -68,7 +68,7 @@ const Faucet: FC = () => {
 					<p css={styles.heading}>Response: </p>
 					{fetchingResponse ? (
 						<div css={styles.circularProgress}>
-							<CircularProgress size={25} />
+							<CircularProgress size={25} color="primary" />
 						</div>
 					) : (
 						<p css={styles.response}>{response}</p>

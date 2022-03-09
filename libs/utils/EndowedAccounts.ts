@@ -77,7 +77,7 @@ class EndowedAccount {
 		);
 
 		let timeoutID;
-		const promise = new Promise(async (resolve, reject) => {
+		return new Promise(async (resolve, reject) => {
 			const signedTx = tx.sign(this._keyPair, await this.nextNonce());
 			const hash = signedTx.hash;
 
@@ -170,8 +170,6 @@ class EndowedAccount {
 				clearTimeout(timeoutID);
 				throw err;
 			});
-
-		return promise;
 	}
 }
 

@@ -60,6 +60,8 @@ export const styles = {
 		justify-content: space-between;
 		align-items: center;
 		margin: 5px;
+		height: 60px;
+		margin-bottom: 22px;
 	`,
 	faucetContainer: css`
 		width: 100%;

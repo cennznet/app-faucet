@@ -9,7 +9,15 @@ const FaucetDetails: FC = () => {
 				<p css={styles.heading}>Faucet Details </p>
 				<Divider />
 				<div css={styles.details}>
+					<p css={styles.detailsHeading}>Tokens</p>
+					<p>Faucet will send 2000 CENNZ & CPAY tokens.</p>
+				</div>
+				<div css={styles.details}>
 					<p css={styles.detailsHeading}>Validation</p>
+					<p>
+						In order to prevent faucet botting on Nikau & Rata networks, you
+						must sign in via Twitter.
+					</p>
 					<p>
 						Your Twitter account must have at least 1 Tweet, 15 followers, and
 						be older than 1 month.
@@ -39,13 +47,16 @@ export const styles = {
 		font-weight: bold;
 	`,
 	details: css`
+		margin-bottom: 30px;
+
 		p {
 			font-size: 16px;
-			line-height: 80%;
+			margin-bottom: -5px;
 		}
 	`,
 	detailsHeading: css`
 		font-weight: bold;
 		letter-spacing: 0.5px;
+		margin-bottom: -10px;
 	`,
 };

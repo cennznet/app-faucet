@@ -5,9 +5,10 @@ import { Session } from "next-auth";
 const FaucetButton: FC<{
 	session: Session;
 	address: string;
+	local?: boolean;
 	supplyAccount: MouseEventHandler<HTMLDivElement>;
-}> = ({ session, address, supplyAccount }) => {
-	if (session?.validAccount) {
+}> = ({ session, address, local, supplyAccount }) => {
+	if (session?.validAccount || local) {
 		if (address) {
 			return (
 				<div css={styles.faucetButton} onClick={supplyAccount}>
@@ -24,7 +25,7 @@ const FaucetButton: FC<{
 	}
 
 	return (
-		<div css={styles.faucetButton} onClick={supplyAccount}>
+		<div css={styles.faucetButton}>
 			<p>PLEASE SIGN IN WITH A VALID TWITTER ACCOUNT</p>
 		</div>
 	);

@@ -4,7 +4,7 @@ import { useSession } from "next-auth/react";
 import AccountIdenticon from "@/components/AccountIdenticon";
 import FaucetButton from "@/components/FaucetButton";
 import { NETWORKS, PLACEHOLDER_ADDRESS } from "@/libs/constants";
-import { Divider } from "@mui/material";
+import { CircularProgress, Divider } from "@mui/material";
 import supplyAccount from "@/libs/utils/supplyAccount";
 
 const Faucet: FC = () => {
@@ -12,18 +12,22 @@ const Faucet: FC = () => {
 	const [network, setNetwork] = useState<string>(NETWORKS[0]);
 	const [address, setAddress] = useState<string>("");
 	const [response, setResponse] = useState<string>();
+	const [fetchingResponse, setFetchingResponse] = useState<boolean>(false);
 
 	const fetchSupplyResponse = async () => {
 		if (!address || !network) return;
 
+		setFetchingResponse(true);
 		const supplyResponse = await supplyAccount(address, network);
 
 		if (supplyResponse.success) {
 			setResponse("Tokens sent successfully!");
+			setFetchingResponse(false);
 			return;
 		}
 
 		setResponse(`Error: ${supplyResponse.error}`);
+		setFetchingResponse(false);
 	};
 
 	return (
@@ -60,17 +64,22 @@ const Faucet: FC = () => {
 						))}
 					</select>
 				</div>
+				<div css={styles.responseContainer}>
+					<p css={styles.heading}>Response: </p>
+					{fetchingResponse ? (
+						<div css={styles.circularProgress}>
+							<CircularProgress size={25} />
+						</div>
+					) : (
+						<p css={styles.response}>{response}</p>
+					)}
+				</div>
 				<FaucetButton
 					session={session}
 					address={address}
+					local={network === "Local Node"}
 					supplyAccount={fetchSupplyResponse}
 				/>
-				{!!response && (
-					<div>
-						<p css={styles.heading}>Response:</p>
-						<p css={styles.response}>{response}</p>
-					</div>
-				)}
 			</div>
 		</div>
 	);
@@ -112,7 +121,7 @@ export const styles = {
 		width: 100%;
 		display: inline-flex;
 		align-content: center;
-		margin: 20px auto 20px;
+		margin: 20px 0;
 		height: 60px;
 	`,
 	select: css`
@@ -132,7 +141,17 @@ export const styles = {
 		align-self: center;
 		margin-left: 15px;
 	`,
+	responseContainer: css`
+		display: inline-flex;
+		height: 50px;
+		margin-top: -20px;
+	`,
+	circularProgress: css`
+		margin: 20px 0 0 15px;
+	`,
 	response: css`
 		font-size: 15px;
+		margin-left: 10px;
+		margin-top: 22px;
 	`,
 };

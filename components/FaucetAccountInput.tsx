@@ -1,11 +1,17 @@
-import { FC, useState } from "react";
+import { FC } from "react";
 import { css } from "@emotion/react";
 import AccountIdenticon from "@/components/AccountIdenticon";
 import { PLACEHOLDER_ADDRESS } from "@/libs/constants";
 import { useSession } from "next-auth/react";
 
-const FaucetAccountInput: FC = () => {
-	const [address, setAddress] = useState<string>("");
+interface FaucetAccountInputProps {
+	setAddress: Function;
+	address: string;
+}
+const FaucetAccountInput: FC<FaucetAccountInputProps> = ({
+	setAddress,
+	address,
+}) => {
 	const { data: session } = useSession();
 
 	return (

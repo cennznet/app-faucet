@@ -6,6 +6,7 @@ import { NETWORKS } from "@/libs/constants";
 import { Divider } from "@mui/material";
 import FaucetAccountInput from "@/components/FaucetAccountInput";
 import TokenPicker from "@/components/TokenPicker";
+import { supportedTokens } from "@/libs/utils/supportedTokens";
 
 const Faucet: FC = () => {
 	const { data: session } = useSession();
@@ -19,11 +20,11 @@ const Faucet: FC = () => {
 					<p css={styles.heading} style={{ fontWeight: "bold" }}>
 						Request Tokens
 					</p>
-					<TokenPicker />
+					<TokenPicker tokens={supportedTokens} />
 				</div>
 				<Divider />
 				<p css={styles.heading}>Enter your CENNZnet Address:</p>
-				<FaucetAccountInput />
+				<FaucetAccountInput setAddress={setAddress} address={address} />
 				<div css={styles.networkContainer}>
 					<p css={styles.heading}>Select a network:</p>
 					<select

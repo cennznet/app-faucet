@@ -2,28 +2,77 @@ import { FC } from "react";
 import { css } from "@emotion/react";
 import React, { useState } from "react";
 import { ClickAwayListener } from "@mui/material";
+import { CENNZnetToken } from "@/libs/types";
 
-const TokenPicker: FC<{}> = ({}) => {
-	const [chainDropDownActive, setChainDropDownActive] =
+interface TokenPickerProps {
+	tokens: CENNZnetToken[];
+}
+
+const TokenPicker: FC<TokenPickerProps> = ({ tokens }) => {
+	const [tokenDropDownActive, setTokenDropDownActive] =
 		useState<boolean>(false);
+	const [selectedTokenIdx, setSelectedTokenIdx] = useState<number>(0);
 
 	return (
-		<div css={styles.chainPickerBox}>
-			<div css={styles.chainSelector}>
-				<>
-					<button
-						type="button"
-						css={styles.chainButton}
-						onClick={() => setChainDropDownActive(!chainDropDownActive)}
-					>
-						Token
-					</button>
-				</>
-				{chainDropDownActive && (
-					<ClickAwayListener onClickAway={() => setChainDropDownActive(false)}>
-						<div css={styles.chainDropdownContainer}></div>
-					</ClickAwayListener>
-				)}
+		<div css={styles.tokenPickerContainer}>
+			<div css={styles.tokenPickerBox}>
+				<div css={styles.tokenSelector}>
+					<>
+						<img
+							css={styles.tokenSelectedImg}
+							alt=""
+							src={`/images/${tokens[selectedTokenIdx]?.logo}`}
+							width={33}
+							height={33}
+						/>
+						<button
+							type="button"
+							css={styles.tokenButton}
+							onClick={() => setTokenDropDownActive(!tokenDropDownActive)}
+						>
+							{tokens[selectedTokenIdx]?.symbol}
+							<img
+								css={
+									tokenDropDownActive
+										? styles.tokenSelectedArrow
+										: styles.tokenSelectedArrowDown
+								}
+								alt="arrow"
+								src={"/images/arrow_up.svg"}
+							/>
+						</button>
+					</>
+					{tokenDropDownActive && (
+						<ClickAwayListener
+							onClickAway={() => setTokenDropDownActive(false)}
+						>
+							<div css={styles.tokenDropdownContainer}>
+								{tokens.map((token: CENNZnetToken, i) => {
+									if (token.symbol !== tokens[selectedTokenIdx].symbol) {
+										return (
+											<div
+												key={i}
+												onClick={() => {
+													setSelectedTokenIdx(i);
+													setTokenDropDownActive(false);
+												}}
+												css={styles.tokenChoiceContainer}
+											>
+												<img
+													alt=""
+													src={`/images/${token.logo}`}
+													width={33}
+													height={33}
+												/>
+												<span>{token.symbol}</span>
+											</div>
+										);
+									}
+								})}
+							</div>
+						</ClickAwayListener>
+					)}
+				</div>
 			</div>
 		</div>
 	);
@@ -32,7 +81,7 @@ const TokenPicker: FC<{}> = ({}) => {
 export default TokenPicker;
 
 export const styles = {
-	chainPickerContainer: css`
+	tokenPickerContainer: css`
 		display: flex;
 		flex-direction: column;
 		justify-content: flex-end;
@@ -40,16 +89,16 @@ export const styles = {
 		margin-bottom: 17px;
 		height: 94px;
 	`,
-	chainPickerBox: css`
+	tokenPickerBox: css`
 		display: flex;
 		flex-direction: row;
 		border: 1px solid #979797;
-		width: 197px;
+		width: 170px;
 		height: 60px;
 		justify-content: space-between;
 		align-items: center;
 	`,
-	chainSelector: css`
+	tokenSelector: css`
 		height: 60px;
 		border: 1px solid #979797;
 		border-left: none;
@@ -63,17 +112,17 @@ export const styles = {
 			outline: none;
 		}
 	`,
-	chainSelectedImg: css`
+	tokenSelectedImg: css`
 		margin-left: 13px;
 	`,
-	chainSelectedArrow: css`
+	tokenSelectedArrow: css`
 		margin-left: 27px;
 	`,
-	chainSelectedArrowDown: css`
+	tokenSelectedArrowDown: css`
 		margin-left: 27px;
 		transform: rotate(-180deg);
 	`,
-	chainButton: css`
+	tokenButton: css`
 		cursor: pointer;
 		height: 60px;
 		width: 100px;
@@ -94,14 +143,14 @@ export const styles = {
 		justify-content: space-between;
 		align-items: center;
 	`,
-	chainDropdownContainer: css`
+	tokenDropdownContainer: css`
 		position: absolute;
 		top: 60px;
-		right: -44px;
+		right: -17px;
 		background: #ffffff;
 		box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 		z-index: 5;
-		width: 197px;
+		width: 170px;
 		min-height: 47px;
 		max-height: 47px;
 		height: 100%;
@@ -124,7 +173,7 @@ export const styles = {
 			align-items: center;
 		}
 	`,
-	chainChoiceContainer: css`
+	tokenChoiceContainer: css`
 		cursor: pointer;
 		display: flex;
 		flex-direction: row;
@@ -138,30 +187,5 @@ export const styles = {
 		&:hover {
 			background: #e5e8ff;
 		}
-	`,
-	bottomText: css`
-		font-style: normal;
-		font-weight: 500;
-		font-size: 14px;
-		line-height: 125%;
-		letter-spacing: 1.12428px;
-		text-transform: uppercase;
-		margin-top: 8px;
-		color: #020202;
-		display: flex;
-		flex-direction: row;
-		justify-content: space-between;
-		width: 100%;
-	`,
-	upperText: css`
-		font-style: normal;
-		font-weight: bold;
-		font-size: 14px;
-		line-height: 125%;
-		letter-spacing: 1.12428px;
-		text-transform: uppercase;
-		color: #020202;
-		margin-bottom: 6px;
-		margin-top: 0px;
 	`,
 };

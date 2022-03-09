@@ -37,7 +37,7 @@ export default NextAuth({
 			const timeDiffInMs = Date.now() - new Date(created_at).getTime();
 
 			if (
-				follower_count >= 15 &&
+				// follower_count >= 15 &&
 				tweet_count >= 1 &&
 				timeDiffInMs >= thirtyDaysInMs
 			) {

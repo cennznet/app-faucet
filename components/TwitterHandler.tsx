@@ -1,10 +1,16 @@
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import { css } from "@emotion/react";
 import { signIn, signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 
 const TwitterHandler: FC = () => {
 	const { data: session } = useSession();
+
+	useEffect(() => {
+		if (!session) return;
+
+		window.onunload = async () => await signOut();
+	}, [session]);
 
 	return (
 		<div>

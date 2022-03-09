@@ -32,3 +32,5 @@ export const CENNZNET_RATA_API_URL: string = String(
 export const CENNZNET_LOCAL_API_URL: string = String(
 	process.env.NEXT_PUBLIC_CENNZNET_LOCAL_API_URL
 );
+
+export const REDIS_URL: string = String(process.env.NEXT_PUBLIC_REDIS_URL);

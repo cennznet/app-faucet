@@ -47,7 +47,6 @@ const Faucet: FC = () => {
 						placeholder={PLACEHOLDER_ADDRESS}
 						value={address}
 						onChange={(e) => setAddress(e.target.value)}
-						disabled={!!session?.validAccount}
 					/>
 				</div>
 				<div css={styles.networkContainer}>

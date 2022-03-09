@@ -98,12 +98,23 @@ export const styles = {
 		height: 60px;
 	`,
 	select: css`
+		-webkit-appearance: none;
+		-moz-appearance: none;
+		appearance: none;
 		height: 40px;
 		font-size: 16px;
 		margin-left: 10px;
 		flex-grow: 1;
 		margin-top: 15px;
+		border: 1px solid #979797;
+		padding: 0 15px;
+		background: url(/images/arrow_down.svg) 96% center no-repeat;
+
+		&:focus-visible {
+			outline: none;
+		}
 	`,
+
 	arrows: css`
 		cursor: pointer;
 		font-size: 30px;

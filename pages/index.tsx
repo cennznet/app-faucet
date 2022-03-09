@@ -7,7 +7,7 @@ import FaucetDetails from "@/components/FaucetDetails";
 const Home: FC = () => {
 	return (
 		<div css={styles.container}>
-			<h1 css={styles.heading}>CENNZnet faucet</h1>
+			<h1 css={styles.heading}>CENNZnet Faucet</h1>
 			<TwitterHandler />
 			<Faucet />
 			<br />
@@ -21,6 +21,9 @@ export default Home;
 export const styles = {
 	heading: css`
 		text-align: center;
+		@media (max-width: 500px) {
+			font-size: 22px;
+		}
 	`,
 	container: css`
 		width: 50%;

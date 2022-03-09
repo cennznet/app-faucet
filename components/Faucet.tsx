@@ -23,10 +23,10 @@ const Faucet: FC = () => {
 					<TokenPicker tokens={supportedTokens} />
 				</div>
 				<Divider />
-				<p css={styles.heading}>Enter your CENNZnet Address:</p>
+				<p css={styles.subHeading}>Enter your CENNZnet Address:</p>
 				<FaucetAccountInput setAddress={setAddress} address={address} />
 				<div css={styles.networkContainer}>
-					<p css={styles.heading}>Select a network:</p>
+					<p css={styles.subHeading}>Select a network:</p>
 					<select
 						css={styles.select}
 						onChange={(e) => setNetwork(e.target.value)}
@@ -51,6 +51,9 @@ export const styles = {
 		height: auto;
 		width: 617px;
 		padding: 15px 35px;
+		@media (max-width: 500px) {
+			width: 375px;
+		}
 	`,
 	headingContainer: css`
 		display: flex;
@@ -63,10 +66,16 @@ export const styles = {
 		margin: 0 auto;
 	`,
 	heading: css`
-		font-size: 19px;
+		font-size: 24px;
 		margin-bottom: 10px;
 		letter-spacing: 0.5px;
 	`,
+	subHeading: css`
+		font-size: 16px;
+		margin-bottom: 10px;
+		letter-spacing: 0.5px;
+	`,
+
 	addressWrapper: css`
 		display: inline-flex;
 		width: 100%;

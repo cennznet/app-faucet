@@ -27,7 +27,10 @@ export const styles = {
 		border: 1px solid dimgray;
 		border-radius: 5px;
 		width: 617px;
-    padding: 15px 35px;	'
+		padding: 15px 35px;
+		@media (max-width: 500px) {
+			width: 375px;
+		}
 	`,
 	container: css`
 		width: 90%;

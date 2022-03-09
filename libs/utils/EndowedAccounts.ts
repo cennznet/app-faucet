@@ -77,7 +77,7 @@ class EndowedAccount {
 		);
 
 		let timeoutID;
-		const promise = new Promise(async (resolve, reject) => {
+		return new Promise(async (resolve, reject) => {
 			const signedTx = tx.sign(this._keyPair, await this.nextNonce());
 			const hash = signedTx.hash;
 
@@ -125,7 +125,6 @@ class EndowedAccount {
 					} else if (status.isInvalid || status.toString() === "Future") {
 						firstTryPromiseResolve();
 						if (!retry) {
-							// if status.toString() === 'Future', report nonce is too high
 							if (status.toString() === "Future") {
 								reject(
 									new Error(
@@ -171,8 +170,6 @@ class EndowedAccount {
 				clearTimeout(timeoutID);
 				throw err;
 			});
-
-		return promise;
 	}
 }
 

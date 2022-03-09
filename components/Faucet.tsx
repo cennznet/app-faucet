@@ -17,7 +17,13 @@ const Faucet: FC = () => {
 		if (!address || !network) return;
 
 		const supplyResponse = await supplyAccount(address, network);
-		setResponse(JSON.stringify(supplyResponse));
+
+		if (supplyResponse.success) {
+			setResponse("Tokens sent successfully!");
+			return;
+		}
+
+		setResponse(`Error: ${supplyResponse.error}`);
 	};
 
 	return (
@@ -63,7 +69,7 @@ const Faucet: FC = () => {
 				{!!response && (
 					<div>
 						<p css={styles.heading}>Response:</p>
-						<div css={styles.responseContainer}>{response}</div>
+						<p css={styles.response}>{response}</p>
 					</div>
 				)}
 			</div>
@@ -127,10 +133,7 @@ export const styles = {
 		align-self: center;
 		margin-left: 15px;
 	`,
-	responseContainer: css`
-		padding: 10px 10px 10px 10px;
-		border: 1px solid dimgray;
-		border-radius: 5px;
+	response: css`
 		font-size: 15px;
 	`,
 };

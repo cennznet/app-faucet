@@ -17,11 +17,11 @@ export default async function handler(
 ) {
 	const session = await getSession({ req });
 	if (!session.validAccount) {
-		res.status(401).json({ success: false, error: "Invalid Twitter Account" });
+		res.status(401).json({ success: false, error: "Invalid Twitter account!" });
 	}
 
 	try {
-		const body = req.body;
+		const body = JSON.parse(req.body);
 		if (!body.assetId) throw new Error("assetId Param not provided!");
 		if (!body.address) throw new Error("address Param not provided!");
 		if (!body.network) throw new Error("network Param not provided!");

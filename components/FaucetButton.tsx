@@ -63,7 +63,7 @@ export const styles = {
 		justify-content: center;
 		align-items: center;
 		display: flex;
-
+		font-weight: bold;
 		p {
 			font-size: 14px;
 			padding-top: 5px;

@@ -69,12 +69,13 @@ export const styles = {
 		position: absolute;
 		top: 15px;
 		right: 10px;
-		border: 1px solid dimgray;
 		border-radius: 5px;
 		display: flex;
 		width: 120px;
 		box-sizing: border-box;
 		margin: 20px;
+		border: transparent;
+		box-shadow: 4px 8px 8px rgb(17 48 255 / 10%);
 		@media (max-width: 500px) {
 			margin: 0;
 		}

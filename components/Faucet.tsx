@@ -47,7 +47,7 @@ export default Faucet;
 export const styles = {
 	faucetWrapper: css`
 		background-color: white;
-		border: 1px solid dimgray;
+		box-shadow: 4px 8px 8px rgb(17 48 255 / 10%);
 		border-radius: 5px;
 		height: auto;
 		width: 636px;
@@ -100,7 +100,7 @@ export const styles = {
 		height: 60px;
 		display: flex;
 		align-items: center;
-		justify-content: center;
+		justify-content: space-between;
 	`,
 	select: css`
 		cursor: pointer;
@@ -113,8 +113,9 @@ export const styles = {
 		flex-grow: 1;
 		border: 1px solid #979797;
 		padding: 0 15px;
-		background: url(/images/arrow_down.svg) 96% center no-repeat;
-
+		background: url(/images/arrow_down.svg) 90% center no-repeat;
+		max-width: 175px;
+		font-weight: bold;
 		&:focus-visible {
 			outline: none;
 		}

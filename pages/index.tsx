@@ -1,24 +1,21 @@
-import type { NextPage } from "next";
+import { FC } from "react";
 import { css } from "@emotion/react";
-import { useSession } from "next-auth/react";
 import TwitterHandler from "@/components/TwitterHandler";
+import Faucet from "@/components/Faucet";
+import FaucetDetails from "@/components/FaucetDetails";
 
-const Home: NextPage = () => {
-	const { data: session } = useSession();
-
+const Home: FC = () => {
 	return (
-		<div css={styles.container}>
-			<h1 css={styles.heading}>CENNZnet faucet</h1>
-			<TwitterHandler />
-			<div>
-				{!!session?.validAccount ? (
-					<div>Account is valid</div>
-				) : (
-					<div>
-						Please sign in to an account that is over 30 days old, and with at
-						least 15 followers & 1 tweet
-					</div>
-				)}
+		<div css={styles.background}>
+			<div css={styles.container}>
+				<div css={styles.headerContainer}>
+					<img src={"/images/cennznet_blue.svg"} alt={""} />
+					<h1 css={styles.heading}>CENNZnet Faucet</h1>
+				</div>
+				<TwitterHandler />
+				<Faucet />
+				<br />
+				<FaucetDetails />
 			</div>
 		</div>
 	);
@@ -27,11 +24,35 @@ const Home: NextPage = () => {
 export default Home;
 
 export const styles = {
+	background: css`
+		background: url("/images/cennz_background.svg") repeat center top;
+		background-size: 12px;
+		background-color: #d6dbff;
+		overflow: auto;
+		z-index: 0;
+		height: 100vh;
+	`,
+	headerContainer: css`
+		display: flex;
+		flex-direction: row;
+		img {
+			margin-right: 10px;
+		}
+	`,
 	heading: css`
+		color: #1130ff;
 		text-align: center;
+		@media (max-width: 500px) {
+			font-size: 22px;
+		}
 	`,
 	container: css`
+		//background-color: white;
 		width: 50%;
-		margin: 0 auto;
+		margin: 35px auto;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
 	`,
 };

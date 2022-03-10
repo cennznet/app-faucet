@@ -29,7 +29,7 @@ export default NextAuth({
 		async signIn({ profile }) {
 			const {
 				public_metrics: { follower_count, tweet_count },
-				twitterId,
+				id: twitterId,
 				username,
 				created_at,
 			}: any = profile.data;
@@ -45,6 +45,7 @@ export default NextAuth({
 				tweet_count >= 1 &&
 				timeDiffInMs >= thirtyDaysInMs
 			) {
+				console.log('setting')
 				await setTwitterHandle(twitterId, username);
 			}
 

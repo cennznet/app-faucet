@@ -12,7 +12,7 @@ const TwitterHandler: FC = () => {
 		if (!session) return;
 		(async () => {
 			const response = await fetchTwitterHandle(String(session.twitterId));
-			if (response.error) {
+			if (response.error || response.success === null) {
 				return setTwitterHandle("Invalid Account");
 			}
 			setTwitterHandle(`@${response.success}`);

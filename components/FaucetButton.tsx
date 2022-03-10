@@ -1,13 +1,14 @@
 import { FC, MouseEventHandler } from "react";
 import { css } from "@emotion/react";
-import { Session } from "next-auth";
+import { useSession } from "next-auth/react";
 
 const FaucetButton: FC<{
-	session: Session;
 	address: string;
 	local?: boolean;
 	supplyAccount: MouseEventHandler<HTMLDivElement>;
-}> = ({ session, address, local, supplyAccount }) => {
+}> = ({ address, local, supplyAccount }) => {
+	const { data: session } = useSession();
+
 	if (session?.validAccount || local) {
 		if (address) {
 			return (

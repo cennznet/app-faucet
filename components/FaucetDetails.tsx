@@ -9,10 +9,6 @@ const FaucetDetails: FC = () => {
 				<p css={styles.heading}>Faucet Details </p>
 				<Divider />
 				<div css={styles.details}>
-					<p css={styles.detailsHeading}>Tokens</p>
-					<p>Faucet will send 2000 CENNZ & CPAY tokens.</p>
-				</div>
-				<div css={styles.details}>
 					<p css={styles.detailsHeading}>Validation</p>
 					<p>
 						In order to prevent faucet botting on Nikau & Rata networks, you

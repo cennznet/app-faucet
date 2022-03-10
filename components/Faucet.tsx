@@ -1,6 +1,5 @@
 import { FC, useState } from "react";
 import { css } from "@emotion/react";
-import { useSession } from "next-auth/react";
 import AccountIdenticon from "@/components/AccountIdenticon";
 import FaucetButton from "@/components/FaucetButton";
 import { NETWORKS, PLACEHOLDER_ADDRESS } from "@/libs/constants";
@@ -8,7 +7,6 @@ import { CircularProgress, Divider } from "@mui/material";
 import supplyAccount from "@/libs/utils/supplyAccount";
 
 const Faucet: FC = () => {
-	const { data: session } = useSession();
 	const [network, setNetwork] = useState<string>(NETWORKS[0]);
 	const [address, setAddress] = useState<string>("");
 	const [response, setResponse] = useState<string>();
@@ -18,7 +16,7 @@ const Faucet: FC = () => {
 		if (!address || !network) return;
 
 		setFetchingResponse(true);
-		const supplyResponse = await supplyAccount(address, network);
+		const supplyResponse = await supplyAccount(address, network, "16000");
 
 		if (supplyResponse.success) {
 			setResponse("Tokens sent successfully!");
@@ -75,7 +73,6 @@ const Faucet: FC = () => {
 					)}
 				</div>
 				<FaucetButton
-					session={session}
 					address={address}
 					local={network === "Local Node"}
 					supplyAccount={fetchSupplyResponse}

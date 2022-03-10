@@ -1,22 +1,29 @@
-import { FC, useEffect } from "react";
+import { FC, useEffect, useState } from "react";
 import { css } from "@emotion/react";
 import { signIn, signOut, useSession } from "next-auth/react";
 import Image from "next/image";
+import fetchTwitterHandle from "@/libs/utils/fetchTwitterHandle";
 
 const TwitterHandler: FC = () => {
 	const { data: session } = useSession();
+	const [twitterHandle, setTwitterHandle] = useState<string>();
 
 	useEffect(() => {
 		if (!session) return;
-
-		window.onunload = async () => await signOut();
+		(async () => {
+			const response = await fetchTwitterHandle(String(session.twitterId));
+			if (response.error) {
+				return setTwitterHandle("Invalid Account");
+			}
+			setTwitterHandle(`@${response.success}`);
+		})();
 	}, [session]);
 
 	return (
 		<div>
-			{!!session?.username && (
+			{!!twitterHandle && (
 				<div css={styles.username}>
-					<p>@{session.username}</p>
+					<p>{twitterHandle}</p>
 				</div>
 			)}
 			<button css={styles.buttonContainer}>

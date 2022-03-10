@@ -1,7 +1,10 @@
 import NextAuth from "next-auth";
 import Twitter from "next-auth/providers/twitter";
-import store from "store";
 import { NEXTAUTH_SECRET, TWITTER_ID, TWITTER_SECRET } from "@/libs/constants";
+import {
+	setTwitterHandle,
+	fetchTwitterHandle,
+} from "@/pages/api/auth/twitterHandle";
 
 export default NextAuth({
 	secret: NEXTAUTH_SECRET,
@@ -17,31 +20,32 @@ export default NextAuth({
 		}),
 	],
 	callbacks: {
-		async session({ session }) {
-			const twitterHandle = store.get("twitter-handle");
-			const validAccount = store.get("valid-account");
-			session.username = twitterHandle;
-			session.validAccount = !!validAccount;
-
+		async session({ session, token }) {
+			session.twitterId = token.sub;
+			const response = await fetchTwitterHandle(token.sub);
+			if (!!response) session.validAccount = true;
 			return session;
 		},
 		async signIn({ profile }) {
 			const {
 				public_metrics: { follower_count, tweet_count },
+				twitterId,
 				username,
 				created_at,
 			}: any = profile.data;
 
-			store.set("twitter-handle", username);
+			const validAccount = await fetchTwitterHandle(twitterId);
+			if (!!validAccount) return true;
+
 			const thirtyDaysInMs = 30 * 24 * 60 * 60 * 1000;
 			const timeDiffInMs = Date.now() - new Date(created_at).getTime();
 
 			if (
-				// follower_count >= 15 &&
+				follower_count >= 15 &&
 				tweet_count >= 1 &&
 				timeDiffInMs >= thirtyDaysInMs
 			) {
-				store.set("valid-account", true);
+				await setTwitterHandle(twitterId, username);
 			}
 
 			return true;

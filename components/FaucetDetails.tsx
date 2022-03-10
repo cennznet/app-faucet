@@ -26,7 +26,7 @@ export const styles = {
 	wrapper: css`
 		border: 1px solid dimgray;
 		border-radius: 5px;
-		width: 617px;
+		width: 636px;
 		padding: 15px 35px;
 		@media (max-width: 500px) {
 			width: 375px;

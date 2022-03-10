@@ -49,7 +49,7 @@ export const styles = {
 		border: 1px solid dimgray;
 		border-radius: 5px;
 		height: auto;
-		width: 617px;
+		width: 636px;
 		padding: 15px 35px;
 		@media (max-width: 500px) {
 			width: 375px;

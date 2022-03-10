@@ -66,7 +66,6 @@ export const styles = {
 		font-weight: bold;
 		p {
 			font-size: 14px;
-			padding-top: 5px;
 			@media (max-width: 500px) {
 				height: 30px;
 				font-size: 10px;

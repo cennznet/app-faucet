@@ -54,6 +54,7 @@ export const styles = {
 		right: 10px;
 		width: 120px;
 		text-align: center;
+		margin: 20px;
 
 		p {
 			font-size: 14px;
@@ -71,6 +72,7 @@ export const styles = {
 		display: flex;
 		width: 120px;
 		box-sizing: border-box;
+		margin: 20px;
 	`,
 	authButton: css`
 		display: inline-flex;

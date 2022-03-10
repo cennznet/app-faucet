@@ -46,6 +46,7 @@ export default Faucet;
 
 export const styles = {
 	faucetWrapper: css`
+		background-color: white;
 		border: 1px solid dimgray;
 		border-radius: 5px;
 		height: auto;

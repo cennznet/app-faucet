@@ -55,7 +55,9 @@ export const styles = {
 		width: 120px;
 		text-align: center;
 		margin: 20px;
-
+		@media (max-width: 500px) {
+			margin: 0;
+		}
 		p {
 			font-size: 14px;
 			font-weight: bold;
@@ -73,6 +75,9 @@ export const styles = {
 		width: 120px;
 		box-sizing: border-box;
 		margin: 20px;
+		@media (max-width: 500px) {
+			margin: 0;
+		}
 	`,
 	authButton: css`
 		display: inline-flex;

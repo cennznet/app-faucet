@@ -24,6 +24,7 @@ export default FaucetDetails;
 
 export const styles = {
 	wrapper: css`
+		background-color: white;
 		border: 1px solid dimgray;
 		border-radius: 5px;
 		width: 636px;

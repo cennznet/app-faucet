@@ -67,7 +67,6 @@ export const styles = {
 		p {
 			font-size: 14px;
 			@media (max-width: 500px) {
-				height: 30px;
 				font-size: 10px;
 			}
 		}

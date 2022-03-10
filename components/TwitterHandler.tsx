@@ -2,7 +2,7 @@ import { FC, useEffect, useState } from "react";
 import { css } from "@emotion/react";
 import { signIn, signOut, useSession } from "next-auth/react";
 import Image from "next/image";
-import fetchTwitterHandle from "@/libs/utils/fetchTwitterHandle";
+import { fetchTwitterHandle } from "@/libs/utils";
 
 const TwitterHandler: FC = () => {
 	const { data: session } = useSession();

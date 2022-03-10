@@ -4,7 +4,7 @@ import AccountIdenticon from "@/components/AccountIdenticon";
 import FaucetButton from "@/components/FaucetButton";
 import { NETWORKS, PLACEHOLDER_ADDRESS } from "@/libs/constants";
 import { CircularProgress, Divider } from "@mui/material";
-import supplyAccount from "@/libs/utils/supplyAccount";
+import { supplyAccount } from "@/libs/utils";
 
 const Faucet: FC = () => {
 	const [network, setNetwork] = useState<string>(NETWORKS[0]);

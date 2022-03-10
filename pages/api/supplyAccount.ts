@@ -9,7 +9,7 @@ import {
 	SUPPORTED_ASSETS,
 	TRANSFER_AMOUNT,
 } from "@/libs/constants";
-import { EndowedAccounts } from "@/libs/utils/EndowedAccounts";
+import { EndowedAccounts } from "@/libs/utils";
 import { CENNZNET_NETWORK } from "@/libs/types";
 import { status, claim } from "@/pages/api/claim";
 

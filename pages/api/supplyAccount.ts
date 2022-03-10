@@ -6,7 +6,6 @@ import {
 	CENNZNET_NIKAU_API_URL,
 	CENNZNET_RATA_API_URL,
 	ENDOWED_ACCOUNT_SEEDS,
-	SUPPORTED_ASSETS,
 	TRANSFER_AMOUNT,
 } from "@/libs/constants";
 import { EndowedAccounts } from "@/libs/utils";
@@ -53,15 +52,13 @@ export default async function handler(
 		const api = await Api.create({ provider: networkUrl });
 		const endowedAccounts = new EndowedAccounts(api, ENDOWED_ACCOUNT_SEEDS);
 		await endowedAccounts.init();
-		for (const assetId in SUPPORTED_ASSETS) {
-			await endowedAccounts.send(
-				endowedAccounts.api.tx.genericAsset.transfer(
-					assetId,
-					address,
-					TRANSFER_AMOUNT
-				)
-			);
-		}
+		await endowedAccounts.send(
+			endowedAccounts.api.tx.genericAsset.transfer(
+				assetId,
+				address,
+				TRANSFER_AMOUNT
+			)
+		);
 		if (CENNZnetNetwork !== "local") await claim(address, network, assetId);
 		await api.disconnect();
 		return res.status(200).json({ success: true });

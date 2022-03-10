@@ -7,10 +7,6 @@ export const NEXTAUTH_SECRET: string = String(
 	process.env.NEXT_PUBLIC_NEXTAUTH_SECRET
 );
 
-export const SUPPORTED_ASSETS: string[] = String(
-	process.env.NEXT_PUBLIC_SUPPORTED_ASSETS
-).split(",");
-
 export const TWITTER_ID: string = String(process.env.NEXT_PUBLIC_TWITTER_ID);
 
 export const TWITTER_SECRET: string = String(

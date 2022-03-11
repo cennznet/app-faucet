@@ -11,6 +11,10 @@ const FaucetDetails: FC = () => {
 				<div css={styles.details}>
 					<p css={styles.detailsHeading}>Validation</p>
 					<p>
+						In order to prevent faucet botting on Nikau & Rata networks, you
+						must sign in via Twitter.
+					</p>
+					<p>
 						Your Twitter account must have at least 1 Tweet, 15 followers, and
 						be older than 1 month.
 					</p>

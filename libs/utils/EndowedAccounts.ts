@@ -1,4 +1,4 @@
-import { errMsgFilter } from "@/libs/utils/errorHandling";
+import { errMsgFilter } from "@/libs/utils";
 import { Api } from "@cennznet/api";
 import { Keyring } from "@polkadot/keyring";
 

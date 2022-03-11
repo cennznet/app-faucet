@@ -1,4 +1,4 @@
-import { FC, useEffect } from "react";
+import { FC, MouseEventHandler } from "react";
 import { css } from "@emotion/react";
 import React, { useState } from "react";
 import { ClickAwayListener } from "@mui/material";
@@ -6,17 +6,13 @@ import { CENNZnetToken } from "@/libs/types";
 
 interface TokenPickerProps {
 	tokens: CENNZnetToken[];
-	setToken?: Function;
+	setToken: Function;
 }
 
 const TokenPicker: FC<TokenPickerProps> = ({ tokens, setToken }) => {
 	const [tokenDropDownActive, setTokenDropDownActive] =
 		useState<boolean>(false);
 	const [selectedTokenIdx, setSelectedTokenIdx] = useState<number>(0);
-
-	useEffect(() => {
-		if (setToken) setToken(tokens[selectedTokenIdx]);
-	}, [selectedTokenIdx]);
 
 	return (
 		<div css={styles.tokenPickerContainer}>
@@ -58,6 +54,7 @@ const TokenPicker: FC<TokenPickerProps> = ({ tokens, setToken }) => {
 											<div
 												key={i}
 												onClick={() => {
+													setToken(token);
 													setSelectedTokenIdx(i);
 													setTokenDropDownActive(false);
 												}}
@@ -153,7 +150,7 @@ export const styles = {
 		top: 60px;
 		right: -17px;
 		background: #ffffff;
-		box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+		box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
 		z-index: 5;
 		width: 170px;
 		min-height: 47px;
@@ -175,7 +172,6 @@ export const styles = {
 			text-transform: uppercase;
 			color: #020202;
 			justify-content: center;
-			align-items: center;
 		}
 	`,
 	tokenChoiceContainer: css`

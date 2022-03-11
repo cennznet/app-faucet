@@ -8,11 +8,13 @@ import FaucetAccountInput from "@/components/FaucetAccountInput";
 import TokenPicker from "@/components/TokenPicker";
 import { supportedTokens } from "@/libs/utils/supportedTokens";
 import { CENNZnetToken } from "@/libs/types";
+import FaucetProgress from "@/components/FaucetProgress";
 
 const Faucet: FC = () => {
 	const [token, setToken] = useState<CENNZnetToken>(supportedTokens[0]);
 	const [network, setNetwork] = useState<string>(NETWORKS[0]);
 	const [address, setAddress] = useState<string>("");
+	const [_, setToken] = useState<CENNZnetToken>();
 	const [response, setResponse] = useState<string>();
 	const [fetchingResponse, setFetchingResponse] = useState<boolean>(false);
 
@@ -70,6 +72,10 @@ const Faucet: FC = () => {
 					network={network}
 					supplyAccount={fetchSupplyResponse}
 				/>
+				<FaucetProgress
+					isOpen={false}
+					txStatus={{ status: "fail", message: "Tx Completed!" }}
+				/>
 			</div>
 		</div>
 	);
@@ -99,6 +105,7 @@ export const styles = {
 	faucetContainer: css`
 		width: 100%;
 		margin: 0 auto;
+		position: relative;
 	`,
 	heading: css`
 		font-size: 24px;

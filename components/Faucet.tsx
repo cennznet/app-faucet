@@ -1,17 +1,36 @@
 import { FC, useState } from "react";
 import { css } from "@emotion/react";
-import { useSession } from "next-auth/react";
-import FaucetButton from "@/components/FaucetButton";
+import { CircularProgress, Divider } from "@mui/material";
 import { NETWORKS } from "@/libs/constants";
-import { Divider } from "@mui/material";
+import { supplyAccount } from "@/libs/utils";
+import FaucetButton from "@/components/FaucetButton";
 import FaucetAccountInput from "@/components/FaucetAccountInput";
 import TokenPicker from "@/components/TokenPicker";
 import { supportedTokens } from "@/libs/utils/supportedTokens";
+import { CENNZnetToken } from "@/libs/types";
 
 const Faucet: FC = () => {
-	const { data: session } = useSession();
+	const [token, setToken] = useState<CENNZnetToken>(supportedTokens[0]);
 	const [network, setNetwork] = useState<string>(NETWORKS[0]);
 	const [address, setAddress] = useState<string>("");
+	const [response, setResponse] = useState<string>();
+	const [fetchingResponse, setFetchingResponse] = useState<boolean>(false);
+
+	const fetchSupplyResponse = async () => {
+		if (!address || !network) return;
+
+		setFetchingResponse(true);
+		const supplyResponse = await supplyAccount(address, network, token.assetId);
+
+		if (supplyResponse.success) {
+			setResponse("Tokens sent successfully!");
+			setFetchingResponse(false);
+			return;
+		}
+
+		setResponse(`Error: ${supplyResponse.error}`);
+		setFetchingResponse(false);
+	};
 
 	return (
 		<div css={styles.faucetWrapper}>
@@ -20,7 +39,7 @@ const Faucet: FC = () => {
 					<p css={styles.heading} style={{ fontWeight: "bold" }}>
 						Request Tokens
 					</p>
-					<TokenPicker tokens={supportedTokens} />
+					<TokenPicker tokens={supportedTokens} setToken={setToken} />
 				</div>
 				<Divider />
 				<p css={styles.subHeading}>Enter your CENNZnet Address</p>
@@ -36,7 +55,21 @@ const Faucet: FC = () => {
 						))}
 					</select>
 				</div>
-				<FaucetButton session={session} address={address} network={network} />
+				<div css={styles.responseContainer}>
+					<p css={styles.subHeading}>Response: </p>
+					{fetchingResponse ? (
+						<div css={styles.circularProgress}>
+							<CircularProgress size={25} color="primary" />
+						</div>
+					) : (
+						<p css={styles.response}>{response}</p>
+					)}
+				</div>
+				<FaucetButton
+					address={address}
+					network={network}
+					supplyAccount={fetchSupplyResponse}
+				/>
 			</div>
 		</div>
 	);
@@ -60,9 +93,8 @@ export const styles = {
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
-		margin: 5px;
+		margin: 5px 0 22px;
 		height: 60px;
-		margin-bottom: 22px;
 	`,
 	faucetContainer: css`
 		width: 100%;
@@ -78,7 +110,6 @@ export const styles = {
 		letter-spacing: 0.5px;
 		font-weight: bold;
 	`,
-
 	addressWrapper: css`
 		display: inline-flex;
 		width: 100%;
@@ -113,14 +144,13 @@ export const styles = {
 		flex-grow: 1;
 		border: 1px solid #979797;
 		padding: 0 15px;
-		background: url(/images/arrow_down.svg) 90% center no-repeat;
+		background: url("/images/arrow_down.svg") 90% center no-repeat;
 		max-width: 175px;
 		font-weight: bold;
 		&:focus-visible {
 			outline: none;
 		}
 	`,
-
 	arrows: css`
 		cursor: pointer;
 		font-size: 30px;
@@ -130,5 +160,20 @@ export const styles = {
 		font-size: 15px;
 		align-self: center;
 		margin-left: 15px;
+	`,
+	responseContainer: css`
+		width: 100%;
+		align-content: center;
+		margin: 20px auto 20px;
+		height: 60px;
+		display: flex;
+	`,
+	circularProgress: css`
+		margin: 15px 0 0 15px;
+	`,
+	response: css`
+		font-size: 15px;
+		margin-left: 10px;
+		padding-top: 1.5px;
 	`,
 };

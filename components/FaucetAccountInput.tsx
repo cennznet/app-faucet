@@ -2,7 +2,6 @@ import { FC } from "react";
 import { css } from "@emotion/react";
 import AccountIdenticon from "@/components/AccountIdenticon";
 import { PLACEHOLDER_ADDRESS } from "@/libs/constants";
-import { useSession } from "next-auth/react";
 
 interface FaucetAccountInputProps {
 	setAddress: Function;
@@ -12,8 +11,6 @@ const FaucetAccountInput: FC<FaucetAccountInputProps> = ({
 	setAddress,
 	address,
 }) => {
-	const { data: session } = useSession();
-
 	return (
 		<div css={styles.addressInputContainer}>
 			<AccountIdenticon
@@ -27,7 +24,6 @@ const FaucetAccountInput: FC<FaucetAccountInputProps> = ({
 				placeholder={PLACEHOLDER_ADDRESS}
 				value={address}
 				onChange={(e) => setAddress(e.target.value)}
-				disabled={!!session?.validAccount}
 			/>
 		</div>
 	);
@@ -42,7 +38,7 @@ export const styles = {
 		display: flex;
 		align-items: center;
 		justify-content: flex-start;
-		padding: 0px 15px;
+		padding: 0 15px;
 		height: 60px;
 		width: 100%;
 		input {

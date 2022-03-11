@@ -28,13 +28,17 @@ export default FaucetDetails;
 
 export const styles = {
 	wrapper: css`
-		border: 1px solid dimgray;
+		background-color: white;
+		box-shadow: 4px 8px 8px rgb(17 48 255 / 10%);
 		border-radius: 5px;
-		padding-bottom: 20px;
+		width: 636px;
+		padding: 15px 35px;
+		@media (max-width: 500px) {
+			width: 375px;
+		}
 	`,
 	container: css`
 		width: 90%;
-		margin: 0 auto;
 	`,
 	heading: css`
 		font-size: 19px;
@@ -43,16 +47,13 @@ export const styles = {
 		font-weight: bold;
 	`,
 	details: css`
-		margin-bottom: 30px;
-
 		p {
 			font-size: 16px;
-			margin-bottom: -5px;
+			line-height: 1.25;
 		}
 	`,
 	detailsHeading: css`
 		font-weight: bold;
 		letter-spacing: 0.5px;
-		margin-bottom: -10px;
 	`,
 };

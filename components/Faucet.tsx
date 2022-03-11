@@ -1,12 +1,16 @@
 import { FC, useState } from "react";
 import { css } from "@emotion/react";
-import AccountIdenticon from "@/components/AccountIdenticon";
-import FaucetButton from "@/components/FaucetButton";
-import { NETWORKS, PLACEHOLDER_ADDRESS } from "@/libs/constants";
 import { CircularProgress, Divider } from "@mui/material";
+import { NETWORKS } from "@/libs/constants";
 import { supplyAccount } from "@/libs/utils";
+import FaucetButton from "@/components/FaucetButton";
+import FaucetAccountInput from "@/components/FaucetAccountInput";
+import TokenPicker from "@/components/TokenPicker";
+import { supportedTokens } from "@/libs/utils/supportedTokens";
+import { CENNZnetToken } from "@/libs/types";
 
 const Faucet: FC = () => {
+	const [token, setToken] = useState<CENNZnetToken>(supportedTokens[0]);
 	const [network, setNetwork] = useState<string>(NETWORKS[0]);
 	const [address, setAddress] = useState<string>("");
 	const [response, setResponse] = useState<string>();
@@ -16,7 +20,7 @@ const Faucet: FC = () => {
 		if (!address || !network) return;
 
 		setFetchingResponse(true);
-		const supplyResponse = await supplyAccount(address, network, "16000");
+		const supplyResponse = await supplyAccount(address, network, token.assetId);
 
 		if (supplyResponse.success) {
 			setResponse("Tokens sent successfully!");
@@ -31,28 +35,17 @@ const Faucet: FC = () => {
 	return (
 		<div css={styles.faucetWrapper}>
 			<div css={styles.faucetContainer}>
-				<p css={styles.heading} style={{ fontWeight: "bold" }}>
-					Request Tokens
-				</p>
-				<Divider />
-				<p css={styles.heading}>Enter your CENNZnet Address:</p>
-				<div css={styles.addressWrapper}>
-					<AccountIdenticon
-						css={styles.accountIdenticon}
-						theme="beachball"
-						size={28}
-						value={address ? address : PLACEHOLDER_ADDRESS}
-					/>
-					<input
-						css={styles.input}
-						type="text"
-						placeholder={PLACEHOLDER_ADDRESS}
-						value={address}
-						onChange={(e) => setAddress(e.target.value)}
-					/>
+				<div css={styles.headingContainer}>
+					<p css={styles.heading} style={{ fontWeight: "bold" }}>
+						Request Tokens
+					</p>
+					<TokenPicker tokens={supportedTokens} setToken={setToken} />
 				</div>
+				<Divider />
+				<p css={styles.subHeading}>Enter your CENNZnet Address</p>
+				<FaucetAccountInput setAddress={setAddress} address={address} />
 				<div css={styles.networkContainer}>
-					<p css={styles.heading}>Select a network:</p>
+					<p css={styles.subHeading}>Select a Network</p>
 					<select
 						css={styles.select}
 						onChange={(e) => setNetwork(e.target.value)}
@@ -63,7 +56,7 @@ const Faucet: FC = () => {
 					</select>
 				</div>
 				<div css={styles.responseContainer}>
-					<p css={styles.heading}>Response: </p>
+					<p css={styles.subHeading}>Response: </p>
 					{fetchingResponse ? (
 						<div css={styles.circularProgress}>
 							<CircularProgress size={25} color="primary" />
@@ -74,7 +67,7 @@ const Faucet: FC = () => {
 				</div>
 				<FaucetButton
 					address={address}
-					local={network === "Local Node"}
+					network={network}
 					supplyAccount={fetchSupplyResponse}
 				/>
 			</div>
@@ -86,19 +79,36 @@ export default Faucet;
 
 export const styles = {
 	faucetWrapper: css`
-		border: 1px solid dimgray;
+		background-color: white;
+		box-shadow: 4px 8px 8px rgb(17 48 255 / 10%);
 		border-radius: 5px;
 		height: auto;
-		padding-bottom: 20px;
+		width: 636px;
+		padding: 15px 35px;
+		@media (max-width: 500px) {
+			width: 375px;
+		}
+	`,
+	headingContainer: css`
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		margin: 5px 0 22px;
+		height: 60px;
 	`,
 	faucetContainer: css`
-		width: 90%;
+		width: 100%;
 		margin: 0 auto;
 	`,
 	heading: css`
-		font-size: 19px;
+		font-size: 24px;
 		margin-bottom: 10px;
 		letter-spacing: 0.5px;
+	`,
+	subHeading: css`
+		font-size: 16px;
+		letter-spacing: 0.5px;
+		font-weight: bold;
 	`,
 	addressWrapper: css`
 		display: inline-flex;
@@ -116,17 +126,30 @@ export const styles = {
 	`,
 	networkContainer: css`
 		width: 100%;
-		display: inline-flex;
 		align-content: center;
-		margin: 20px 0;
+		margin: 20px auto 20px;
 		height: 60px;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
 	`,
 	select: css`
+		cursor: pointer;
+		-webkit-appearance: none;
+		-moz-appearance: none;
+		appearance: none;
 		height: 40px;
 		font-size: 16px;
 		margin-left: 10px;
 		flex-grow: 1;
-		margin-top: 15px;
+		border: 1px solid #979797;
+		padding: 0 15px;
+		background: url("/images/arrow_down.svg") 90% center no-repeat;
+		max-width: 175px;
+		font-weight: bold;
+		&:focus-visible {
+			outline: none;
+		}
 	`,
 	arrows: css`
 		cursor: pointer;
@@ -139,16 +162,18 @@ export const styles = {
 		margin-left: 15px;
 	`,
 	responseContainer: css`
-		display: inline-flex;
-		height: 50px;
-		margin-top: -20px;
+		width: 100%;
+		align-content: center;
+		margin: 20px auto 20px;
+		height: 60px;
+		display: flex;
 	`,
 	circularProgress: css`
-		margin: 20px 0 0 15px;
+		margin: 15px 0 0 15px;
 	`,
 	response: css`
 		font-size: 15px;
 		margin-left: 10px;
-		margin-top: 22px;
+		padding-top: 1.5px;
 	`,
 };

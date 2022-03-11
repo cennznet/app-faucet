@@ -1,7 +1,7 @@
 const supplyAccount = async (
 	address: string,
 	network: string,
-	assetId: string
+	assetId: number
 ) =>
 	await fetch(`/api/supplyAccount`, {
 		method: "post",

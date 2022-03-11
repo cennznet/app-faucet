@@ -45,7 +45,7 @@ export default NextAuth({
 				tweet_count >= 1 &&
 				timeDiffInMs >= thirtyDaysInMs
 			) {
-				console.log('setting')
+				console.log("setting");
 				await setTwitterHandle(twitterId, username);
 			}
 

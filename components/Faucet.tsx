@@ -14,6 +14,7 @@ const Faucet: FC = () => {
 	const [token, setToken] = useState<CENNZnetToken>(supportedTokens[0]);
 	const [network, setNetwork] = useState<string>(NETWORKS[0]);
 	const [address, setAddress] = useState<string>("");
+	const [isOpen, setIsOpen] = useState<boolean>(true);
 	const [_, setToken] = useState<CENNZnetToken>();
 	const [response, setResponse] = useState<string>();
 	const [fetchingResponse, setFetchingResponse] = useState<boolean>(false);
@@ -73,8 +74,9 @@ const Faucet: FC = () => {
 					supplyAccount={fetchSupplyResponse}
 				/>
 				<FaucetProgress
-					isOpen={false}
-					txStatus={{ status: "fail", message: "Tx Completed!" }}
+					isOpen={isOpen}
+					setIsOpen={setIsOpen}
+					txStatus={{ status: "success", message: "Tx Completed!" }}
 				/>
 			</div>
 		</div>

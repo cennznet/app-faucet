@@ -8,11 +8,12 @@ import { TxStatus } from "@/libs/types";
 const FaucetProgress: FC<{
 	isOpen: boolean;
 	txStatus: TxStatus;
-}> = ({ isOpen, txStatus }) => {
+	setIsOpen: Function;
+}> = ({ isOpen, txStatus, setIsOpen }) => {
 	return (
 		<div css={styles.root(isOpen)}>
 			{!!txStatus && (
-				<div>
+				<div css={styles.contentContainer}>
 					{txStatus.status === "in-progress" && (
 						<CircularProgress css={styles.status} size="3em" />
 					)}
@@ -33,14 +34,11 @@ const FaucetProgress: FC<{
 						{txStatus.status === "fail" && "Faucet Tx Failed"}
 					</div>
 					<div css={styles.message}>{txStatus.message}</div>
-					{/*					{txStatus.status !== "in-progress" && (*/}
-					{/*						<button*/}
-					{/*`							css={styles.button}*/}
-					{/*							onClick={() => setTxStatus(null)}*/}
-					{/*						>*/}
-					{/*							Dismiss*/}
-					{/*						</button>*/}
-					{/*					)}*/}
+					{txStatus.status !== "in-progress" && (
+						<button css={styles.button} onClick={() => setIsOpen(false)}>
+							Dismiss
+						</button>
+					)}
 				</div>
 			)}
 		</div>
@@ -88,6 +86,13 @@ const styles = {
 		color: red;
 	`,
 
+	contentContainer: css`
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		flex-direction: column;
+	`,
+
 	title: css`
 		font-weight: bold;
 		font-size: 20px;
@@ -107,5 +112,18 @@ const styles = {
 
 	button: css`
 		margin-top: 2em;
+		text-align: center;
+		border-radius: 5px;
+		border: transparent;
+		background-color: #1da1f2;
+		color: white;
+		letter-spacing: 0.5px;
+		justify-content: center;
+		align-items: center;
+		height: 40px;
+		width: 100px;
+		cursor: pointer;
+		display: flex;
+		font-weight: bold;
 	`,
 };

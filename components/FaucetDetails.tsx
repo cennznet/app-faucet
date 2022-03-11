@@ -9,10 +9,18 @@ const FaucetDetails: FC = () => {
 				<p css={styles.heading}>Faucet Details </p>
 				<Divider />
 				<div css={styles.details}>
+					<p css={styles.detailsHeading}>Faucet</p>
+					<p>The faucet will supply you with 2000 of your selected token.</p>
+					<p>
+						You can faucet each token once per day per CENNZnet network, or as
+						many times as you like to your local node.
+					</p>
+				</div>
+				<div css={styles.details}>
 					<p css={styles.detailsHeading}>Validation</p>
 					<p>
-						In order to prevent faucet botting on Nikau & Rata networks, you
-						must sign in via Twitter.
+						In order to prevent faucet botting on CENNZnet networks, you must
+						sign in via Twitter. This isn&apos;t necessary for a local node.
 					</p>
 					<p>
 						Your Twitter account must have at least 1 Tweet, 15 followers, and
@@ -38,10 +46,10 @@ export const styles = {
 		}
 	`,
 	container: css`
-		width: 90%;
+		width: 100%;
 	`,
 	heading: css`
-		font-size: 19px;
+		font-size: 24px;
 		margin-bottom: 10px;
 		letter-spacing: 0.5px;
 		font-weight: bold;

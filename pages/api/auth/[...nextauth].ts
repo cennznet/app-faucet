@@ -28,7 +28,7 @@ export default NextAuth({
 		},
 		async signIn({ profile }) {
 			const {
-				public_metrics: { follower_count, tweet_count },
+				public_metrics: { followers_count, tweet_count },
 				id: twitterId,
 				username,
 				created_at,
@@ -41,7 +41,7 @@ export default NextAuth({
 			const timeDiffInMs = Date.now() - new Date(created_at).getTime();
 
 			if (
-				follower_count >= 15 &&
+				followers_count >= 15 &&
 				tweet_count >= 1 &&
 				timeDiffInMs >= thirtyDaysInMs
 			) {

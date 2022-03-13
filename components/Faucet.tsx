@@ -7,29 +7,33 @@ import FaucetButton from "@/components/FaucetButton";
 import FaucetAccountInput from "@/components/FaucetAccountInput";
 import TokenPicker from "@/components/TokenPicker";
 import { supportedTokens } from "@/libs/utils/supportedTokens";
-import { CENNZnetToken } from "@/libs/types";
+import { CENNZnetToken, TxStatus } from "@/libs/types";
+import FaucetProgress from "@/components/FaucetProgress";
 
 const Faucet: FC = () => {
 	const [token, setToken] = useState<CENNZnetToken>(supportedTokens[0]);
 	const [network, setNetwork] = useState<string>(NETWORKS[0]);
 	const [address, setAddress] = useState<string>("");
-	const [response, setResponse] = useState<string>();
-	const [fetchingResponse, setFetchingResponse] = useState<boolean>(false);
+	const [isOpen, setIsOpen] = useState<boolean>(false);
+	const [response, setResponse] = useState<TxStatus>();
 
 	const fetchSupplyResponse = async () => {
 		if (!address || !network) return;
-
-		setFetchingResponse(true);
+		setResponse({
+			message: `Retrieving ${token.symbol} from the Faucet`,
+			status: "in-progress",
+		});
+		setIsOpen(true);
 		const supplyResponse = await supplyAccount(address, network, token.assetId);
 
 		if (supplyResponse.success) {
-			setResponse("Tokens sent successfully!");
-			setFetchingResponse(false);
+			setResponse({
+				message: `${token.symbol} sent successfully!`,
+				status: "success",
+			});
 			return;
 		}
-
-		setResponse(`Error: ${supplyResponse.error}`);
-		setFetchingResponse(false);
+		setResponse({ message: `Error: ${supplyResponse.error}`, status: "fail" });
 	};
 
 	return (
@@ -55,20 +59,15 @@ const Faucet: FC = () => {
 						))}
 					</select>
 				</div>
-				<div css={styles.responseContainer}>
-					<p css={styles.subHeading}>Response: </p>
-					{fetchingResponse ? (
-						<div css={styles.circularProgress}>
-							<CircularProgress size={25} color="primary" />
-						</div>
-					) : (
-						<p css={styles.response}>{response}</p>
-					)}
-				</div>
 				<FaucetButton
 					address={address}
 					network={network}
 					supplyAccount={fetchSupplyResponse}
+				/>
+				<FaucetProgress
+					isOpen={isOpen}
+					setIsOpen={setIsOpen}
+					txStatus={{ status: response?.status, message: response?.message }}
 				/>
 			</div>
 		</div>
@@ -99,6 +98,7 @@ export const styles = {
 	faucetContainer: css`
 		width: 100%;
 		margin: 0 auto;
+		position: relative;
 	`,
 	heading: css`
 		font-size: 24px;

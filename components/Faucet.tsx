@@ -20,14 +20,17 @@ const Faucet: FC = () => {
 	const fetchSupplyResponse = async () => {
 		if (!address || !network) return;
 		setResponse({
-			message: "Retrieving Tokens from the Faucet",
+			message: `Retrieving ${token.symbol} from the Faucet`,
 			status: "in-progress",
 		});
 		setIsOpen(true);
 		const supplyResponse = await supplyAccount(address, network, token.assetId);
 
 		if (supplyResponse.success) {
-			setResponse({ message: "Tokens sent successfully!", status: "success" });
+			setResponse({
+				message: `${token.symbol} sent successfully!`,
+				status: "success",
+			});
 			return;
 		}
 		setResponse({ message: `Error: ${supplyResponse.error}`, status: "fail" });

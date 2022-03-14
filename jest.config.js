@@ -29,5 +29,6 @@ module.exports = {
 		"^.+\\.(js|jsx|ts|tsx)$": ["babel-jest", { presets: ["next/babel"] }],
 	},
 	transformIgnorePatterns: ["^.+\\.module\\.(css|sass|scss)$"],
-	testTimeout: 10000,
+	testTimeout: 20000,
+	setupFilesAfterEnv: ["./tests/jest.setup.js"],
 };

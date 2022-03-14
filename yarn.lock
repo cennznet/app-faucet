@@ -1113,7 +1113,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@next/env@npm:12.1.0":
+"@next/env@npm:12.1.0, @next/env@npm:^12.1.0":
   version: 12.1.0
   resolution: "@next/env@npm:12.1.0"
   checksum: 31037e019846a2c3eeb106d64d54084e0b86d1b9b92fdb7332eeb39d94cb4a8e11ddab1a088088f7aea7b60a4cb57781815539676fddedf4305f19f8c8bf5b7f
@@ -2552,6 +2552,7 @@ __metadata:
     "@emotion/styled": ^11.8.1
     "@mui/icons-material": ^5.5.0
     "@mui/material": ^5.5.0
+    "@next/env": ^12.1.0
     "@polkadot/react-identicon": ^1.2.1
     "@testing-library/jest-dom": ^5.16.2
     "@types/node": 17.0.21

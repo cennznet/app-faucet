@@ -1,11 +1,27 @@
 import { EndowedAccounts } from "@/libs/utils";
+import { ENDOWED_ACCOUNT_SEEDS, TRANSFER_AMOUNT } from "@/libs/constants";
+import { Api } from "@cennznet/api";
 
 describe("EndowedAccounts", () => {
 	let endowedAccounts;
-	beforeAll(() => {
-		const api = jest.fn();
-		const seeds = [];
-		endowedAccounts = new EndowedAccounts(api, seeds);
+	beforeAll(async () => {
+		const api = await Api.create({
+			provider: "wss://nikau.centrality.me/public/ws",
+		});
+		endowedAccounts = new EndowedAccounts(api, ENDOWED_ACCOUNT_SEEDS);
+	});
+
+	describe("send()", () => {
+		it("should fail if there is not any available account", async () => {
+			const assetId = 16000;
+			await endowedAccounts.send(
+				endowedAccounts.api.tx.genericAsset.transfer(
+					assetId,
+					"5GQwoMjzyvpuQXBTADfQ8B5CTukK1wKs2F4DdwFLaZKBr4YV",
+					TRANSFER_AMOUNT
+				)
+			);
+		});
 	});
 
 	describe("heath()", () => {

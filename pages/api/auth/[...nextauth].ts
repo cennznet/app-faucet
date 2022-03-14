@@ -2,9 +2,9 @@ import NextAuth from "next-auth";
 import Twitter from "next-auth/providers/twitter";
 import { NEXTAUTH_SECRET, TWITTER_ID, TWITTER_SECRET } from "@/libs/constants";
 import {
-	setTwitterHandle,
-	fetchTwitterHandle,
-} from "@/pages/api/auth/twitterHandle";
+	fetchValidAccount,
+	setValidAccount,
+} from "@/pages/api/claim/validAccount";
 
 export default NextAuth({
 	secret: NEXTAUTH_SECRET,
@@ -17,12 +17,18 @@ export default NextAuth({
 				url: "https://api.twitter.com/2/users/me",
 				params: { "user.fields": ["created_at", "public_metrics"] },
 			},
+			profile({ data }) {
+				return {
+					id: data.id,
+					name: data.username,
+				};
+			},
 		}),
 	],
 	callbacks: {
 		async session({ session, token }) {
 			session.twitterId = token.sub;
-			const response = await fetchTwitterHandle(token.sub);
+			const response = await fetchValidAccount(token.sub);
 			if (!!response) session.validAccount = true;
 			return session;
 		},
@@ -30,11 +36,10 @@ export default NextAuth({
 			const {
 				public_metrics: { followers_count, tweet_count },
 				id: twitterId,
-				username,
 				created_at,
 			}: any = profile.data;
 
-			const validAccount = await fetchTwitterHandle(twitterId);
+			const validAccount = await fetchValidAccount(twitterId);
 			if (!!validAccount) return true;
 
 			const thirtyDaysInMs = 30 * 24 * 60 * 60 * 1000;
@@ -45,8 +50,7 @@ export default NextAuth({
 				tweet_count >= 1 &&
 				timeDiffInMs >= thirtyDaysInMs
 			) {
-				console.log("setting");
-				await setTwitterHandle(twitterId, username);
+				await setValidAccount(twitterId);
 			}
 
 			return true;

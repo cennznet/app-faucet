@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import { css } from "@emotion/react";
 import { signIn, signOut, useSession } from "next-auth/react";
 import Image from "next/image";
@@ -6,14 +6,11 @@ import Image from "next/image";
 const TwitterHandler: FC = () => {
 	const { data: session } = useSession();
 
+	useEffect(() => console.log('session', session), [session])
+
 	return (
 		<div>
-			{!!session && (
-				<div css={styles.username}>
-					<p>@{session.user.name}</p>
-				</div>
-			)}
-			<button css={styles.buttonContainer}>
+			<button css={styles.buttonContainer(!!session)}>
 				{!!session ? (
 					<div css={styles.authButton} onClick={async () => await signOut({ redirect: false })}>
 						<Image
@@ -23,7 +20,8 @@ const TwitterHandler: FC = () => {
 							alt="twitter-logo"
 							css={styles.logo}
 						/>
-						<p>Sign out</p>
+						<p css={styles.authHandle}>@{session.user.name}</p>
+						<p css={styles.authText(!!session)}>Sign out</p>
 					</div>
 				) : (
 					<div
@@ -37,7 +35,7 @@ const TwitterHandler: FC = () => {
 							alt="twitter-logo"
 							css={styles.logo}
 						/>
-						<p>Sign in</p>
+						<p css={styles.authText(!!session)}>Sign in</p>
 					</div>
 				)}
 			</button>
@@ -48,30 +46,14 @@ const TwitterHandler: FC = () => {
 export default TwitterHandler;
 
 export const styles = {
-	username: css`
-		position: absolute;
-		top: 40px;
-		right: 10px;
-		width: 120px;
-		text-align: center;
-		margin: 20px;
-		@media (max-width: 500px) {
-			margin: 0;
-		}
-		p {
-			font-size: 14px;
-			font-weight: bold;
-			overflow: scroll;
-		}
-	`,
-	buttonContainer: css`
+	buttonContainer: ( session: boolean ) => css`
 		cursor: pointer;
 		position: absolute;
 		top: 15px;
 		right: 10px;
 		border-radius: 5px;
 		display: flex;
-		width: 120px;
+		width: ${session ? "auto" : "120px"};
 		box-sizing: border-box;
 		margin: 20px;
 		border: transparent;
@@ -87,14 +69,20 @@ export const styles = {
 		letter-spacing: 0.3px;
 		padding: 5px 5px;
 		margin: 0 auto;
-
-		p {
-			margin-left: 5px;
-			margin-top: 2px;
-			text-transform: uppercase;
-			line-height: 125%;
-			font-weight: bold;
-		}
+	`,
+	authText: (session: boolean) => css`
+		margin-left: 5px;
+		margin-top: ${session ? "2.5px" : "2px"};
+		text-transform: uppercase;
+		line-height: 125%;
+		font-weight: bold;
+		font-size: ${session ? "11.5px" : "inherit"};
+	`,
+	authHandle: css`
+		margin-left: 5px;
+		margin-top: 2px;
+		line-height: 125%;
+		font-weight: bold;
 	`,
 	logo: css`
 		padding-left: 15px;

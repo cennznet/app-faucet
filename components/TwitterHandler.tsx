@@ -15,7 +15,7 @@ const TwitterHandler: FC = () => {
 			)}
 			<button css={styles.buttonContainer}>
 				{!!session ? (
-					<div css={styles.authButton} onClick={async () => await signOut()}>
+					<div css={styles.authButton} onClick={async () => await signOut({ redirect: false })}>
 						<Image
 							src={"/twitter.svg"}
 							width={20}

@@ -1,7 +1,7 @@
 import { FC } from "react";
+import Image from "next/image";
 import { css } from "@emotion/react";
 import AccountIdenticon from "@/components/AccountIdenticon";
-import { PLACEHOLDER_ADDRESS } from "@/libs/constants";
 
 interface FaucetAccountInputProps {
 	setAddress: Function;
@@ -13,15 +13,23 @@ const FaucetAccountInput: FC<FaucetAccountInputProps> = ({
 }) => {
 	return (
 		<div css={styles.addressInputContainer}>
-			<AccountIdenticon
-				css={styles.accountIdenticon}
-				theme="beachball"
-				size={28}
-				value={address ? address : PLACEHOLDER_ADDRESS}
-			/>
+			{address ? (
+				<AccountIdenticon
+					css={styles.accountIdenticon}
+					theme="beachball"
+					size={28}
+					value={address}
+				/>
+			) : (
+				<Image
+					src="/images/cennz.svg"
+					width={28}
+					height={28}
+					alt="cennz-logo"
+				/>
+			)}
 			<input
 				type="text"
-				placeholder={PLACEHOLDER_ADDRESS}
 				value={address}
 				onChange={(e) => setAddress(e.target.value)}
 			/>

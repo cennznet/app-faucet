@@ -6,13 +6,16 @@ import Image from "next/image";
 const TwitterHandler: FC = () => {
 	const { data: session } = useSession();
 
-	useEffect(() => console.log('session', session), [session])
+	useEffect(() => console.log("session", session), [session]);
 
 	return (
 		<div>
 			<button css={styles.buttonContainer(!!session)}>
 				{!!session ? (
-					<div css={styles.authButton} onClick={async () => await signOut({ redirect: false })}>
+					<div
+						css={styles.authButton}
+						onClick={async () => await signOut({ redirect: false })}
+					>
 						<Image
 							src={"/twitter.svg"}
 							width={20}
@@ -46,7 +49,7 @@ const TwitterHandler: FC = () => {
 export default TwitterHandler;
 
 export const styles = {
-	buttonContainer: ( session: boolean ) => css`
+	buttonContainer: (session: boolean) => css`
 		cursor: pointer;
 		position: absolute;
 		top: 15px;

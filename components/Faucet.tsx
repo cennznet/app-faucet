@@ -1,6 +1,6 @@
 import { FC, useState } from "react";
 import { css } from "@emotion/react";
-import { CircularProgress, Divider } from "@mui/material";
+import { Divider } from "@mui/material";
 import { NETWORKS } from "@/libs/constants";
 import { supplyAccount } from "@/libs/utils";
 import FaucetButton from "@/components/FaucetButton";

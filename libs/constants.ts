@@ -1,14 +1,8 @@
-export const NETWORKS = ["Nikau", "Rata"];
+export const NEXTAUTH_SECRET: string = String(process.env.NEXTAUTH_SECRET);
 
-export const NEXTAUTH_SECRET: string = String(
-	process.env.NEXT_PUBLIC_NEXTAUTH_SECRET
-);
+export const TWITTER_ID: string = String(process.env.TWITTER_ID);
 
-export const TWITTER_ID: string = String(process.env.NEXT_PUBLIC_TWITTER_ID);
-
-export const TWITTER_SECRET: string = String(
-	process.env.NEXT_PUBLIC_TWITTER_SECRET
-);
+export const TWITTER_SECRET: string = String(process.env.TWITTER_SECRET);
 
 export const ENDOWED_ACCOUNT_SEEDS: string[] = String(
 	process.env.ENDOWED_ACCOUNT_SEEDS

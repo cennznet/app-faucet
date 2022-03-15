@@ -1,4 +1,4 @@
-export type CENNZNET_NETWORK = "nikau" | "rata" | "local";
+export type CENNZnetNetwork = "Nikau" | "Rata";
 
 export interface CENNZnetToken {
 	symbol: string;

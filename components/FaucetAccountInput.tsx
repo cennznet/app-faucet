@@ -50,7 +50,7 @@ export const styles = {
 		height: 60px;
 		width: 100%;
 		border-radius: 4px;
-		
+
 		input {
 			margin-left: 10px;
 			width: 100%;

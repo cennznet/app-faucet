@@ -1,13 +1,14 @@
-import {
-	FC,
-} from "react";
+import { FC } from "react";
 import { css } from "@emotion/react";
-import { Select, SelectChangeEvent, MenuItem, Theme } from "@mui/material";
+import { MenuItem, Select, SelectChangeEvent, Theme } from "@mui/material";
 import ExpandMore from "@mui/icons-material/ExpandMore";
-import { NETWORKS } from "@/libs/constants";
+import { CENNZnetNetwork } from "@/types";
+
+const NIKAU: CENNZnetNetwork = "Nikau";
+const RATA: CENNZnetNetwork = "Rata";
 
 const NetworkSelect: FC<{
-	selectedNetwork: string;
+	selectedNetwork: CENNZnetNetwork;
 	onNetworkChange: (event: SelectChangeEvent) => void;
 }> = ({ selectedNetwork, onNetworkChange }) => {
 	return (
@@ -20,12 +21,14 @@ const NetworkSelect: FC<{
 				IconComponent={ExpandMore}
 				autoWidth={false}
 			>
-				{NETWORKS.map((network, i) => (
-					<MenuItem key={i} value={network} css={styles.selectItem}>
-						<img src="images/cennznet_blue.svg" alt={network} />
-						<span>{network}</span>
-					</MenuItem>
-				))}
+				<MenuItem key={NIKAU} value={NIKAU} css={styles.selectItem}>
+					<img src="images/cennznet_blue.svg" alt={NIKAU} />
+					<span>{NIKAU}</span>
+				</MenuItem>
+				<MenuItem key={RATA} value={RATA} css={styles.selectItem}>
+					<img src="images/cennz.svg" alt={RATA} />
+					<span>{RATA}</span>
+				</MenuItem>
 			</Select>
 		</div>
 	);
@@ -53,6 +56,7 @@ export const styles = {
 			align-items: center;
 			padding-top: 0.75em;
 			padding-bottom: 0.75em;
+
 			> img {
 				width: 2em;
 				height: 2em;

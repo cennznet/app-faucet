@@ -1,6 +1,4 @@
-import {
-	FC,
-} from "react";
+import { FC } from "react";
 import { css } from "@emotion/react";
 import { Select, SelectChangeEvent, MenuItem, Theme } from "@mui/material";
 import ExpandMore from "@mui/icons-material/ExpandMore";

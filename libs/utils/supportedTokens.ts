@@ -1,4 +1,4 @@
-import { CENNZnetToken } from "@/libs/types";
+import { CENNZnetToken } from "@/types";
 
 export const supportedTokens: CENNZnetToken[] = [
 	{

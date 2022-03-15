@@ -1,6 +1,5 @@
 import { FC } from "react";
 import { css } from "@emotion/react";
-import TwitterHandler from "@/components/TwitterHandler";
 import Faucet from "@/components/Faucet";
 import FaucetDetails from "@/components/FaucetDetails";
 
@@ -12,7 +11,6 @@ const Home: FC = () => {
 					<img src={"/images/cennznet_blue.svg"} alt={""} />
 					<h1 css={styles.heading}>CENNZnet Faucet</h1>
 				</div>
-				<TwitterHandler />
 				<Faucet />
 				<br />
 				<FaucetDetails />

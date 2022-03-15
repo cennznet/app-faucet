@@ -19,7 +19,7 @@ const FaucetDetails: FC = () => {
 					<p css={styles.detailsHeading}>Validation</p>
 					<p>
 						In order to prevent faucet botting on CENNZnet networks, you must
-						sign in via Twitter. This isn&apos;t necessary for a local node.
+						sign in via Twitter.
 					</p>
 					<p>
 						Your Twitter account must have at least 1 Tweet, 15 followers, and

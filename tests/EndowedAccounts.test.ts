@@ -13,6 +13,7 @@ describe("EndowedAccounts", () => {
 			provider: "wss://nikau.centrality.me/public/ws",
 		});
 		const keyring = new Keyring({ type: "sr25519" });
+		ENDOWED_ACCOUNT_SEEDS.push("//TestAccountEmpty");
 		endowedAccounts = new EndowedAccounts(api, ENDOWED_ACCOUNT_SEEDS);
 		bob = keyring.addFromUri("//TestAccount");
 	});
@@ -41,6 +42,47 @@ describe("EndowedAccounts", () => {
 				).toString()
 			);
 		});
+		it("should be able to force supply account", async () => {
+			const assetId = 16001;
+			const secondSupplyAccountBalanceBefore =
+				await api.query.genericAsset.freeBalance(
+					assetId,
+					endowedAccounts._availableAccounts[1].address
+				);
+			await endowedAccounts.send(
+				endowedAccounts.api.tx.genericAsset.transfer(
+					assetId,
+					bob.address,
+					TRANSFER_AMOUNT
+				),
+				endowedAccounts._availableAccounts[1]
+			);
+			const secondSupplyAccountBalanceAfter =
+				await api.query.genericAsset.freeBalance(
+					assetId,
+					endowedAccounts._availableAccounts[1].address
+				);
+			expect(
+				parseInt(secondSupplyAccountBalanceBefore.toString()) - TRANSFER_AMOUNT
+			).toEqual(parseInt(secondSupplyAccountBalanceAfter.toString()));
+		});
+		it("should be throw error when an account is depleted", async () => {
+			const assetId = 16001;
+			try {
+				await endowedAccounts.send(
+					endowedAccounts.api.tx.genericAsset.transfer(
+						assetId,
+						bob.address,
+						TRANSFER_AMOUNT
+					),
+					endowedAccounts._availableAccounts[3]
+				);
+			} catch (e) {
+				expect(e.message).toEqual(
+					"1010: Invalid Transaction: Inability to pay some fees , e.g. account balance too low - Account: 5HBwpKrRi7Ds4zmZgFjMVupcKtRjee1zyiBkVDmgaNE2TuVx"
+				);
+			}
+		});
 	});
 
 	describe("heath()", () => {
@@ -57,8 +99,8 @@ describe("EndowedAccounts", () => {
 			);
 		});
 
-		it("should send an error to sentry if there are less than 4 available accounts", async () => {
-			endowedAccounts._availableAccounts = new Array(3);
+		it("should send an error to sentry if there are less than 3 available accounts", async () => {
+			endowedAccounts._availableAccounts = new Array(2);
 			endowedAccounts._unavailableAccounts = [];
 			const sentryEvents$ = {
 				next: jest.fn(),
@@ -75,7 +117,7 @@ describe("EndowedAccounts", () => {
 				"GET|/health"
 			);
 			expect(sentryEvents$.next.mock.calls[0][0].error.message).toBe(
-				"Only 3 accounts available now. Please replace the unavailable accounts"
+				"Only 2 accounts available now. Please replace the unavailable accounts"
 			);
 		});
 

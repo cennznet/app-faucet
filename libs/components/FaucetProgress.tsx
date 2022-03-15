@@ -88,7 +88,7 @@ const styles = {
 		align-items: center;
 		flex-direction: column;
 	`,
-	title: ({palette}) => css`
+	title: ({ palette }) => css`
 		font-weight: bold;
 		font-size: 20px;
 		line-height: 1;
@@ -103,7 +103,7 @@ const styles = {
 			font-weight: bold;
 		}
 	`,
-	button: ({palette}) => css`
+	button: ({ palette }) => css`
 		margin-top: 2em;
 		text-align: center;
 		border-radius: 4px;

@@ -69,7 +69,7 @@ const Faucet: FC = () => {
 						/>
 					</div>
 				</div>
-				<Divider />
+				<Divider css={styles.divider} />
 				<br />
 				<FaucetAccountInput setAddress={setAddress} address={address} />
 				<FaucetButton
@@ -96,7 +96,7 @@ export const styles = {
 		box-shadow: 4px 8px 8px rgb(17 48 255 / 10%);
 		border-radius: 4px;
 		width: 40em;
-		padding: 15px 35px;
+		padding: 1em 2em;
 		@media (max-width: 500px) {
 			width: 23em;
 		}
@@ -132,6 +132,15 @@ export const styles = {
 		@media (max-width: 500px) {
 			width: 8em;
 			display: block;
+		}
+	`,
+	divider: css`
+		margin-left: -2rem;
+		width: 40rem;
+		margin-top: 2em;
+
+		@media (max-width: 500px) {
+			width: 23em;
 		}
 	`,
 };

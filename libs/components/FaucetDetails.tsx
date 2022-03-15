@@ -7,7 +7,7 @@ const FaucetDetails: FC = () => {
 		<div css={styles.wrapper}>
 			<div css={styles.container}>
 				<p css={styles.heading}>Faucet Details </p>
-				<Divider />
+				<Divider css={styles.divider} />
 				<div css={styles.details}>
 					<p css={styles.detailsHeading}>Faucet</p>
 					<p>
@@ -39,7 +39,7 @@ export const styles = {
 		box-shadow: 4px 8px 8px rgb(17 48 255 / 10%);
 		border-radius: 4px;
 		width: 40em;
-		padding: 15px 35px;
+		padding: 0.2em 2em;
 		@media (max-width: 500px) {
 			width: 23em;
 		}
@@ -49,7 +49,6 @@ export const styles = {
 	`,
 	heading: css`
 		font-size: 24px;
-		margin-bottom: 10px;
 		letter-spacing: 0.5px;
 		font-weight: bold;
 	`,
@@ -62,5 +61,13 @@ export const styles = {
 	detailsHeading: css`
 		font-weight: bold;
 		letter-spacing: 0.5px;
+	`,
+	divider: css`
+		margin-left: -2em;
+		width: 40rem;
+
+		@media (max-width: 500px) {
+			width: 23em;
+		}
 	`,
 };

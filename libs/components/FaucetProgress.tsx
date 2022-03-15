@@ -3,7 +3,7 @@ import { css } from "@emotion/react";
 import { CircularProgress } from "@mui/material";
 import ErrorOutlineOutlinedIcon from "@mui/icons-material/ErrorOutlineOutlined";
 import CheckCircleOutlinedIcon from "@mui/icons-material/CheckCircleOutlined";
-import { TxStatus } from "@/types";
+import { TxStatus } from "@/libs/types";
 
 const FaucetProgress: FC<{
 	isOpen: boolean;

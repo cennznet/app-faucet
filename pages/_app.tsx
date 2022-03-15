@@ -1,15 +1,16 @@
 import type { AppProps } from "next/app";
 import { SessionProvider } from "next-auth/react";
-import { ThemeProvider } from "@mui/material/styles";
-import CssBaseline from "@mui/material/CssBaseline";
-import theme from "@/libs/theme";
 import Head from "next/head";
+import ThemeProvider from "@/libs/providers/ThemeProvider";
+import CssBaseline from "@mui/material/CssBaseline";
+import CssGlobal from "@/components/CssGlobal";
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
 	return (
 		<SessionProvider session={session}>
-			<ThemeProvider theme={theme}>
-				<CssBaseline />
+			<CssBaseline />
+			<ThemeProvider>
+				<CssGlobal />
 				<Head>
 					<title>CENNZnet App Faucet</title>
 					<meta

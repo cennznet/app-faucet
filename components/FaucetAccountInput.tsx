@@ -22,7 +22,7 @@ const FaucetAccountInput: FC<FaucetAccountInputProps> = ({
 				/>
 			) : (
 				<Image
-					src="/images/cennz.svg"
+					src="/images/cennznet_blue.svg"
 					width={28}
 					height={28}
 					alt="cennz-logo"
@@ -49,6 +49,8 @@ export const styles = {
 		padding: 0 15px;
 		height: 60px;
 		width: 100%;
+		border-radius: 4px;
+		
 		input {
 			margin-left: 10px;
 			width: 100%;

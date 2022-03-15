@@ -7,9 +7,8 @@ import {
 	ENDOWED_ACCOUNT_SEEDS,
 	TRANSFER_AMOUNT,
 } from "@/libs/constants";
-import { EndowedAccounts } from "@/libs/utils";
-import { CENNZnetNetwork } from "@/types";
-import { claim, status } from "@/pages/api/claim";
+import { EndowedAccounts, fetchClaimStatus, setNewClaim } from "@/libs/utils";
+import { CENNZnetNetwork } from "@/libs/types";
 
 export default async function handler(
 	req: NextApiRequest,
@@ -37,7 +36,7 @@ export default async function handler(
 			.status(401)
 			.json({ success: false, error: "Invalid Twitter account" });
 
-	const claimed = await status(address, network, assetId);
+	const claimed = await fetchClaimStatus(address, network, assetId);
 	if (claimed)
 		return res.status(400).send({ error: "Already claimed in 24h window" });
 
@@ -58,7 +57,7 @@ export default async function handler(
 			)
 		);
 
-		await claim(address, network, assetId);
+		await setNewClaim(address, network, assetId);
 		await api.disconnect();
 
 		return res.status(200).json({ success: true });

@@ -1,25 +1,44 @@
 import { EndowedAccounts } from "@/libs/utils";
 import { ENDOWED_ACCOUNT_SEEDS, TRANSFER_AMOUNT } from "@/libs/constants";
 import { Api } from "@cennznet/api";
+import { Keyring } from "@polkadot/keyring";
 
 describe("EndowedAccounts", () => {
 	let endowedAccounts;
+	let bob;
+	let api;
+
 	beforeAll(async () => {
-		const api = await Api.create({
+		api = await Api.create({
 			provider: "wss://nikau.centrality.me/public/ws",
 		});
+		const keyring = new Keyring({ type: "sr25519" });
 		endowedAccounts = new EndowedAccounts(api, ENDOWED_ACCOUNT_SEEDS);
+		bob = keyring.addFromUri("//TestAccount");
 	});
 
 	describe("send()", () => {
-		it("should fail if there is not any available account", async () => {
-			const assetId = 16000;
+		it("should be able to send funds to given account", async () => {
+			const assetId = 16001;
+			const assetBalanceBobBefore = await api.query.genericAsset.freeBalance(
+				assetId,
+				bob.address
+			);
 			await endowedAccounts.send(
 				endowedAccounts.api.tx.genericAsset.transfer(
 					assetId,
-					"5GQwoMjzyvpuQXBTADfQ8B5CTukK1wKs2F4DdwFLaZKBr4YV",
+					bob.address,
 					TRANSFER_AMOUNT
 				)
+			);
+			const assetBalanceBobAfter = await api.query.genericAsset.freeBalance(
+				assetId,
+				bob.address
+			);
+			expect(assetBalanceBobAfter.toString()).toEqual(
+				(
+					parseInt(assetBalanceBobBefore.toString()) + TRANSFER_AMOUNT
+				).toString()
 			);
 		});
 	});

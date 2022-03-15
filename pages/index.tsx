@@ -45,7 +45,6 @@ export const styles = {
 		}
 	`,
 	container: css`
-		//background-color: white;
 		width: 50%;
 		margin: 35px auto;
 		display: flex;

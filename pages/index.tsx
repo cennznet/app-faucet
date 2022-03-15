@@ -35,7 +35,7 @@ export const styles = {
 		margin-bottom: 0.5em;
 		img {
 			margin-right: 10px;
-			filter: drop-shadow(2px 2px rgba(0,0,0, 0.15));
+			filter: drop-shadow(2px 2px rgba(0, 0, 0, 0.15));
 		}
 
 		@media (max-width: 500px) {
@@ -47,7 +47,7 @@ export const styles = {
 	heading: css`
 		color: #1130ff;
 		text-align: center;
-		text-shadow: 2px 2px rgba(0,0,0, 0.15);
+		text-shadow: 2px 2px rgba(0, 0, 0, 0.15);
 		@media (max-width: 500px) {
 			font-size: 22px;
 		}

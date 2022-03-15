@@ -67,41 +67,35 @@ const styles = {
 			width: 100%;
 			height: 100%;
 		`,
-
 	status: css`
 		margin-bottom: 1.5em;
 	`,
-
 	statusSuccess: css`
 		width: 4em;
 		height: 4em;
 		font-size: 14px;
 		color: green;
 	`,
-
 	statusFail: css`
 		width: 4em;
 		height: 4em;
 		font-size: 14px;
 		color: red;
 	`,
-
 	contentContainer: css`
 		display: flex;
 		justify-content: center;
 		align-items: center;
 		flex-direction: column;
 	`,
-
-	title: css`
+	title: ({palette}) => css`
 		font-weight: bold;
 		font-size: 20px;
 		line-height: 1;
 		text-align: center;
 		text-transform: uppercase;
-		color: blue;
+		color: ${palette.primary.main};
 	`,
-
 	message: css`
 		margin-top: 1em;
 		line-height: 1.5;
@@ -109,13 +103,12 @@ const styles = {
 			font-weight: bold;
 		}
 	`,
-
-	button: css`
+	button: ({palette}) => css`
 		margin-top: 2em;
 		text-align: center;
 		border-radius: 4px;
 		border: transparent;
-		background-color: #1da1f2;
+		background-color: ${palette.primary.main};
 		color: white;
 		letter-spacing: 0.5px;
 		justify-content: center;

@@ -24,7 +24,7 @@ export const styles = {
 	background: css`
 		background: url("/images/cennz_background.svg") repeat center top;
 		background-size: 12px;
-		background-color: #d6dbff;
+		background-color: rgba(173, 216, 230, 0.2);
 		overflow: auto;
 		z-index: 0;
 		height: 100vh;
@@ -33,6 +33,7 @@ export const styles = {
 		display: flex;
 		flex-direction: row;
 		margin-bottom: 0.5em;
+
 		img {
 			margin-right: 10px;
 			filter: drop-shadow(2px 2px rgba(0, 0, 0, 0.15));
@@ -44,8 +45,8 @@ export const styles = {
 			padding-bottom: 1em;
 		}
 	`,
-	heading: css`
-		color: #1130ff;
+	heading: ({ palette }) => css`
+		color: ${palette.primary.main};
 		text-align: center;
 		text-shadow: 2px 2px rgba(0, 0, 0, 0.15);
 		@media (max-width: 500px) {

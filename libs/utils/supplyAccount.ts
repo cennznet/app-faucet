@@ -1,13 +1,15 @@
+import { CENNZnetNetwork } from "@/types";
+
 const supplyAccount = async (
 	address: string,
-	network: string,
+	network: CENNZnetNetwork,
 	assetId: number
 ) =>
 	await fetch(`/api/supplyAccount`, {
 		method: "post",
 		body: JSON.stringify({
 			address,
-			network: network.toLowerCase(),
+			network,
 			assetId,
 		}),
 	})

@@ -1,7 +1,6 @@
 import { FC } from "react";
 import { css } from "@emotion/react";
-import Faucet from "@/components/Faucet";
-import FaucetDetails from "@/components/FaucetDetails";
+import { Faucet, FaucetDetails } from "@/libs/components";
 
 const Home: FC = () => {
 	return (

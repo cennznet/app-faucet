@@ -2,7 +2,7 @@ import { FC } from "react";
 import { css } from "@emotion/react";
 import { Select, SelectChangeEvent, MenuItem, Theme } from "@mui/material";
 import ExpandMore from "@mui/icons-material/ExpandMore";
-import { supportedTokens } from "@/libs/utils/supportedTokens";
+import { supportedTokens } from "@/libs/utils";
 
 const NetworkSelect: FC<{
 	selectedToken: string;

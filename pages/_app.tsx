@@ -1,9 +1,9 @@
 import type { AppProps } from "next/app";
 import { SessionProvider } from "next-auth/react";
 import Head from "next/head";
-import ThemeProvider from "@/libs/providers/ThemeProvider";
 import CssBaseline from "@mui/material/CssBaseline";
-import CssGlobal from "@/components/CssGlobal";
+import ThemeProvider from "@/libs/providers/ThemeProvider";
+import { CssGlobal } from "@/libs/components";
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
 	return (

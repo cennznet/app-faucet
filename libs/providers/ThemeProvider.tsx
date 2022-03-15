@@ -10,22 +10,7 @@ declare module "@mui/material/styles/createPalette" {
 		highlight?: string;
 	}
 
-	export interface SimplePaletteColorOptions {
-		swap?: string;
-		pool?: string;
-		bridge?: string;
-	}
-
-	export interface PaletteColor {
-		swap?: string;
-		pool?: string;
-		bridge?: string;
-	}
-
 	export interface TypeBackground {
-		swap?: string;
-		pool?: string;
-		bridge?: string;
 		main?: string;
 	}
 }
@@ -78,22 +63,22 @@ const ThemeProvider: FC = (props) => {
 			...config.palette,
 			primary: {
 				...config.palette.primary,
-				main: config.palette.primary.main || config.palette.primary.swap,
+				main: config.palette.primary.main,
 			},
 
 			secondary: {
 				...config.palette.secondary,
-				main: config.palette.secondary.main || config.palette.secondary.swap,
+				main: config.palette.secondary.main,
 			},
 
 			info: {
 				...config.palette.info,
-				main: config.palette.info.main || config.palette.info.swap,
+				main: config.palette.info.main,
 			},
 
 			background: {
 				...config.palette.background,
-				main: config.palette.background.main || config.palette.background.swap,
+				main: config.palette.background.main,
 			},
 		},
 		shadows: [

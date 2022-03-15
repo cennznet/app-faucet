@@ -1,16 +1,17 @@
 import { FC, useState } from "react";
 import { css } from "@emotion/react";
-import { Divider, SelectChangeEvent } from "@mui/material";
-import { supplyAccount } from "@/libs/utils";
-import FaucetButton from "@/components/FaucetButton";
-import FaucetAccountInput from "@/components/FaucetAccountInput";
-import { supportedTokens } from "@/libs/utils/supportedTokens";
-import { CENNZnetNetwork, CENNZnetToken, TxStatus } from "@/types";
-import FaucetProgress from "@/components/FaucetProgress";
-import NetworkSelect from "@/components/NetworkSelect";
-import TokenSelect from "@/components/TokenSelect";
 import { useSession } from "next-auth/react";
-import SignOut from "@/components/SignOut";
+import { Divider, SelectChangeEvent } from "@mui/material";
+import { CENNZnetNetwork, CENNZnetToken, TxStatus } from "@/types";
+import { supplyAccount, supportedTokens } from "@/libs/utils";
+import {
+	FaucetAccountInput,
+	FaucetButton,
+	FaucetProgress,
+	NetworkSelect,
+	TokenSelect,
+	SignOut,
+} from "@/libs/components";
 
 const Faucet: FC = () => {
 	const { data: session } = useSession();

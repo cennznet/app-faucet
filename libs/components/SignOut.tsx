@@ -15,7 +15,7 @@ const SignOut: FC<{ twitterHandle: string }> = ({ twitterHandle }) => {
 export default SignOut;
 
 const styles = {
-	root: css`
+	root: ({ palette }) => css`
 		margin: 10px auto;
 		width: auto;
 		font-size: 14px;
@@ -25,7 +25,7 @@ const styles = {
 			cursor: pointer;
 			font-style: italic;
 			text-decoration: underline;
-			opacity: 0.7;
+			color: ${palette.text.secondary};
 		}
 	`,
 };

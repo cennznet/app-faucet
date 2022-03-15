@@ -10,10 +10,9 @@ const FaucetDetails: FC = () => {
 				<Divider />
 				<div css={styles.details}>
 					<p css={styles.detailsHeading}>Faucet</p>
-					<p>The faucet will supply you with 2000 of your selected token.</p>
 					<p>
-						You can faucet each token once per day per CENNZnet network, or as
-						many times as you like to your local node.
+						The faucet will supply you with 2000 of your selected token, once
+						per day per token.
 					</p>
 				</div>
 				<div css={styles.details}>

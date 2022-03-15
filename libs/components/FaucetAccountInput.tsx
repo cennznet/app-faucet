@@ -1,7 +1,7 @@
 import { FC } from "react";
 import Image from "next/image";
 import { css } from "@emotion/react";
-import AccountIdenticon from "@/components/AccountIdenticon";
+import { AccountIdenticon } from "@/libs/components";
 
 interface FaucetAccountInputProps {
 	setAddress: Function;

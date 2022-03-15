@@ -1,7 +1,6 @@
 import { VFC } from "react";
 import { css } from "@emotion/react";
-import { GlobalStyles } from "@mui/material";
-import { Theme } from "@mui/material";
+import { GlobalStyles, Theme } from "@mui/material";
 
 const globalStyles = (
 	<GlobalStyles
@@ -108,8 +107,6 @@ const globalStyles = (
 	/>
 );
 
-const CssGlobal: VFC<{}> = () => {
-	return globalStyles;
-};
+const CssGlobal: VFC = () => globalStyles;
 
 export default CssGlobal;

@@ -67,7 +67,7 @@ const Faucet: FC = () => {
 					/>
 				</div>
 				<Divider />
-				<p css={styles.subHeading}>Enter your CENNZnet Address</p>
+				<br />
 				<FaucetAccountInput setAddress={setAddress} address={address} />
 				<FaucetButton
 					address={address}
@@ -115,10 +115,5 @@ export const styles = {
 		font-size: 24px;
 		margin-bottom: 10px;
 		letter-spacing: 0.5px;
-	`,
-	subHeading: css`
-		font-size: 16px;
-		letter-spacing: 0.5px;
-		font-weight: bold;
 	`,
 };

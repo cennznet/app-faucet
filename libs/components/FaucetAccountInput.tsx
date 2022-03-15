@@ -31,6 +31,7 @@ const FaucetAccountInput: FC<FaucetAccountInputProps> = ({
 			<input
 				type="text"
 				value={address}
+				placeholder={"Enter your CENNZnet address"}
 				onChange={(e) => setAddress(e.target.value)}
 			/>
 		</div>

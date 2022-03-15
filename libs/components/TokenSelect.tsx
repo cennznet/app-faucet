@@ -2,7 +2,7 @@ import { FC } from "react";
 import { css } from "@emotion/react";
 import { Select, SelectChangeEvent, MenuItem, Theme } from "@mui/material";
 import ExpandMore from "@mui/icons-material/ExpandMore";
-import { supportedTokens } from "@/libs/utils";
+import { SUPPORTED_TOKENS } from "@/libs/constants";
 
 const NetworkSelect: FC<{
 	selectedToken: string;
@@ -18,7 +18,7 @@ const NetworkSelect: FC<{
 				IconComponent={ExpandMore}
 				autoWidth={false}
 			>
-				{supportedTokens.map((token, i) => (
+				{SUPPORTED_TOKENS.map((token, i) => (
 					<MenuItem key={i} value={token.symbol} css={styles.selectItem}>
 						<img src={`images/${token.logo}`} alt={token.symbol} />
 						<span>{token.symbol}</span>

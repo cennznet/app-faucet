@@ -1,3 +1,18 @@
+import { CENNZnetToken } from "@/libs/types";
+
+export const SUPPORTED_TOKENS: CENNZnetToken[] = [
+	{
+		symbol: "CENNZ",
+		assetId: 16000,
+		logo: "cennz.svg",
+	},
+	{
+		symbol: "CPAY",
+		assetId: 16001,
+		logo: "cpay.svg",
+	},
+];
+
 export const NEXTAUTH_SECRET: string = String(process.env.NEXTAUTH_SECRET);
 
 export const TWITTER_ID: string = String(process.env.TWITTER_ID);

@@ -1,4 +1,4 @@
-import { CENNZnetNetwork } from "@/types";
+import { CENNZnetNetwork } from "@/libs/types";
 
 const supplyAccount = async (
 	address: string,

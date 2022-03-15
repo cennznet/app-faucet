@@ -2,8 +2,9 @@ import { FC, useState } from "react";
 import { css } from "@emotion/react";
 import { useSession } from "next-auth/react";
 import { Divider, SelectChangeEvent } from "@mui/material";
-import { CENNZnetNetwork, CENNZnetToken, TxStatus } from "@/types";
-import { supplyAccount, supportedTokens } from "@/libs/utils";
+import { CENNZnetNetwork, CENNZnetToken, TxStatus } from "@/libs/types";
+import { SUPPORTED_TOKENS } from "@/libs/constants";
+import { supplyAccount } from "@/libs/utils";
 import {
 	FaucetAccountInput,
 	FaucetButton,
@@ -15,7 +16,7 @@ import {
 
 const Faucet: FC = () => {
 	const { data: session } = useSession();
-	const [token, setToken] = useState<CENNZnetToken>(supportedTokens[0]);
+	const [token, setToken] = useState<CENNZnetToken>(SUPPORTED_TOKENS[0]);
 	const [network, setNetwork] = useState<CENNZnetNetwork>("Nikau");
 	const [address, setAddress] = useState<string>("");
 	const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -28,7 +29,7 @@ const Faucet: FC = () => {
 
 	const onTokenChange = (event: SelectChangeEvent) => {
 		const value = event.target.value;
-		setToken(supportedTokens.find((token) => token.symbol === value));
+		setToken(SUPPORTED_TOKENS.find((token) => token.symbol === value));
 	};
 
 	const fetchSupplyResponse = async () => {

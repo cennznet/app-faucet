@@ -37,11 +37,11 @@ export const styles = {
 	wrapper: css`
 		background-color: white;
 		box-shadow: 4px 8px 8px rgb(17 48 255 / 10%);
-		border-radius: 5px;
-		width: 636px;
+		border-radius: 4px;
+		width: 40em;
 		padding: 15px 35px;
 		@media (max-width: 500px) {
-			width: 375px;
+			width: 23em;
 		}
 	`,
 	container: css`

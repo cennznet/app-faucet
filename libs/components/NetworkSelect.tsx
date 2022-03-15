@@ -73,7 +73,8 @@ export const styles = {
 	`,
 	select: ({ palette, transitions }: Theme) => css`
 		border: none;
-		min-width: 135px;
+		min-width: 8.5em;
+		height: 3em;
 
 		&:hover,
 		& .MuiSelect-select[aria-expanded="true"] {

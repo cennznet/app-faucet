@@ -37,6 +37,12 @@ export const styles = {
 			margin-right: 10px;
 			filter: drop-shadow(2px 2px rgba(0,0,0, 0.15));
 		}
+
+		@media (max-width: 500px) {
+			width: 23em;
+			margin: 0 auto;
+			padding-bottom: 1em;
+		}
 	`,
 	heading: css`
 		color: #1130ff;

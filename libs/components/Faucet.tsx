@@ -57,14 +57,16 @@ const Faucet: FC = () => {
 					<p css={styles.heading} style={{ fontWeight: "bold" }}>
 						Request Tokens
 					</p>
-					<TokenSelect
-						selectedToken={token.symbol}
-						onTokenChange={onTokenChange}
-					/>
-					<NetworkSelect
-						selectedNetwork={network}
-						onNetworkChange={onNetworkChange}
-					/>
+					<div css={styles.selects}>
+						<TokenSelect
+							selectedToken={token.symbol}
+							onTokenChange={onTokenChange}
+						/>
+						<NetworkSelect
+							selectedNetwork={network}
+							onNetworkChange={onNetworkChange}
+						/>
+					</div>
 				</div>
 				<Divider />
 				<br />
@@ -91,20 +93,24 @@ export const styles = {
 	faucetWrapper: css`
 		background-color: white;
 		box-shadow: 4px 8px 8px rgb(17 48 255 / 10%);
-		border-radius: 5px;
-		height: auto;
-		width: 636px;
+		border-radius: 4px;
+		width: 40em;
 		padding: 15px 35px;
 		@media (max-width: 500px) {
-			width: 375px;
+			width: 23em;
 		}
 	`,
 	headingContainer: css`
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
-		margin: 5px 0 22px;
-		height: 60px;
+		margin: 0.3em 0 1.2em;
+		height: 4em;
+
+		@media (max-width: 500px) {
+			height: 6em;
+			margin-bottom: 2em;
+		}
 	`,
 	faucetContainer: css`
 		width: 100%;
@@ -113,7 +119,18 @@ export const styles = {
 	`,
 	heading: css`
 		font-size: 24px;
-		margin-bottom: 10px;
+		margin-bottom: 0.5em;
 		letter-spacing: 0.5px;
+	`,
+	selects: css`
+		margin-top: 0.15em;
+		display: inline-flex;
+		justify-content: space-between;
+		width: 18em;
+
+		@media (max-width: 500px) {
+			width: 8em;
+			display: block;
+		}
 	`,
 };

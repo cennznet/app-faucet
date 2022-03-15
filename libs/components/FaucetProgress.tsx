@@ -113,7 +113,7 @@ const styles = {
 	button: css`
 		margin-top: 2em;
 		text-align: center;
-		border-radius: 5px;
+		border-radius: 4px;
 		border: transparent;
 		background-color: #1da1f2;
 		color: white;

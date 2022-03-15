@@ -44,7 +44,7 @@ export const styles = {
 		height: 40px;
 		margin: 15px 0;
 		text-align: center;
-		border-radius: 5px;
+		border-radius: 4px;
 		background-color: ${palette.primary.main};
 		color: white;
 		letter-spacing: 0.5px;

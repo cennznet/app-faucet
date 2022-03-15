@@ -15,7 +15,6 @@ const FaucetAccountInput: FC<FaucetAccountInputProps> = ({
 		<div css={styles.addressInputContainer}>
 			{address ? (
 				<AccountIdenticon
-					css={styles.accountIdenticon}
 					theme="beachball"
 					size={28}
 					value={address}
@@ -47,13 +46,13 @@ export const styles = {
 		display: flex;
 		align-items: center;
 		justify-content: flex-start;
-		padding: 0 15px;
-		height: 60px;
+		padding: 0 1em;
+		height: 3.5em;
 		width: 100%;
 		border-radius: 4px;
 
 		input {
-			margin-left: 10px;
+			margin-left: 0.7em;
 			width: 100%;
 			height: 100%;
 			background: transparent;
@@ -67,9 +66,5 @@ export const styles = {
 				outline: none;
 			}
 		}
-	`,
-	accountIdenticon: css`
-		align-self: center;
-		margin-right: 5px;
 	`,
 };

@@ -7,7 +7,7 @@ const supplyAccount = async (
 		method: "post",
 		body: JSON.stringify({
 			address,
-			network: network === "Local Node" ? "local" : network.toLowerCase(),
+			network: network.toLowerCase(),
 			assetId,
 		}),
 	})

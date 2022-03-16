@@ -38,4 +38,4 @@ jobs:
         run: |
           yarn install --immutable
           yarn lint
-          yarn test
+          ENDOWED_ACCOUNT_SEEDS=${{ secrets.ENDOWED_ACCOUNT_SEEDS}} yarn run test

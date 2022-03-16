@@ -1,13 +1,14 @@
 import { FC } from "react";
 import { css } from "@emotion/react";
 import { Faucet, FaucetDetails } from "@/libs/components";
+import { CENNZ_BACKGROUND, CENNZnetBlue } from "@/assets/vectors";
 
 const Home: FC = () => {
 	return (
 		<div css={styles.background}>
 			<div css={styles.container}>
 				<div css={styles.headerContainer}>
-					<img src={"/images/cennznet_blue.svg"} alt={""} />
+					<img src={CENNZnetBlue} alt={""} />
 					<h1 css={styles.heading}>CENNZnet Faucet</h1>
 				</div>
 				<Faucet />
@@ -22,7 +23,7 @@ export default Home;
 
 export const styles = {
 	background: css`
-		background: url("/images/cennz_background.svg") repeat center top;
+		background: url(${CENNZ_BACKGROUND}) repeat center top;
 		background-size: 12px;
 		background-color: rgba(173, 216, 230, 0.2);
 		overflow: auto;

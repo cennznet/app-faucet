@@ -3,6 +3,7 @@ import { css } from "@emotion/react";
 import { MenuItem, Select, SelectChangeEvent, Theme } from "@mui/material";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import { CENNZnetNetwork } from "@/libs/types";
+import { CENNZnetBlue, CENNZ } from "@/assets/vectors";
 
 const NIKAU: CENNZnetNetwork = "Nikau";
 const RATA: CENNZnetNetwork = "Rata";
@@ -22,11 +23,11 @@ const NetworkSelect: FC<{
 				autoWidth={false}
 			>
 				<MenuItem key={NIKAU} value={NIKAU} css={styles.selectItem}>
-					<img src="images/cennznet_blue.svg" alt={NIKAU} />
+					<img src={CENNZnetBlue} alt={NIKAU} />
 					<span>{NIKAU}</span>
 				</MenuItem>
 				<MenuItem key={RATA} value={RATA} css={styles.selectItem}>
-					<img src="images/cennz.svg" alt={RATA} />
+					<img src={CENNZ} alt={RATA} />
 					<span>{RATA}</span>
 				</MenuItem>
 			</Select>

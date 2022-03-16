@@ -10,3 +10,5 @@ export interface TxStatus {
 	status: "in-progress" | "success" | "fail";
 	message: string;
 }
+
+declare module "*.svg";

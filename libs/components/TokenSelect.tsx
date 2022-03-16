@@ -3,6 +3,9 @@ import { css } from "@emotion/react";
 import { Select, SelectChangeEvent, MenuItem, Theme } from "@mui/material";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import { SUPPORTED_TOKENS } from "@/libs/constants";
+import { CENNZ, CPAY } from "@/assets/vectors";
+
+const logos = { CENNZ, CPAY };
 
 const NetworkSelect: FC<{
 	selectedToken: string;
@@ -20,7 +23,7 @@ const NetworkSelect: FC<{
 			>
 				{SUPPORTED_TOKENS.map((token, i) => (
 					<MenuItem key={i} value={token.symbol} css={styles.selectItem}>
-						<img src={`images/${token.logo}`} alt={token.symbol} />
+						<img src={logos[token.symbol]} alt={token.symbol} />
 						<span>{token.symbol}</span>
 					</MenuItem>
 				))}

@@ -18,6 +18,10 @@ describe("EndowedAccounts", () => {
 		bob = keyring.addFromUri("//TestAccount");
 	});
 
+	afterAll(async () => {
+		await api.disconnect();
+	});
+
 	describe("send()", () => {
 		it("should be able to send funds to given account", async () => {
 			const assetId = 16001;

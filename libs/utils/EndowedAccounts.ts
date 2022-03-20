@@ -9,9 +9,11 @@ class EndowedAccount {
 	private _ongoingTx: {};
 	private _resetNonce: any;
 	private TIMEOUT: number;
+	public address: string;
 
 	constructor(api, seed, keyring) {
 		this._keyPair = keyring.addFromUri(seed);
+		this.address = this._keyPair.address;
 
 		this._api = api;
 		this._nonce = 0;
@@ -189,7 +191,7 @@ export class EndowedAccounts {
 		this._availableAccounts = [];
 		this._unavailableAccounts = [];
 		this.MAX_UNAVAILABLE = 9;
-		this.MIN_AVAILABLE = 4;
+		this.MIN_AVAILABLE = 3;
 		seeds.map((seed) => {
 			const account = new EndowedAccount(api, seed, this._keyring);
 			this._accounts.push(account);

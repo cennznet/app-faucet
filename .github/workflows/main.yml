@@ -10,7 +10,7 @@ on:
 
 jobs:
   lint:
-    name: Linting
+    name: Linting & Testing
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -38,3 +38,4 @@ jobs:
         run: |
           yarn install --immutable
           yarn lint
+          ENDOWED_ACCOUNT_SEEDS=${{ secrets.ENDOWED_ACCOUNT_SEEDS}} yarn run test

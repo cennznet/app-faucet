@@ -10,6 +10,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "test": "jest",
     "prettier-format": "prettier --config .prettierrc.json ./ --write"
   },
   "dependencies": {
@@ -19,8 +20,12 @@
     "@emotion/styled": "^11.8.1",
     "@mui/icons-material": "^5.5.0",
     "@mui/material": "^5.5.0",
+    "@next/env": "^12.1.0",
     "@polkadot/react-identicon": "^1.2.1",
+    "@testing-library/jest-dom": "^5.16.2",
+    "babel-jest": "^27.5.1",
     "ioredis": "^4.28.5",
+    "jest": "^27.5.1",
     "next": "12.1.0",
     "next-auth": "^4.2.1",
     "react": "17.0.2",

@@ -1,9 +1,9 @@
 /** @type {import('next').NextConfig} */
 module.exports = {
 	reactStrictMode: true,
-	webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
+	webpack: (config) => {
 		config.module.rules.push({
-			test: /\.(woff|woff2|eot|ttf|otf)$/i,
+			test: /\.(svg)$/i,
 			type: "asset/resource",
 		});
 		return config;

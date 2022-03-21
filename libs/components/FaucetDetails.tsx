@@ -7,20 +7,19 @@ const FaucetDetails: FC = () => {
 		<div css={styles.wrapper}>
 			<div css={styles.container}>
 				<p css={styles.heading}>Faucet Details </p>
-				<Divider />
+				<Divider css={styles.divider} />
 				<div css={styles.details}>
 					<p css={styles.detailsHeading}>Faucet</p>
-					<p>The faucet will supply you with 2000 of your selected token.</p>
 					<p>
-						You can faucet each token once per day per CENNZnet network, or as
-						many times as you like to your local node.
+						The faucet will supply you with 2000 of your selected token, once
+						per day per token.
 					</p>
 				</div>
 				<div css={styles.details}>
 					<p css={styles.detailsHeading}>Validation</p>
 					<p>
 						In order to prevent faucet botting on CENNZnet networks, you must
-						sign in via Twitter. This isn&apos;t necessary for a local node.
+						sign in via Twitter.
 					</p>
 					<p>
 						Your Twitter account must have at least 1 Tweet, 15 followers, and
@@ -38,11 +37,11 @@ export const styles = {
 	wrapper: css`
 		background-color: white;
 		box-shadow: 4px 8px 8px rgb(17 48 255 / 10%);
-		border-radius: 5px;
-		width: 636px;
-		padding: 15px 35px;
+		border-radius: 4px;
+		width: 40em;
+		padding: 0.2em 2em;
 		@media (max-width: 500px) {
-			width: 375px;
+			width: 23em;
 		}
 	`,
 	container: css`
@@ -50,7 +49,6 @@ export const styles = {
 	`,
 	heading: css`
 		font-size: 24px;
-		margin-bottom: 10px;
 		letter-spacing: 0.5px;
 		font-weight: bold;
 	`,
@@ -63,5 +61,13 @@ export const styles = {
 	detailsHeading: css`
 		font-weight: bold;
 		letter-spacing: 0.5px;
+	`,
+	divider: css`
+		margin-left: -2em;
+		width: 40rem;
+
+		@media (max-width: 500px) {
+			width: 23em;
+		}
 	`,
 };

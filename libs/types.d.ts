@@ -1,4 +1,4 @@
-export type CENNZNET_NETWORK = "nikau" | "rata" | "local";
+export type CENNZnetNetwork = "Nikau" | "Rata";
 
 export interface CENNZnetToken {
 	symbol: string;
@@ -10,3 +10,5 @@ export interface TxStatus {
 	status: "in-progress" | "success" | "fail";
 	message: string;
 }
+
+declare module "*.svg";

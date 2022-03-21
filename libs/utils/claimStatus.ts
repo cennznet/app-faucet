@@ -3,7 +3,7 @@ import { REDIS_URL } from "@/libs/constants";
 
 const client = new Redis(REDIS_URL);
 
-async function status(
+export async function fetchClaimStatus(
 	address: string,
 	network: string,
 	assetId: string
@@ -14,4 +14,10 @@ async function status(
 	return !!resp;
 }
 
-export default status;
+export async function setNewClaim(
+	address: string,
+	network: string,
+	assetId: string
+) {
+	await client.set(`${address}-${network}-${assetId}`, "true", "EX", 86400);
+}

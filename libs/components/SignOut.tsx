@@ -6,7 +6,7 @@ const SignOut: FC<{ twitterHandle: string }> = ({ twitterHandle }) => {
 	return (
 		<div css={styles.root}>
 			<span onClick={async () => await signOut({ redirect: false })}>
-				Sign out @{twitterHandle}
+				Sign out {twitterHandle}
 			</span>
 		</div>
 	);

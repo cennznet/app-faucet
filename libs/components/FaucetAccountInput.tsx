@@ -14,9 +14,10 @@ const FaucetAccountInput: FC<FaucetAccountInputProps> = ({
 }) => {
 	return (
 		<div css={styles.addressInputContainer}>
-			{address ? (
+			{!!address && (
 				<AccountIdenticon theme="beachball" size={28} value={address} />
-			) : (
+			)}
+			{!address && (
 				<Image src={CENNZnetBlue} width={28} height={28} alt="cennz-logo" />
 			)}
 			<input

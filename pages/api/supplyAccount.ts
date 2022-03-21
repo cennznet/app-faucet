@@ -1,5 +1,4 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import Redis from "ioredis";
 import { Api } from "@cennznet/api";
 import { getSession } from "next-auth/react";
 import {
@@ -10,24 +9,7 @@ import {
 } from "@/libs/constants";
 import { EndowedAccounts } from "@/libs/utils";
 import { CENNZnetNetwork } from "@/libs/types";
-import { REDIS_URL } from "@/libs/constants";
-
-const client = new Redis(REDIS_URL);
-
-async function fetchClaimStatus(
-	address: string,
-	network: string,
-	assetId: string
-): Promise<boolean> {
-	const resp: string | null = await client.get(
-		`${address}-${network}-${assetId}`
-	);
-	return !!resp;
-}
-
-async function setNewClaim(address: string, network: string, assetId: string) {
-	await client.set(`${address}-${network}-${assetId}`, "true", "EX", 86400);
-}
+import { fetchClaimStatus, setNewClaim } from "@/libs/utils/claimStatus";
 
 export default async function handler(
 	req: NextApiRequest,

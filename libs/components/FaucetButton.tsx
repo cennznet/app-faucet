@@ -1,14 +1,16 @@
-import { FC, MouseEventHandler } from "react";
+import { MouseEventHandler, useState, VFC } from "react";
 import { css } from "@emotion/react";
-import { signIn, useSession } from "next-auth/react";
+import NewWindow from "react-new-window";
+import { useSession } from "next-auth/react";
 import { useMetaMaskWallet } from "@/libs/providers/MetaMaskWalletProvider";
 import { METAMASK } from "@/assets/vectors";
 
-const FaucetButton: FC<{
+const FaucetButton: VFC<{
 	supplyAccount: MouseEventHandler<HTMLDivElement>;
 }> = ({ supplyAccount }) => {
 	const { data: session } = useSession();
 	const { connectWallet, selectedAccount } = useMetaMaskWallet();
+	const [popup, setPopup] = useState<boolean>(false);
 
 	if (selectedAccount) {
 		if (session?.validAccount) {
@@ -20,11 +22,17 @@ const FaucetButton: FC<{
 		}
 
 		return (
-			<div
-				css={styles.faucetButton}
-				onClick={async () => await signIn("twitter")}
-			>
-				<p>PLEASE SIGN IN WITH A VALID TWITTER ACCOUNT</p>
+			<div>
+				{popup && !session && (
+					<NewWindow
+						url="/sign-in"
+						onUnload={() => setPopup(false)}
+						features={{ height: 600, width: 800 }}
+					/>
+				)}
+				<div css={styles.faucetButton} onClick={() => setPopup(true)}>
+					<p>PLEASE SIGN IN WITH A VALID TWITTER ACCOUNT</p>
+				</div>
 			</div>
 		);
 	}

@@ -39,13 +39,13 @@ const MetaMaskWalletProvider: FC<MetaMaskWalletProviderProps> = ({
 				{
 					chainId: "0xbb8",
 					blockExplorerUrls: ["https://uncoverexplorer.com"],
-					chainName: "CENNZnet Blackthorn",
+					chainName: "CENNZnet Nikau",
 					nativeCurrency: {
 						name: "CPAY",
 						symbol: "CPAY",
 						decimals: 18,
 					},
-					rpcUrls: ["https://evm.centrality.me/public"],
+					rpcUrls: ["https://nikau.centrality.me/public"],
 				},
 			],
 		});

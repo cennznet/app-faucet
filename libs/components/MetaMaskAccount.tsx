@@ -1,9 +1,9 @@
 import { VFC } from "react";
 import Image from "next/image";
 import { css } from "@emotion/react";
-import { AccountIdenticon } from "@/libs/components";
 import { METAMASK } from "@/assets/vectors";
 import { useMetaMaskWallet } from "@/libs/providers/MetaMaskWalletProvider";
+import Jazzicon, { jsNumberForAddress } from "react-jazzicon";
 
 const MetaMaskAccount: VFC = () => {
 	const { selectedAccount } = useMetaMaskWallet();
@@ -11,10 +11,9 @@ const MetaMaskAccount: VFC = () => {
 	return (
 		<div css={styles.addressInputContainer}>
 			{selectedAccount && (
-				<AccountIdenticon
-					theme="beachball"
-					size={28}
-					value={selectedAccount.address}
+				<Jazzicon
+					diameter={28}
+					seed={jsNumberForAddress(selectedAccount.address as string)}
 				/>
 			)}
 			{!selectedAccount && (

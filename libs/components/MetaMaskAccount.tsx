@@ -21,8 +21,8 @@ const MetaMaskAccount: VFC = () => {
 			)}
 			<input
 				type="text"
-				disabled
 				placeholder={"Connect Metamask"}
+				readOnly
 				value={selectedAccount?.address ?? ""}
 			/>
 		</div>
@@ -44,6 +44,7 @@ export const styles = {
 		border-radius: 4px;
 
 		input {
+			font-family: "Roboto Mono", monospace;
 			margin-left: 0.7em;
 			width: 100%;
 			height: 100%;
@@ -51,7 +52,6 @@ export const styles = {
 			border: none;
 			text-overflow: ellipsis;
 			font-style: normal;
-			font-weight: bold;
 			font-size: 16px;
 			line-height: 124%;
 			&:focus-visible {

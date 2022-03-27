@@ -61,11 +61,10 @@ const styles = {
 			align-items: center;
 			justify-content: center;
 			backdrop-filter: blur(2px);
-			padding: 5em;
 			text-align: center;
 			font-size: 14px;
-			width: 100%;
-			height: 100%;
+			width: 40rem;
+			margin-left: -2rem;
 		`,
 	status: css`
 		margin-bottom: 1.5em;

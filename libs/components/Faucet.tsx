@@ -103,7 +103,7 @@ export const styles = {
 		}
 	`,
 	faucetContainer: css`
-		width: 100%;
+		width: 36em;
 		margin: 0 auto;
 		position: relative;
 	`,
@@ -124,7 +124,7 @@ export const styles = {
 	`,
 	divider: css`
 		margin-left: -2rem;
-		width: 40rem;
+		width: 40em;
 		margin-top: 2em;
 
 		@media (max-width: 500px) {

@@ -58,8 +58,6 @@ const MetaMaskWalletProvider: FC<MetaMaskWalletProviderProps> = ({
 				return promptInstallExtension();
 			}
 
-			await ensureEthereumChain(extension);
-
 			const accounts = (await extension.request({
 				method: "eth_requestAccounts",
 			})) as string[];
@@ -73,6 +71,7 @@ const MetaMaskWalletProvider: FC<MetaMaskWalletProviderProps> = ({
 			setWallet(new Web3Provider(extension as any));
 
 			await addCENNZnetToMetaMask();
+			await ensureEthereumChain(extension);
 		},
 		[extension, promptInstallExtension]
 	);

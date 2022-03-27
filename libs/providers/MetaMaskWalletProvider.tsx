@@ -7,14 +7,14 @@ import {
 	useEffect,
 	useState,
 } from "react";
-import { ethers } from "ethers";
 import { MetaMaskAccount } from "@/libs/types";
 import { ensureEthereumChain } from "@/libs/utils";
+import { Web3Provider } from "@ethersproject/providers";
 
 interface MetaMaskWalletContextType {
 	connectWallet: (callback?: () => void) => Promise<void>;
 	selectedAccount: MetaMaskAccount;
-	wallet: ethers.providers.Web3Provider;
+	wallet: Web3Provider;
 }
 
 const MetaMaskWalletContext = createContext<MetaMaskWalletContextType>(
@@ -31,6 +31,25 @@ const MetaMaskWalletProvider: FC<MetaMaskWalletProviderProps> = ({
 		useState<MetaMaskWalletContextType["wallet"]>(null);
 	const [selectedAccount, setSelectedAccount] =
 		useState<MetaMaskWalletContextType["selectedAccount"]>(null);
+
+	const addCENNZnetToMetaMask = async () => {
+		await global.ethereum.request({
+			method: "wallet_addEthereumChain",
+			params: [
+				{
+					chainId: "0xbb8",
+					blockExplorerUrls: ["https://uncoverexplorer.com"],
+					chainName: "CENNZnet Blackthorn",
+					nativeCurrency: {
+						name: "CPAY",
+						symbol: "CPAY",
+						decimals: 18,
+					},
+					rpcUrls: ["https://evm.centrality.me/public"],
+				},
+			],
+		});
+	};
 
 	const connectWallet = useCallback(
 		async (callback) => {
@@ -51,7 +70,9 @@ const MetaMaskWalletProvider: FC<MetaMaskWalletProviderProps> = ({
 				);
 
 			setSelectedAccount({ address: accounts[0] });
-			setWallet(new ethers.providers.Web3Provider(extension as any));
+			setWallet(new Web3Provider(extension as any));
+
+			await addCENNZnetToMetaMask();
 		},
 		[extension, promptInstallExtension]
 	);
@@ -65,7 +86,7 @@ const MetaMaskWalletProvider: FC<MetaMaskWalletProviderProps> = ({
 			if (!accounts?.length) return;
 
 			setSelectedAccount({ address: accounts[0] });
-			setWallet(new ethers.providers.Web3Provider(extension as any));
+			setWallet(new Web3Provider(extension as any));
 		};
 
 		checkAccounts();

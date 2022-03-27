@@ -1332,6 +1332,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@metamask/detect-provider@npm:^1.2.0":
+  version: 1.2.0
+  resolution: "@metamask/detect-provider@npm:1.2.0"
+  checksum: 2c152534a8dd15bc1430bb5159cdf58993549a644cff344a1ff43f4ede8f041aad72b909e822747f6545de3ed293a740ecffc86a859daf7a925c4096efd61eb3
+  languageName: node
+  linkType: hard
+
 "@metamask/object-multiplex@npm:^1.1.0":
   version: 1.2.0
   resolution: "@metamask/object-multiplex@npm:1.2.0"
@@ -2728,6 +2735,7 @@ __metadata:
     "@cennznet/types": ^2.1.0-alpha.1
     "@emotion/react": ^11.8.2
     "@emotion/styled": ^11.8.1
+    "@metamask/detect-provider": ^1.2.0
     "@metamask/providers": ^8.1.1
     "@mui/icons-material": ^5.5.0
     "@mui/material": ^5.5.0
@@ -2751,6 +2759,7 @@ __metadata:
     react: 17.0.2
     react-dom: 17.0.2
     typescript: 4.6.2
+    ua-parser-js: ^1.0.2
   languageName: unknown
   linkType: soft
 
@@ -7916,6 +7925,13 @@ __metadata:
     tsc: bin/tsc
     tsserver: bin/tsserver
   checksum: 40b493a71747fb89fa70df104e2c4a5e284b43750af5bea024090a5261cefa387f7a9372411b13030f7bf5555cee4275443d08805642ae5c74ef76740854a4c7
+  languageName: node
+  linkType: hard
+
+"ua-parser-js@npm:^1.0.2":
+  version: 1.0.2
+  resolution: "ua-parser-js@npm:1.0.2"
+  checksum: ff7f6d79a9c1a38aa85a0e751040fc7e17a0b621bda876838d14ebe55aca4e50e68da0350f181e58801c2d8a35e7db4e12473776e558910c4b7cabcec96aa3bf
   languageName: node
   linkType: hard
 

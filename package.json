@@ -18,6 +18,7 @@
     "@cennznet/types": "^2.1.0-alpha.1",
     "@emotion/react": "^11.8.2",
     "@emotion/styled": "^11.8.1",
+    "@metamask/detect-provider": "^1.2.0",
     "@metamask/providers": "^8.1.1",
     "@mui/icons-material": "^5.5.0",
     "@mui/material": "^5.5.0",
@@ -31,7 +32,8 @@
     "next": "12.1.0",
     "next-auth": "^4.2.1",
     "react": "17.0.2",
-    "react-dom": "17.0.2"
+    "react-dom": "17.0.2",
+    "ua-parser-js": "^1.0.2"
   },
   "devDependencies": {
     "@types/node": "17.0.21",

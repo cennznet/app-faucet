@@ -6,7 +6,7 @@ import ThemeProvider from "@/libs/providers/ThemeProvider";
 import { CssGlobal } from "@/libs/components";
 import { FAVICON } from "@/assets/vectors";
 import UserAgentProvider from "@/libs/providers/UserAgentProvider";
-import MetaMaskExtensionProvider from "@/libs/providers/MetaMaskExtenstionProvider";
+import MetaMaskExtensionProvider from "@/libs/providers/MetaMaskExtensionProvider";
 import MetaMaskWalletProvider from "@/libs/providers/MetaMaskWalletProvider";
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {

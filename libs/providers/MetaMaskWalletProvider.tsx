@@ -8,7 +8,7 @@ import {
 	useState,
 } from "react";
 import { MetaMaskAccount } from "@/libs/types";
-import { ensureEthereumChain } from "@/libs/utils";
+import { addCENNZnetToMetaMask, addCENNZTokenToMetaMask, ensureEthereumChain } from "@/libs/utils";
 import { Web3Provider } from "@ethersproject/providers";
 
 interface MetaMaskWalletContextType {
@@ -32,25 +32,6 @@ const MetaMaskWalletProvider: FC<MetaMaskWalletProviderProps> = ({
 	const [selectedAccount, setSelectedAccount] =
 		useState<MetaMaskWalletContextType["selectedAccount"]>(null);
 
-	const addCENNZnetToMetaMask = async () => {
-		await global.ethereum.request({
-			method: "wallet_addEthereumChain",
-			params: [
-				{
-					chainId: "0xbb8",
-					blockExplorerUrls: ["https://uncoverexplorer.com"],
-					chainName: "CENNZnet Nikau",
-					nativeCurrency: {
-						name: "CPAY",
-						symbol: "CPAY",
-						decimals: 18,
-					},
-					rpcUrls: ["https://nikau.centrality.me/public"],
-				},
-			],
-		});
-	};
-
 	const connectWallet = useCallback(
 		async (callback) => {
 			if (!extension) {
@@ -72,6 +53,7 @@ const MetaMaskWalletProvider: FC<MetaMaskWalletProviderProps> = ({
 
 			await addCENNZnetToMetaMask();
 			await ensureEthereumChain(extension);
+			await addCENNZTokenToMetaMask();
 		},
 		[extension, promptInstallExtension]
 	);

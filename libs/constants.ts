@@ -31,8 +31,4 @@ export const CENNZNET_NIKAU_API_URL: string = String(
 	process.env.NEXT_PUBLIC_CENNZNET_NIKAU_API_URL
 );
 
-export const CENNZNET_RATA_API_URL: string = String(
-	process.env.NEXT_PUBLIC_CENNZNET_RATA_API_URL
-);
-
 export const REDIS_URL: string = String(process.env.REDIS_URL);

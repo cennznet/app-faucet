@@ -1,5 +1,3 @@
-export type CENNZnetNetwork = "Nikau" | "Rata";
-
 export interface CENNZnetToken {
 	symbol: string;
 	assetId: number;

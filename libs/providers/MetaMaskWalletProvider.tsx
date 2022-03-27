@@ -8,7 +8,11 @@ import {
 	useState,
 } from "react";
 import { MetaMaskAccount } from "@/libs/types";
-import { addCENNZnetToMetaMask, addCENNZTokenToMetaMask, ensureEthereumChain } from "@/libs/utils";
+import {
+	addCENNZnetToMetaMask,
+	addCENNZTokenToMetaMask,
+	ensureEthereumChain,
+} from "@/libs/utils";
 import { Web3Provider } from "@ethersproject/providers";
 
 interface MetaMaskWalletContextType {

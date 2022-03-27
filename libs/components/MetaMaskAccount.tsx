@@ -1,36 +1,36 @@
-import { FC } from "react";
+import { VFC } from "react";
 import Image from "next/image";
 import { css } from "@emotion/react";
 import { AccountIdenticon } from "@/libs/components";
-import { CENNZnetBlue } from "@/assets/vectors";
+import { METAMASK } from "@/assets/vectors";
+import { useMetaMaskWallet } from "@/libs/providers/MetaMaskWalletProvider";
 
-interface FaucetAccountInputProps {
-	setAddress: Function;
-	address: string;
-}
-const FaucetAccountInput: FC<FaucetAccountInputProps> = ({
-	setAddress,
-	address,
-}) => {
+const MetaMaskAccount: VFC = () => {
+	const { selectedAccount } = useMetaMaskWallet();
+
 	return (
 		<div css={styles.addressInputContainer}>
-			{!!address && (
-				<AccountIdenticon theme="beachball" size={28} value={address} />
+			{selectedAccount && (
+				<AccountIdenticon
+					theme="beachball"
+					size={28}
+					value={selectedAccount.address}
+				/>
 			)}
-			{!address && (
-				<Image src={CENNZnetBlue} width={28} height={28} alt="cennz-logo" />
+			{!selectedAccount && (
+				<Image src={METAMASK} width={28} height={28} alt="metamask-logo" />
 			)}
 			<input
 				type="text"
-				value={address}
-				placeholder={"Enter your CENNZnet address"}
-				onChange={(e) => setAddress(e.target.value)}
+				disabled
+				placeholder={"Connect Metamask"}
+				value={selectedAccount?.address ?? ""}
 			/>
 		</div>
 	);
 };
 
-export default FaucetAccountInput;
+export default MetaMaskAccount;
 
 export const styles = {
 	addressInputContainer: css`

@@ -11,4 +11,8 @@ export interface TxStatus {
 	message: string;
 }
 
+export interface MetaMaskAccount {
+	address: string;
+}
+
 declare module "*.svg";

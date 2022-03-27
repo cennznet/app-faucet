@@ -5,8 +5,7 @@ export default async function ensureEthereumChain(
 ): Promise<void> {
 	const ethChainId = await extension.request({ method: "eth_chainId" });
 
-	if (ethChainId === "0x2a")
-		return;
+	if (ethChainId === "0x2a") return;
 
 	await extension.request({
 		method: "wallet_switchEthereumChain",

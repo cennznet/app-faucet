@@ -50,3 +50,6 @@ export const NETWORKS: MetamaskNetworks = {
 		rpcUrl: "https://rata.centrality.me/public",
 	},
 };
+
+export const CENNZ_IPFS: string =
+	"https://gateway.pinata.cloud/ipfs/QmfDkgrhCFfVJErVVDuU7UYasYsooXMEXFhBzLMNm6pgey";

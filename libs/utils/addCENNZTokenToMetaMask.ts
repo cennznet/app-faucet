@@ -8,7 +8,7 @@ export default async function addCENNZTokenToMetamask() {
 			options: {
 				address: "0xcCccccCc00003E80000000000000000000000000",
 				symbol: "CENNZ",
-				decimals: 18,
+				decimals: 4,
 				image: CENNZ_IPFS,
 			},
 		},

@@ -8,11 +8,7 @@ import {
 	useState,
 } from "react";
 import { CENNZNetNetwork, MetaMaskAccount } from "@/libs/types";
-import {
-	addCENNZnetToMetaMask,
-	addCENNZTokenToMetaMask,
-	ensureEthereumChain,
-} from "@/libs/utils";
+import { ensureEthereumChain } from "@/libs/utils";
 import { Web3Provider } from "@ethersproject/providers";
 import useLocalStorage from "@/libs/hooks/useLocalStorage";
 
@@ -57,9 +53,7 @@ const MetaMaskWalletProvider: FC<MetaMaskWalletProviderProps> = ({
 			setSelectedAccount({ address: accounts[0] });
 			setWallet(new Web3Provider(extension as any));
 
-			await addCENNZnetToMetaMask(CENNZNetwork);
 			await ensureEthereumChain(extension, CENNZNetwork);
-			await addCENNZTokenToMetaMask();
 		},
 		[extension, promptInstallExtension, CENNZNetwork]
 	);

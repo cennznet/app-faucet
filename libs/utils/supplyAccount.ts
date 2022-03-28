@@ -1,8 +1,15 @@
-const supplyAccount = async (address: string, assetId: number) =>
+import { CENNZNetNetwork } from "@/libs/types";
+
+const supplyAccount = async (
+	address: string,
+	network: CENNZNetNetwork,
+	assetId: number
+) =>
 	await fetch(`/api/supplyAccount`, {
 		method: "post",
 		body: JSON.stringify({
 			address,
+			network,
 			assetId,
 		}),
 	})

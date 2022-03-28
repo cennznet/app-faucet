@@ -7,13 +7,14 @@ import {
 	useEffect,
 	useState,
 } from "react";
-import { MetaMaskAccount } from "@/libs/types";
+import { CENNZNetNetwork, MetaMaskAccount } from "@/libs/types";
 import {
 	addCENNZnetToMetaMask,
 	addCENNZTokenToMetaMask,
 	ensureEthereumChain,
 } from "@/libs/utils";
 import { Web3Provider } from "@ethersproject/providers";
+import useLocalStorage from "@/libs/hooks/useLocalStorage";
 
 interface MetaMaskWalletContextType {
 	connectWallet: (callback?: () => void) => Promise<void>;
@@ -31,6 +32,7 @@ const MetaMaskWalletProvider: FC<MetaMaskWalletProviderProps> = ({
 	children,
 }) => {
 	const { extension, promptInstallExtension } = useMetaMaskExtension();
+	const [CENNZNetwork] = useLocalStorage<CENNZNetNetwork>("network", "nikau");
 	const [wallet, setWallet] =
 		useState<MetaMaskWalletContextType["wallet"]>(null);
 	const [selectedAccount, setSelectedAccount] =
@@ -55,11 +57,11 @@ const MetaMaskWalletProvider: FC<MetaMaskWalletProviderProps> = ({
 			setSelectedAccount({ address: accounts[0] });
 			setWallet(new Web3Provider(extension as any));
 
-			await addCENNZnetToMetaMask();
-			await ensureEthereumChain(extension);
+			await addCENNZnetToMetaMask(CENNZNetwork);
+			await ensureEthereumChain(extension, CENNZNetwork);
 			await addCENNZTokenToMetaMask();
 		},
-		[extension, promptInstallExtension]
+		[extension, promptInstallExtension, CENNZNetwork]
 	);
 
 	useEffect(() => {
@@ -72,11 +74,11 @@ const MetaMaskWalletProvider: FC<MetaMaskWalletProviderProps> = ({
 
 			setSelectedAccount({ address: accounts[0] });
 			setWallet(new Web3Provider(extension as any));
-			await ensureEthereumChain(extension);
+			await ensureEthereumChain(extension, CENNZNetwork);
 		};
 
 		checkAccounts();
-	}, [extension]);
+	}, [extension, CENNZNetwork]);
 
 	useEffect(() => {
 		if (!selectedAccount?.address || !extension) return;

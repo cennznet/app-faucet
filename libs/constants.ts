@@ -1,4 +1,4 @@
-import { CENNZnetToken } from "@/libs/types";
+import { CENNZnetToken, MetamaskNetworks } from "@/libs/types";
 
 export const SUPPORTED_TOKENS: CENNZnetToken[] = [
 	{
@@ -31,4 +31,22 @@ export const CENNZNET_NIKAU_API_URL: string = String(
 	process.env.NEXT_PUBLIC_CENNZNET_NIKAU_API_URL
 );
 
+export const CENNZNET_RATA_API_URL: string = String(
+	process.env.NEXT_PUBLIC_CENNZNET_RATA_API_URL
+);
+
 export const REDIS_URL: string = String(process.env.REDIS_URL);
+
+// TODO update network chainIds once they're set
+export const NETWORKS: MetamaskNetworks = {
+	nikau: {
+		chainId: "0xbb8",
+		chainName: "CENNZnet Nikau",
+		rpcUrl: "https://nikau.centrality.me/public",
+	},
+	rata: {
+		chainId: "0xbb8",
+		chainName: "CENNZnet Rata",
+		rpcUrl: "https://rata.centrality.me/public",
+	},
+};

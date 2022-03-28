@@ -1,17 +1,20 @@
-export default async function addCENNZnetToMetaMask() {
+import { CENNZNetNetwork } from "@/libs/types";
+import { NETWORKS } from "@/libs/constants";
+
+export default async function addCENNZnetToMetaMask(network: CENNZNetNetwork) {
 	await global.ethereum.request({
 		method: "wallet_addEthereumChain",
 		params: [
 			{
-				chainId: "0xbb8",
+				chainId: NETWORKS[network].chainId,
 				blockExplorerUrls: ["https://uncoverexplorer.com"],
-				chainName: "CENNZnet Nikau",
+				chainName: NETWORKS[network].chainName,
 				nativeCurrency: {
 					name: "CPAY",
 					symbol: "CPAY",
 					decimals: 18,
 				},
-				rpcUrls: ["https://nikau.centrality.me/public"],
+				rpcUrls: [NETWORKS[network].rpcUrl],
 			},
 		],
 	});

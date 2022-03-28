@@ -77,15 +77,19 @@ const MetaMaskWalletProvider: FC<MetaMaskWalletProviderProps> = ({
 	useEffect(() => {
 		if (!selectedAccount?.address || !extension) return;
 
+		const clearAccount = () => setSelectedAccount(null);
+
 		const onAccountsChanged = (accounts: string[]) => {
-			if (!accounts?.length) return setSelectedAccount(null);
+			if (!accounts?.length) return clearAccount();
 			setSelectedAccount({ address: accounts[0] });
 		};
 
 		extension.on("accountsChanged", onAccountsChanged);
+		extension.on("disconnect", clearAccount);
 
 		return () => {
 			extension.removeListener("accountsChanged", onAccountsChanged);
+			extension.removeListener("disconnect", clearAccount);
 		};
 	}, [selectedAccount?.address, extension]);
 

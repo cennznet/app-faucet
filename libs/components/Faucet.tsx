@@ -6,6 +6,7 @@ import { CENNZNetNetwork, CENNZnetToken, TxStatus } from "@/libs/types";
 import { SUPPORTED_TOKENS } from "@/libs/constants";
 import {
 	addCENNZnetToMetaMask,
+	addCENNZTokenToMetaMask,
 	ensureEthereumChain,
 	supplyAccount,
 } from "@/libs/utils";
@@ -47,7 +48,9 @@ const Faucet: FC = () => {
 	};
 
 	const fetchSupplyResponse = useCallback(async () => {
-		if (!selectedAccount || !network) return;
+		if (!selectedAccount || !token || !network) return;
+		if (token.symbol === "CENNZ") await addCENNZTokenToMetaMask();
+
 		setResponse({
 			message: `Retrieving ${token.symbol} from the Faucet`,
 			status: "in-progress",

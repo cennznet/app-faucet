@@ -72,6 +72,7 @@ const MetaMaskWalletProvider: FC<MetaMaskWalletProviderProps> = ({
 
 			setSelectedAccount({ address: accounts[0] });
 			setWallet(new Web3Provider(extension as any));
+			await ensureEthereumChain(extension);
 		};
 
 		checkAccounts();

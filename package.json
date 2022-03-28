@@ -24,6 +24,7 @@
     "@mui/material": "^5.5.0",
     "@next/env": "^12.1.0",
     "@polkadot/keyring": "^8.4.1",
+    "@polkadot/react-identicon": "^1.4.1",
     "@polkadot/util": "^8.4.1",
     "@polkadot/util-crypto": "^8.4.1",
     "@testing-library/jest-dom": "^5.16.2",

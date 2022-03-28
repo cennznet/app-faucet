@@ -1,20 +1,25 @@
-import { VFC } from "react";
+import { useState, VFC } from "react";
 import Image from "next/image";
 import { css } from "@emotion/react";
 import { METAMASK } from "@/assets";
 import { useMetaMaskWallet } from "@/libs/providers/MetaMaskWalletProvider";
 import Jazzicon, { jsNumberForAddress } from "react-jazzicon";
+import AccountIdenticon from "@/libs/components/AccountIdenticon";
 
 const MetaMaskAccount: VFC = () => {
 	const { selectedAccount } = useMetaMaskWallet();
+	const [CENNZAddress, setCENNZAddress] = useState<string>();
 
 	return (
 		<div css={styles.addressInputContainer}>
-			{selectedAccount && (
+			{selectedAccount && !CENNZAddress && (
 				<Jazzicon
 					diameter={28}
 					seed={jsNumberForAddress(selectedAccount.address as string)}
 				/>
+			)}
+			{CENNZAddress && (
+				<AccountIdenticon theme="beachball" size={28} value={CENNZAddress} />
 			)}
 			{!selectedAccount && (
 				<Image src={METAMASK} width={28} height={28} alt="metamask-logo" />
@@ -22,8 +27,8 @@ const MetaMaskAccount: VFC = () => {
 			<input
 				type="text"
 				placeholder={"Connect Metamask"}
-				readOnly
-				value={selectedAccount?.address ?? ""}
+				value={selectedAccount?.address ?? CENNZAddress ?? ""}
+				onChange={(event) => setCENNZAddress(event.target.value)}
 			/>
 		</div>
 	);

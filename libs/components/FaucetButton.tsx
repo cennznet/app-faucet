@@ -3,7 +3,7 @@ import { css } from "@emotion/react";
 import NewWindow from "react-new-window";
 import { useSession } from "next-auth/react";
 import { useMetaMaskWallet } from "@/libs/providers/MetaMaskWalletProvider";
-import { METAMASK } from "@/assets/vectors";
+import { METAMASK } from "@/assets";
 
 const FaucetButton: VFC<{
 	supplyAccount: MouseEventHandler<HTMLDivElement>;

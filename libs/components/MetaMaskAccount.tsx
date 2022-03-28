@@ -1,7 +1,7 @@
 import { VFC } from "react";
 import Image from "next/image";
 import { css } from "@emotion/react";
-import { METAMASK } from "@/assets/vectors";
+import { METAMASK } from "@/assets";
 import { useMetaMaskWallet } from "@/libs/providers/MetaMaskWalletProvider";
 import Jazzicon, { jsNumberForAddress } from "react-jazzicon";
 

@@ -4,7 +4,7 @@ import Head from "next/head";
 import CssBaseline from "@mui/material/CssBaseline";
 import ThemeProvider from "@/libs/providers/ThemeProvider";
 import { CssGlobal } from "@/libs/components";
-import { FAVICON } from "@/assets/vectors";
+import { FAVICON } from "@/assets";
 import UserAgentProvider from "@/libs/providers/UserAgentProvider";
 import MetaMaskExtensionProvider from "@/libs/providers/MetaMaskExtensionProvider";
 import MetaMaskWalletProvider from "@/libs/providers/MetaMaskWalletProvider";

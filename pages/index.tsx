@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { css } from "@emotion/react";
 import { Faucet, FaucetDetails, PageHeader } from "@/libs/components";
-import { CENNZ_BACKGROUND } from "@/assets/vectors";
+import { CENNZ_BACKGROUND } from "@/assets";
 
 const Home: FC = () => {
 	return (

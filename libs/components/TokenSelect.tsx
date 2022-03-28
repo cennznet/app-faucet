@@ -3,7 +3,7 @@ import { css } from "@emotion/react";
 import { Select, SelectChangeEvent, MenuItem, Theme } from "@mui/material";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import { SUPPORTED_TOKENS } from "@/libs/constants";
-import { CENNZ, CPAY } from "@/assets/vectors";
+import { CENNZ, CPAY } from "@/assets";
 
 const logos = { CENNZ, CPAY };
 

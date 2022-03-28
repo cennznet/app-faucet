@@ -1,14 +1,14 @@
 import { FC } from "react";
 import Image from "next/image";
 import { css } from "@emotion/react";
-import { CENNZnetBlue } from "@/assets/vectors";
+import { NIKAU } from "@/assets";
 
 const Home: FC = () => {
 	return (
 		<div css={styles.root}>
 			<div css={styles.container}>
 				<Image
-					src={CENNZnetBlue}
+					src={NIKAU}
 					alt={"CENNZnet-blue-logo"}
 					width={35}
 					height={35}

@@ -2,17 +2,17 @@ import { FC } from "react";
 import { css } from "@emotion/react";
 import { MenuItem, Select, SelectChangeEvent, Theme } from "@mui/material";
 import ExpandMore from "@mui/icons-material/ExpandMore";
-import { CENNZnetBlue, CPAY } from "@/assets/vectors";
+import { NIKAU, RATA } from "@/assets";
 import { CENNZNetNetwork, NetworkOptions } from "@/libs/types";
 
 const NETWORKS: NetworkOptions = {
 	nikau: {
 		name: "nikau",
-		img: CENNZnetBlue,
+		img: NIKAU,
 	},
 	rata: {
 		name: "rata",
-		img: CPAY,
+		img: RATA,
 	},
 };
 

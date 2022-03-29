@@ -8,6 +8,7 @@ import { FAVICON } from "@/assets";
 import UserAgentProvider from "@/libs/providers/UserAgentProvider";
 import MetaMaskExtensionProvider from "@/libs/providers/MetaMaskExtensionProvider";
 import MetaMaskWalletProvider from "@/libs/providers/MetaMaskWalletProvider";
+import FaucetProvider from "@/libs/providers/FaucetProvider";
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
 	return (
@@ -16,19 +17,21 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
 			<ThemeProvider>
 				<CssGlobal />
 				<UserAgentProvider>
-					<MetaMaskExtensionProvider>
-						<MetaMaskWalletProvider>
-							<Head>
-								<title>CENNZnet App Faucet</title>
-								<meta
-									name="description"
-									content="Testnet token faucet powered by CENNZnet"
-								/>
-								<link rel="icon" href={FAVICON} />
-							</Head>
-							<Component {...pageProps} />
-						</MetaMaskWalletProvider>
-					</MetaMaskExtensionProvider>
+					<FaucetProvider>
+						<MetaMaskExtensionProvider>
+							<MetaMaskWalletProvider>
+								<Head>
+									<title>CENNZnet App Faucet</title>
+									<meta
+										name="description"
+										content="Testnet token faucet powered by CENNZnet"
+									/>
+									<link rel="icon" href={FAVICON} />
+								</Head>
+								<Component {...pageProps} />
+							</MetaMaskWalletProvider>
+						</MetaMaskExtensionProvider>
+					</FaucetProvider>
 				</UserAgentProvider>
 			</ThemeProvider>
 		</SessionProvider>

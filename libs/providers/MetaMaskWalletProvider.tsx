@@ -7,10 +7,10 @@ import {
 	useEffect,
 	useState,
 } from "react";
-import { CENNZNetNetwork, MetaMaskAccount } from "@/libs/types";
+import { MetaMaskAccount } from "@/libs/types";
 import { ensureEthereumChain } from "@/libs/utils";
 import { Web3Provider } from "@ethersproject/providers";
-import useLocalStorage from "@/libs/hooks/useLocalStorage";
+import { useFaucet } from "@/libs/providers/FaucetProvider";
 
 interface MetaMaskWalletContextType {
 	connectWallet: (callback?: () => void) => Promise<void>;
@@ -28,7 +28,7 @@ const MetaMaskWalletProvider: FC<MetaMaskWalletProviderProps> = ({
 	children,
 }) => {
 	const { extension, promptInstallExtension } = useMetaMaskExtension();
-	const [CENNZNetwork] = useLocalStorage<CENNZNetNetwork>("network", "nikau");
+	const { network: CENNZNetwork } = useFaucet();
 	const [wallet, setWallet] =
 		useState<MetaMaskWalletContextType["wallet"]>(null);
 	const [selectedAccount, setSelectedAccount] =

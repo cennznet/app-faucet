@@ -51,5 +51,8 @@ export const NETWORKS: MetamaskNetworks = {
 	},
 };
 
+export const CPAY_IPFS: string =
+	"https://gateway.pinata.cloud/ipfs/QmehPHqUocYho8FLC2Hs9EgU4vgm698br6RwMEddw1m9VD";
+
 export const CENNZ_IPFS: string =
 	"https://gateway.pinata.cloud/ipfs/QmfDkgrhCFfVJErVVDuU7UYasYsooXMEXFhBzLMNm6pgey";

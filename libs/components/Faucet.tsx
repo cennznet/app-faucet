@@ -1,4 +1,4 @@
-import { FC, useCallback, useState } from "react";
+import { VFC, useCallback, useState } from "react";
 import { css } from "@emotion/react";
 import { useSession } from "next-auth/react";
 import { Divider, SelectChangeEvent } from "@mui/material";
@@ -14,24 +14,19 @@ import {
 	FaucetProgress,
 	TokenSelect,
 	SignOut,
-	MetaMaskAccount,
 	NetworkSelect,
+	DestinationInput,
 } from "@/libs/components";
-import { useMetaMaskWallet } from "@/libs/providers/MetaMaskWalletProvider";
-import useLocalStorage from "@/libs/hooks/useLocalStorage";
 import { useMetaMaskExtension } from "@/libs/providers/MetaMaskExtensionProvider";
+import { useFaucet } from "@/libs/providers/FaucetProvider";
 
-const Faucet: FC = () => {
+const Faucet: VFC = () => {
 	const { data: session } = useSession();
 	const { extension } = useMetaMaskExtension();
-	const { selectedAccount } = useMetaMaskWallet();
+	const { address, network, setNetwork, addressType } = useFaucet();
 	const [token, setToken] = useState<CENNZnetToken>(SUPPORTED_TOKENS[0]);
 	const [isOpen, setIsOpen] = useState<boolean>(false);
 	const [response, setResponse] = useState<TxStatus>();
-	const [network, setNetwork] = useLocalStorage<CENNZNetNetwork>(
-		"network",
-		"nikau"
-	);
 
 	const onTokenChange = (event: SelectChangeEvent) => {
 		const value = event.target.value;
@@ -46,40 +41,43 @@ const Faucet: FC = () => {
 		await ensureEthereumChain(extension, selectedNetwork);
 	};
 
-	const fetchSupplyResponse = useCallback(async () => {
-		if (!selectedAccount || !token || !network) return;
+	const fetchSupplyResponse = useCallback(
+		async (event) => {
+			event.preventDefault();
+			if (!token || !network || !address) return;
 
-		setResponse({
-			message: `Retrieving ${token.symbol} from the Faucet`,
-			status: "in-progress",
-		});
-		setIsOpen(true);
-		const supplyResponse = await supplyAccount(
-			selectedAccount.address,
-			network,
-			token.assetId
-		);
-
-		if (supplyResponse.success) {
 			setResponse({
-				message: `${token.symbol} sent successfully!`,
-				status: "success",
+				message: `Retrieving ${token.symbol} from the Faucet`,
+				status: "in-progress",
 			});
-			return;
-		}
-		setResponse({
-			message: `Error: ${supplyResponse.error}`,
-			status: "fail",
-		});
-	}, [network, selectedAccount, token]);
+			setIsOpen(true);
+			const supplyResponse = await supplyAccount(
+				address,
+				addressType,
+				network,
+				token.assetId
+			);
+
+			if (supplyResponse.success) {
+				setResponse({
+					message: `${token.symbol} sent successfully!`,
+					status: "success",
+				});
+				return;
+			}
+			setResponse({
+				message: `Error: ${supplyResponse.error}`,
+				status: "fail",
+			});
+		},
+		[address, addressType, network, token]
+	);
 
 	return (
-		<div css={styles.faucetWrapper}>
+		<form css={styles.faucetWrapper} onSubmit={fetchSupplyResponse}>
 			<div css={styles.faucetContainer}>
 				<div css={styles.headingContainer}>
-					<p css={styles.heading} style={{ fontWeight: "bold" }}>
-						Request Tokens
-					</p>
+					<p css={styles.heading}>Request Tokens</p>
 					<div css={styles.selects}>
 						<TokenSelect
 							selectedToken={token.symbol}
@@ -93,8 +91,8 @@ const Faucet: FC = () => {
 				</div>
 				<Divider css={styles.divider} />
 				<br />
-				<MetaMaskAccount />
-				<FaucetButton supplyAccount={fetchSupplyResponse} />
+				<DestinationInput />
+				<FaucetButton />
 				{!!session && <SignOut twitterHandle={session.user.name} />}
 				<FaucetProgress
 					isOpen={isOpen}
@@ -102,7 +100,7 @@ const Faucet: FC = () => {
 					txStatus={{ status: response?.status, message: response?.message }}
 				/>
 			</div>
-		</div>
+		</form>
 	);
 };
 
@@ -140,6 +138,7 @@ export const styles = {
 		font-size: 24px;
 		margin-bottom: 0.5em;
 		letter-spacing: 0.5px;
+		font-weight: bold;
 	`,
 	selects: css`
 		margin-top: 0.15em;

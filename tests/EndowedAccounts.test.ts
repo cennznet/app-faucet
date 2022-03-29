@@ -70,22 +70,20 @@ describe("EndowedAccounts", () => {
 				parseInt(secondSupplyAccountBalanceBefore.toString()) - TRANSFER_AMOUNT
 			).toEqual(parseInt(secondSupplyAccountBalanceAfter.toString()));
 		});
-		it("should be throw error when an account is depleted", async () => {
+		it("should throw error when an account is depleted", async () => {
 			const assetId = 16001;
 			try {
-				await endowedAccounts.send(
-					endowedAccounts.api.tx.genericAsset.transfer(
-						assetId,
-						bob.address,
-						TRANSFER_AMOUNT
-					),
-					endowedAccounts._availableAccounts[3]
-				);
-			} catch (e) {
-				expect(e.message).toEqual(
-					"1010: Invalid Transaction: Inability to pay some fees , e.g. account balance too low - Account: 5HBwpKrRi7Ds4zmZgFjMVupcKtRjee1zyiBkVDmgaNE2TuVx"
-				);
-			}
+				expect(
+					await endowedAccounts.send(
+						endowedAccounts.api.tx.genericAsset.transfer(
+							assetId,
+							bob.address,
+							TRANSFER_AMOUNT
+						),
+						endowedAccounts._availableAccounts[3]
+					)
+				).toThrow(/Inability to pay some fees/);
+			} catch (_) {}
 		});
 	});
 

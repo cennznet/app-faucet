@@ -5,4 +5,6 @@ export { default as cvmToCENNZAddress } from "@/libs/utils/cvmToCENNZAddress";
 export { default as ensureEthereumChain } from "@/libs/utils/ensureEthereumChain";
 export { errMsgFilter } from "@/libs/utils/errorHandling";
 export { default as fetchValidAccount } from "@/libs/utils/fetchValidAccount";
+export { default as isCENNZAddress } from "@/libs/utils/isCENNZAddress";
+export { default as isEthereumAddress } from "@/libs/utils/isEthereumAddress";
 export { default as supplyAccount } from "@/libs/utils/supplyAccount";

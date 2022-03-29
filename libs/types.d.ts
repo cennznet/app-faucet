@@ -36,4 +36,6 @@ export interface MetaMaskAccount {
 	address: string;
 }
 
+export type Chain = "CENNZnet" | "Ethereum";
+
 declare module "*.svg";

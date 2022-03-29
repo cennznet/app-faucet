@@ -1,23 +1,23 @@
-import { MouseEventHandler, useState, VFC } from "react";
+import { useState, VFC } from "react";
 import { css } from "@emotion/react";
 import NewWindow from "react-new-window";
 import { useSession } from "next-auth/react";
 import { useMetaMaskWallet } from "@/libs/providers/MetaMaskWalletProvider";
 import { METAMASK } from "@/assets";
+import { useFaucet } from "@/libs/providers/FaucetProvider";
 
-const FaucetButton: VFC<{
-	supplyAccount: MouseEventHandler<HTMLDivElement>;
-}> = ({ supplyAccount }) => {
+const FaucetButton: VFC = () => {
 	const { data: session } = useSession();
+	const { address } = useFaucet();
 	const { connectWallet, selectedAccount } = useMetaMaskWallet();
 	const [popup, setPopup] = useState<boolean>(false);
 
-	if (selectedAccount) {
+	if (selectedAccount || address) {
 		if (session?.validAccount) {
 			return (
-				<div css={styles.faucetButton} onClick={supplyAccount}>
+				<button css={styles.faucetButton} type="submit">
 					<p>SEND TOKENS</p>
-				</div>
+				</button>
 			);
 		}
 

@@ -24,7 +24,7 @@ const DestinationInput: VFC = () => {
 	}, [address, setAddressType]);
 
 	const displayJazzicon =
-		(selectedAccount && addressType === "Ethereum") ||
+		(selectedAccount && addressType !== "CENNZnet") ||
 		(address && addressType === "Ethereum");
 
 	return (

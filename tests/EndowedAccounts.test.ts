@@ -1,5 +1,9 @@
 import { EndowedAccounts } from "@/libs/utils";
-import { ENDOWED_ACCOUNT_SEEDS, TRANSFER_AMOUNT } from "@/libs/constants";
+import {
+	ENDOWED_ACCOUNT_SEEDS,
+	TRANSFER_AMOUNT,
+	CENNZNET_NIKAU_API_URL,
+} from "@/libs/constants";
 import { Api } from "@cennznet/api";
 import { Keyring } from "@polkadot/keyring";
 
@@ -10,7 +14,7 @@ describe("EndowedAccounts", () => {
 
 	beforeAll(async () => {
 		api = await Api.create({
-			provider: "wss://nikau.centrality.me/public/ws",
+			provider: CENNZNET_NIKAU_API_URL,
 		});
 		const keyring = new Keyring({ type: "sr25519" });
 		ENDOWED_ACCOUNT_SEEDS.push("//TestAccountEmpty");

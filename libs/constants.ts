@@ -1,21 +1,23 @@
-export const NETWORKS = ["Nikau", "Rata", "Local Node"];
+import { CENNZnetToken } from "@/libs/types";
 
-export const PLACEHOLDER_ADDRESS =
-	"5FbMzsoEpd2mt8eyKpKUxwJ5S9W7nJVJkCer2Jk7tvSpB1vF";
+export const SUPPORTED_TOKENS: CENNZnetToken[] = [
+	{
+		symbol: "CENNZ",
+		assetId: 16000,
+		logo: "cennz.svg",
+	},
+	{
+		symbol: "CPAY",
+		assetId: 16001,
+		logo: "cpay.svg",
+	},
+];
 
-export const CENNZNET_PUBLIC_API_URL: string = String(
-	process.env.NEXT_PUBLIC_CENNZNET_API_URL
-);
+export const NEXTAUTH_SECRET: string = String(process.env.NEXTAUTH_SECRET);
 
-export const NEXTAUTH_SECRET: string = String(
-	process.env.NEXT_PUBLIC_NEXTAUTH_SECRET
-);
+export const TWITTER_ID: string = String(process.env.TWITTER_ID);
 
-export const TWITTER_ID: string = String(process.env.NEXT_PUBLIC_TWITTER_ID);
-
-export const TWITTER_SECRET: string = String(
-	process.env.NEXT_PUBLIC_TWITTER_SECRET
-);
+export const TWITTER_SECRET: string = String(process.env.TWITTER_SECRET);
 
 export const ENDOWED_ACCOUNT_SEEDS: string[] = String(
 	process.env.ENDOWED_ACCOUNT_SEEDS
@@ -31,10 +33,6 @@ export const CENNZNET_NIKAU_API_URL: string = String(
 
 export const CENNZNET_RATA_API_URL: string = String(
 	process.env.NEXT_PUBLIC_CENNZNET_RATA_API_URL
-);
-
-export const CENNZNET_LOCAL_API_URL: string = String(
-	process.env.NEXT_PUBLIC_CENNZNET_LOCAL_API_URL
 );
 
 export const REDIS_URL: string = String(process.env.REDIS_URL);

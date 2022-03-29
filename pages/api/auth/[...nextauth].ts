@@ -20,7 +20,7 @@ export default NextAuth({
 			profile({ data }) {
 				return {
 					id: data.id,
-					name: data.username,
+					name: `@${data.username}`,
 				};
 			},
 		}),

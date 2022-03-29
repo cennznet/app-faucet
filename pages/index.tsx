@@ -1,18 +1,16 @@
 import { FC } from "react";
 import { css } from "@emotion/react";
-import TwitterHandler from "@/components/TwitterHandler";
-import Faucet from "@/components/Faucet";
-import FaucetDetails from "@/components/FaucetDetails";
+import { Faucet, FaucetDetails } from "@/libs/components";
+import { CENNZ_BACKGROUND, CENNZnetBlue } from "@/assets/vectors";
 
 const Home: FC = () => {
 	return (
 		<div css={styles.background}>
 			<div css={styles.container}>
 				<div css={styles.headerContainer}>
-					<img src={"/images/cennznet_blue.svg"} alt={""} />
+					<img src={CENNZnetBlue} alt={""} />
 					<h1 css={styles.heading}>CENNZnet Faucet</h1>
 				</div>
-				<TwitterHandler />
 				<Faucet />
 				<br />
 				<FaucetDetails />
@@ -25,9 +23,9 @@ export default Home;
 
 export const styles = {
 	background: css`
-		background: url("/images/cennz_background.svg") repeat center top;
+		background: url(${CENNZ_BACKGROUND}) repeat center top;
 		background-size: 12px;
-		background-color: #d6dbff;
+		background-color: rgba(173, 216, 230, 0.2);
 		overflow: auto;
 		z-index: 0;
 		height: 100vh;
@@ -35,19 +33,28 @@ export const styles = {
 	headerContainer: css`
 		display: flex;
 		flex-direction: row;
+		margin-bottom: 0.5em;
+
 		img {
 			margin-right: 10px;
+			filter: drop-shadow(2px 2px rgba(0, 0, 0, 0.15));
+		}
+
+		@media (max-width: 500px) {
+			width: 23em;
+			margin: 0 auto;
+			padding-bottom: 1em;
 		}
 	`,
-	heading: css`
-		color: #1130ff;
+	heading: ({ palette }) => css`
+		color: ${palette.primary.main};
 		text-align: center;
+		text-shadow: 2px 2px rgba(0, 0, 0, 0.15);
 		@media (max-width: 500px) {
 			font-size: 22px;
 		}
 	`,
 	container: css`
-		//background-color: white;
 		width: 50%;
 		margin: 35px auto;
 		display: flex;

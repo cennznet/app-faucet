@@ -2,6 +2,7 @@ import { CENNZNetNetwork } from "@/libs/types";
 
 const supplyAccount = async (
 	address: string,
+	addressType: string,
 	network: CENNZNetNetwork,
 	assetId: number
 ) =>
@@ -9,6 +10,7 @@ const supplyAccount = async (
 		method: "post",
 		body: JSON.stringify({
 			address,
+			addressType,
 			network,
 			assetId,
 		}),

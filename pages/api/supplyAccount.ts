@@ -15,7 +15,7 @@ export default async function handler(
 	req: NextApiRequest,
 	res: NextApiResponse
 ) {
-	const { address, network, assetId } = JSON.parse(req.body);
+	const { address, addressType, network, assetId } = JSON.parse(req.body);
 	const CENNZNetwork: CENNZNetNetwork = network;
 
 	if (!assetId)
@@ -26,6 +26,10 @@ export default async function handler(
 		return res
 			.status(400)
 			.json({ success: false, error: "address param not provided" });
+	if (!addressType)
+		return res
+			.status(400)
+			.json({ success: false, error: "addressType param not provided" });
 	if (!network)
 		return res
 			.status(400)
@@ -37,7 +41,9 @@ export default async function handler(
 			.status(401)
 			.json({ success: false, error: "Invalid Twitter account" });
 
-	const claimed = await fetchClaimStatus(address, network, assetId);
+	const CENNZAddress =
+		addressType === "CENNZnet" ? address : cvmToCENNZAddress(address);
+	const claimed = await fetchClaimStatus(CENNZAddress, network, assetId);
 	if (claimed)
 		return res.status(400).send({ error: "Already claimed in 24h window" });
 
@@ -48,8 +54,6 @@ export default async function handler(
 		const api = await Api.create({ provider: networkUrl });
 		const endowedAccounts = new EndowedAccounts(api, ENDOWED_ACCOUNT_SEEDS);
 
-		const CENNZAddress = cvmToCENNZAddress(address);
-
 		await endowedAccounts.init();
 		await endowedAccounts.send(
 			endowedAccounts.api.tx.genericAsset.transfer(
@@ -59,7 +63,7 @@ export default async function handler(
 			)
 		);
 
-		await setNewClaim(address, network, assetId);
+		await setNewClaim(CENNZAddress, network, assetId);
 		await api.disconnect();
 
 		return res.status(200).json({ success: true });

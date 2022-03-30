@@ -44,7 +44,7 @@ export const NETWORKS: MetamaskNetworks = {
 		rpcUrl: "https://nikau.centrality.me/public",
 	},
 	rata: {
-		chainId: "0xbba",
+		chainId: "0xbb8",
 		chainName: "CENNZnet Rata",
 		rpcUrl: "https://rata.centrality.me/public",
 	},

@@ -18,16 +18,13 @@ declare module "@mui/material/styles/createPalette" {
 const config = {
 	palette: {
 		primary: {
-			main: "#1130FF",
+			main: "#9847FF",
 		},
 		secondary: {
-			main: "#B3BDFF",
+			main: "#E4D1FF",
 		},
 		info: {
-			main: "#E4E7FF",
-		},
-		background: {
-			main: "rgba(228, 231, 255, 0.4)",
+			main: "#F5ECFF",
 		},
 		text: {
 			primary: "#020202",
@@ -35,9 +32,6 @@ const config = {
 			highlight: "#1130FF",
 			disabled: "rgba(151, 151, 151, 0.25)",
 		},
-	},
-	typography: {
-		fontFamily: ["Roboto", "sans-serif"].join(","),
 	},
 	shape: {
 		borderRadius: 0,
@@ -74,11 +68,6 @@ const ThemeProvider: FC = (props) => {
 			info: {
 				...config.palette.info,
 				main: config.palette.info.main,
-			},
-
-			background: {
-				...config.palette.background,
-				main: config.palette.background.main,
 			},
 		},
 		shadows: [

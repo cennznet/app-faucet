@@ -55,9 +55,9 @@ const styles = {
 
 		p {
 			font-size: 14px;
-			@media (max-width: 500px) {
+			/* @media (max-width: 500px) {
 				font-size: 10px;
-			}
+			} */
 		}
 
 		&:hover {

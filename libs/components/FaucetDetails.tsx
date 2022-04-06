@@ -1,10 +1,14 @@
 import { FC } from "react";
-import { css } from "@emotion/react";
+import { css, SerializedStyles } from "@emotion/react";
 import { Divider } from "@mui/material";
 
-const FaucetDetails: FC = () => {
+interface FaucetDetailsProps {
+	css?: SerializedStyles;
+}
+
+const FaucetDetails: FC<FaucetDetailsProps> = (props) => {
 	return (
-		<div css={styles.wrapper}>
+		<div css={styles.wrapper} {...props}>
 			<div css={styles.container}>
 				<p css={styles.heading}>Faucet Details </p>
 				<Divider css={styles.divider} />
@@ -36,13 +40,13 @@ export default FaucetDetails;
 const styles = {
 	wrapper: css`
 		background-color: white;
-		box-shadow: 4px 8px 8px rgb(17 48 255 / 10%);
+		box-shadow: 4px 8px 8px rgba(0, 0, 0, 0.1);
 		border-radius: 4px;
 		width: 40em;
 		padding: 0.2em 2em;
-		@media (max-width: 500px) {
+		/* @media (max-width: 500px) {
 			width: 23em;
-		}
+		} */
 	`,
 	container: css`
 		width: 100%;
@@ -66,8 +70,8 @@ const styles = {
 		margin-left: -2em;
 		width: 40rem;
 
-		@media (max-width: 500px) {
+		/* @media (max-width: 500px) {
 			width: 23em;
-		}
+		} */
 	`,
 };

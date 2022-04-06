@@ -2,7 +2,7 @@ import { FC } from "react";
 import Image from "next/image";
 import { css } from "@emotion/react";
 import { AccountIdenticon } from "@/libs/components";
-import { CENNZnetBlue } from "@/assets/vectors";
+import { CENNZ } from "@/assets/vectors";
 
 interface FaucetAccountInputProps {
 	setAddress: Function;
@@ -18,7 +18,7 @@ const FaucetAccountInput: FC<FaucetAccountInputProps> = ({
 				<AccountIdenticon theme="beachball" size={28} value={address} />
 			)}
 			{!address && (
-				<Image src={CENNZnetBlue} width={28} height={28} alt="cennz-logo" />
+				<Image src={CENNZ} width={28} height={28} alt="cennz-logo" />
 			)}
 			<input
 				type="text"

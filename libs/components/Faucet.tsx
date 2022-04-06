@@ -90,7 +90,7 @@ const Faucet: FC = () => {
 
 export default Faucet;
 
-export const styles = {
+const styles = {
 	faucetWrapper: css`
 		background-color: white;
 		box-shadow: 4px 8px 8px rgb(17 48 255 / 10%);

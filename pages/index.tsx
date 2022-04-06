@@ -21,7 +21,7 @@ const Home: FC = () => {
 
 export default Home;
 
-export const styles = {
+const styles = {
 	background: css`
 		background: url(${CENNZ_BACKGROUND}) repeat center top;
 		background-size: 12px;

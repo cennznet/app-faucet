@@ -35,7 +35,7 @@ const NetworkSelect: FC<{
 
 export default NetworkSelect;
 
-export const styles = {
+const styles = {
 	root: css`
 		width: auto;
 		border: 1px solid black;

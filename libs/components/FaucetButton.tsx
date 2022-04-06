@@ -37,7 +37,7 @@ const FaucetButton: FC<{
 
 export default FaucetButton;
 
-export const styles = {
+const styles = {
 	faucetButton: ({ palette }) => css`
 		cursor: pointer;
 		width: 100%;

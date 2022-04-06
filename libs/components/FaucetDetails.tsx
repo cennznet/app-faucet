@@ -33,7 +33,7 @@ const FaucetDetails: FC = () => {
 
 export default FaucetDetails;
 
-export const styles = {
+const styles = {
 	wrapper: css`
 		background-color: white;
 		box-shadow: 4px 8px 8px rgb(17 48 255 / 10%);

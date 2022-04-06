@@ -32,7 +32,7 @@ const FaucetAccountInput: FC<FaucetAccountInputProps> = ({
 
 export default FaucetAccountInput;
 
-export const styles = {
+const styles = {
 	addressInputContainer: css`
 		background: #ffffff;
 		border: 1px solid #979797;

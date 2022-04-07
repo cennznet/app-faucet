@@ -33,6 +33,7 @@ export default NetworkSelect;
 
 const styles = {
 	root: css`
+		width: 100%;
 		height: 48px;
 
 		.MuiSelect-select {

@@ -53,8 +53,8 @@ const Faucet: FC = () => {
 	};
 
 	return (
-		<div css={styles.faucetWrapper}>
-			<div css={styles.headingContainer}>
+		<form css={styles.root}>
+			<div css={styles.header}>
 				<img src={CENNZ_LOGO} css={styles.logoImage} alt="CENNZnet Logo" />
 
 				<p css={styles.description}>
@@ -63,11 +63,6 @@ const Faucet: FC = () => {
 					per token,{" "}
 					<Tooltip
 						disableFocusListener
-						PopperProps={
-							{
-								sx: styles.toolTip,
-							} as any
-						}
 						title={
 							"Account must have at least 1 tweet, 15 followers, and older than 1 month"
 						}
@@ -82,24 +77,36 @@ const Faucet: FC = () => {
 				</p>
 			</div>
 
-			<div css={styles.selects}>
-				<TokenSelect
-					selectedToken={token.symbol}
-					onTokenChange={onTokenChange}
-				/>
-				<NetworkSelect
-					selectedNetwork={network}
-					onNetworkChange={onNetworkChange}
-				/>
+			<div css={styles.body}>
+				<div css={styles.formRow}>
+					<div css={styles.formField}>
+						<label>Token</label>
+						<TokenSelect
+							selectedToken={token.symbol}
+							onTokenChange={onTokenChange}
+						/>
+					</div>
+
+					<div css={styles.formField}>
+						<label>Network</label>
+						<NetworkSelect
+							selectedNetwork={network}
+							onNetworkChange={onNetworkChange}
+						/>
+					</div>
+				</div>
+
+				<div css={styles.formRow}>
+					<div css={styles.formField}>
+						<label>Address</label>
+						<FaucetAccountInput setAddress={setAddress} address={address} />
+					</div>
+				</div>
 			</div>
 
-			<FaucetAccountInput setAddress={setAddress} address={address} />
-
-			<FaucetButton
-				address={address}
-				network={network}
-				supplyAccount={fetchSupplyResponse}
-			/>
+			<div css={styles.footer}>
+				<FaucetButton />
+			</div>
 
 			{!!session && <SignOut twitterHandle={session.user.name} />}
 
@@ -108,14 +115,14 @@ const Faucet: FC = () => {
 				setIsOpen={setIsOpen}
 				txStatus={{ status: response?.status, message: response?.message }}
 			/>
-		</div>
+		</form>
 	);
 };
 
 export default Faucet;
 
 const styles = {
-	faucetWrapper: css`
+	root: css`
 		background-color: white;
 		box-shadow: 4px 8px 8px rgba(0, 0, 0, 0.1);
 		border-radius: 8px;
@@ -123,11 +130,7 @@ const styles = {
 		padding: 2em;
 	`,
 
-	headingContainer: ({ palette }: Theme) => css`
-		border-bottom: 1px solid ${palette.divider};
-		margin: 0 -2em;
-		padding: 0 2em 1.5em;
-		margin-bottom: 1.5em;
+	header: ({ palette }: Theme) => css`
 		display: flex;
 		align-items: flex-start;
 	`,
@@ -155,37 +158,38 @@ const styles = {
 		}
 	`,
 
-	heading: css`
-		font-size: 24px;
-		margin-bottom: 0.5em;
-		letter-spacing: 0.5px;
+	body: ({ palette }: Theme) => css`
+		border-bottom: 1px solid ${palette.divider};
+		margin: 2em -2em;
+		padding: 0 2em 2em;
 	`,
 
-	selects: css`
+	formRow: css`
 		display: flex;
-		margin: 1em 0 1em;
 
-		> div {
-			flex: 1;
-		}
-
-		> div:first-child {
+		> div:first-child:not(:last-child) {
 			margin-right: 1em;
 		}
+	`,
 
-		/* @media (max-width: 500px) {
+	formField: ({ palette }: Theme) => css`
+		flex: 1;
+		margin-bottom: 1.5em;
+
+		&:last-child {
+			margin-bottom: 0;
+		}
+
+		label {
 			display: block;
-		} */
+			text-transform: uppercase;
+			color: ${palette.primary.main};
+			font-weight: bold;
+			margin-bottom: 0.5em;
+		}
 	`,
-	divider: css`
-		width: 100%;
-		display: block;
-		margin: 2em -2em;
 
-		/* @media (max-width: 500px) {
-			width: 23em;
-		} */
-	`,
+	footer: css``,
 
 	toolTipTrigger: ({ palette, transitions }: Theme) => css`
 		color: ${palette.primary.main};
@@ -197,9 +201,5 @@ const styles = {
 		&:hover {
 			border-bottom-color: ${palette.primary.main};
 		}
-	`,
-
-	toolTip: css`
-		/* max-width: 200px; */
 	`,
 };

@@ -1,70 +1,47 @@
 import { FC, MouseEventHandler } from "react";
 import { css } from "@emotion/react";
 import { signIn, useSession } from "next-auth/react";
+import { Theme } from "@mui/material";
 
-const FaucetButton: FC<{
-	address: string;
-	network: string;
-	supplyAccount: MouseEventHandler<HTMLDivElement>;
-}> = ({ address, supplyAccount }) => {
+const FaucetButton: FC = () => {
 	const { data: session } = useSession();
 
-	if (session?.validAccount) {
-		if (address) {
-			return (
-				<div css={styles.faucetButton} onClick={supplyAccount}>
-					<p>SEND TOKENS</p>
-				</div>
-			);
-		}
-
-		return (
-			<div css={styles.faucetButton}>
-				<p>PLEASE ENTER A CENNZnet ADDRESS</p>
-			</div>
-		);
-	}
-
 	return (
-		<div
-			css={styles.faucetButton}
-			onClick={async () => await signIn("twitter")}
-		>
-			<p>PLEASE SIGN IN WITH A VALID TWITTER ACCOUNT</p>
-		</div>
+		<>
+			{session?.validAccount && (
+				<button css={styles.root} type="submit">
+					SEND TOKENS
+				</button>
+			)}
+
+			{!session?.validAccount && (
+				<button css={styles.root} type="button">
+					SIGN IN WITH TWITTER
+				</button>
+			)}
+		</>
 	);
 };
 
 export default FaucetButton;
 
 const styles = {
-	faucetButton: ({ palette }) => css`
+	root: ({ palette, transitions }: Theme) => css`
 		cursor: pointer;
-		width: 100%;
-		height: 40px;
-		margin: 15px 0;
 		text-align: center;
 		border-radius: 4px;
 		background-color: ${palette.primary.main};
 		color: white;
-		letter-spacing: 0.5px;
-		justify-content: center;
-		align-items: center;
-		display: flex;
 		font-weight: bold;
-
-		p {
-			font-size: 14px;
-			/* @media (max-width: 500px) {
-				font-size: 10px;
-			} */
-		}
+		border: 1px solid ${palette.primary.main};
+		transition: background-color ${transitions.duration.short}ms;
+		margin: 0 auto;
+		display: block;
+		padding: 1em 1.5em;
 
 		&:hover {
 			background-color: white;
 			color: ${palette.primary.main};
-			border: 1px solid ${palette.primary.main};
-			transition-duration: 0.3s;
 		}
 	`,
 };

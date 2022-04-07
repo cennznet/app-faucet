@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, useCallback, useState } from "react";
 import { css } from "@emotion/react";
 import { useSession } from "next-auth/react";
 import { SelectChangeEvent, Theme, Tooltip } from "@mui/material";
@@ -33,27 +33,39 @@ const Faucet: FC = () => {
 		setToken(SUPPORTED_TOKENS.find((token) => token.symbol === value));
 	};
 
-	const fetchSupplyResponse = async () => {
-		if (!address || !network) return;
-		setResponse({
-			message: `Retrieving ${token.symbol} from the Faucet`,
-			status: "in-progress",
-		});
-		setIsOpen(true);
-		const supplyResponse = await supplyAccount(address, network, token.assetId);
+	const onFormSubmit = useCallback(
+		async (event) => {
+			if (!address || !network) return;
+			event.preventDefault();
 
-		if (supplyResponse.success) {
 			setResponse({
-				message: `${token.symbol} sent successfully!`,
-				status: "success",
+				message: `Retrieving ${token.symbol} from the Faucet`,
+				status: "in-progress",
 			});
-			return;
-		}
-		setResponse({ message: `Error: ${supplyResponse.error}`, status: "fail" });
-	};
+			setIsOpen(true);
+			const supplyResponse = await supplyAccount(
+				address,
+				network,
+				token.assetId
+			);
+
+			if (supplyResponse.success) {
+				setResponse({
+					message: `${token.symbol} sent successfully!`,
+					status: "success",
+				});
+				return;
+			}
+			setResponse({
+				message: `Error: ${supplyResponse.error}`,
+				status: "fail",
+			});
+		},
+		[address, network, token.assetId, token.symbol]
+	);
 
 	return (
-		<form css={styles.root}>
+		<form css={styles.root} onSubmit={onFormSubmit}>
 			<div css={styles.header}>
 				<img src={CENNZ_LOGO} css={styles.logoImage} alt="CENNZnet Logo" />
 
@@ -128,6 +140,8 @@ const styles = {
 		border-radius: 8px;
 		width: 40em;
 		padding: 2em;
+		position: relative;
+		overflow: hidden;
 	`,
 
 	header: ({ palette }: Theme) => css`

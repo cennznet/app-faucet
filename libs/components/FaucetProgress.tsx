@@ -35,7 +35,11 @@ const FaucetProgress: FC<{
 					</div>
 					<div css={styles.message}>{txStatus.message}</div>
 					{txStatus.status !== "in-progress" && (
-						<button css={styles.button} onClick={() => setIsOpen(false)}>
+						<button
+							css={styles.button}
+							onClick={() => setIsOpen(false)}
+							type="button"
+						>
 							Dismiss
 						</button>
 					)}

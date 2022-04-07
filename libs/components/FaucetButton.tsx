@@ -1,4 +1,4 @@
-import { FC, MouseEventHandler } from "react";
+import { FC } from "react";
 import { css } from "@emotion/react";
 import { signIn, useSession } from "next-auth/react";
 import { Theme } from "@mui/material";
@@ -15,7 +15,11 @@ const FaucetButton: FC = () => {
 			)}
 
 			{!session?.validAccount && (
-				<button css={styles.root} type="button">
+				<button
+					css={styles.root}
+					type="button"
+					onClick={() => signIn("twitter")}
+				>
 					SIGN IN WITH TWITTER
 				</button>
 			)}

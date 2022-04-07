@@ -6,7 +6,7 @@ import {
 	useContext,
 	useState,
 } from "react";
-import { CENNZNetNetwork, Chain } from "@/libs/types";
+import { CENNZnetNetwork, Chain } from "@/libs/types";
 
 interface FaucetContextType {
 	address: string;
@@ -15,8 +15,8 @@ interface FaucetContextType {
 	addressType: Chain;
 	setAddressType: Dispatch<SetStateAction<Chain>>;
 
-	network: CENNZNetNetwork;
-	setNetwork: Dispatch<SetStateAction<CENNZNetNetwork>>;
+	network: CENNZnetNetwork;
+	setNetwork: Dispatch<SetStateAction<CENNZnetNetwork>>;
 }
 
 const FaucetContext = createContext<FaucetContextType>({} as FaucetContextType);
@@ -26,7 +26,7 @@ interface FaucetProviderProps {}
 const FaucetProvider: FC<FaucetProviderProps> = ({ children }) => {
 	const [address, setAddress] = useState<string>();
 	const [addressType, setAddressType] = useState<Chain>();
-	const [network, setNetwork] = useState<CENNZNetNetwork>("nikau");
+	const [network, setNetwork] = useState<CENNZnetNetwork>("Nikau");
 
 	return (
 		<FaucetContext.Provider

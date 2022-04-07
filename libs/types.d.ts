@@ -1,4 +1,4 @@
-export { CENNZNetNetwork } from "@cennznet/api/types";
+export type CENNZnetNetwork = "Nikau" | "Rata";
 
 export interface CENNZnetToken {
 	symbol: string;
@@ -6,14 +6,9 @@ export interface CENNZnetToken {
 	logo: string;
 }
 
-interface NetworkOption {
-	name: CENNZNetNetwork;
-	img: string;
-}
-
-export interface NetworkOptions {
-	nikau: NetworkOption;
-	rata: NetworkOption;
+export interface TxStatus {
+	status: "in-progress" | "success" | "fail";
+	message: string;
 }
 
 interface MetaMaskNetwork {
@@ -23,13 +18,8 @@ interface MetaMaskNetwork {
 }
 
 export interface MetamaskNetworks {
-	nikau: MetaMaskNetwork;
-	rata: MetaMaskNetwork;
-}
-
-export interface TxStatus {
-	status: "in-progress" | "success" | "fail";
-	message: string;
+	Nikau: MetaMaskNetwork;
+	Rata: MetaMaskNetwork;
 }
 
 export interface MetaMaskAccount {

@@ -2,7 +2,6 @@ import { useEffect, VFC } from "react";
 import { css } from "@emotion/react";
 import { signIn, useSession } from "next-auth/react";
 import { CircularProgress } from "@mui/material";
-import { PageHeader } from "@/libs/components/";
 
 const SignInPage: VFC = () => {
 	const { data: session, status } = useSession();
@@ -14,7 +13,6 @@ const SignInPage: VFC = () => {
 
 	return (
 		<div css={styles.root}>
-			<PageHeader />
 			<div css={styles.container}>
 				<p>Connecting to twitter...</p>
 				<CircularProgress size="3.5em" color="inherit" />
@@ -27,9 +25,11 @@ export default SignInPage;
 
 const styles = {
 	root: css`
-		margin: 0 auto;
+		margin-top: 200px;
 		text-align: center;
+		width: 800px;
 	`,
+
 	container: css`
 		color: #1da1f2;
 

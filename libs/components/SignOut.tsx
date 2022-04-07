@@ -15,7 +15,7 @@ const SignOut: FC<{ twitterHandle: string }> = ({ twitterHandle }) => {
 export default SignOut;
 
 const styles = {
-	root: ({ palette }) => css`
+	root: ({ palette, transitions }) => css`
 		margin: 10px auto;
 		width: auto;
 		font-size: 14px;
@@ -26,6 +26,11 @@ const styles = {
 			font-style: italic;
 			text-decoration: underline;
 			color: ${palette.text.secondary};
+			transition: color ${transitions.short}ms;
+
+			&:hover {
+				color: ${palette.primary.main};
+			}
 		}
 	`,
 };

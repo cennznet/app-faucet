@@ -1,8 +1,8 @@
-import { VFC, useCallback, useState } from "react";
+import { FC, useCallback, useState } from "react";
 import { css } from "@emotion/react";
 import { useSession } from "next-auth/react";
-import { Divider, SelectChangeEvent } from "@mui/material";
-import { CENNZNetNetwork, CENNZnetToken, TxStatus } from "@/libs/types";
+import { SelectChangeEvent, Theme, Tooltip } from "@mui/material";
+import { CENNZnetNetwork, CENNZnetToken, TxStatus } from "@/libs/types";
 import { SUPPORTED_TOKENS } from "@/libs/constants";
 import {
 	addCENNZnetToMetaMask,
@@ -10,41 +10,47 @@ import {
 	supplyAccount,
 } from "@/libs/utils";
 import {
+	FaucetAccountInput,
 	FaucetButton,
 	FaucetProgress,
+	NetworkSelect,
 	TokenSelect,
 	SignOut,
-	NetworkSelect,
-	DestinationInput,
 } from "@/libs/components";
+import { CENNZ_LOGO } from "@/assets/vectors";
 import { useMetaMaskExtension } from "@/libs/providers/MetaMaskExtensionProvider";
 import { useFaucet } from "@/libs/providers/FaucetProvider";
 
-const Faucet: VFC = () => {
+const Faucet: FC = () => {
 	const { data: session } = useSession();
+	const { address, addressType, network, setNetwork } = useFaucet();
 	const { extension } = useMetaMaskExtension();
-	const { address, network, setNetwork, addressType } = useFaucet();
 	const [token, setToken] = useState<CENNZnetToken>(SUPPORTED_TOKENS[0]);
 	const [isOpen, setIsOpen] = useState<boolean>(false);
 	const [response, setResponse] = useState<TxStatus>();
+
+	const onNetworkChange = useCallback(
+		async (event: SelectChangeEvent) => {
+			const selectedNetwork = event.target.value as CENNZnetNetwork;
+			setNetwork(selectedNetwork);
+
+			if (!!extension && addressType === "Ethereum") {
+				await addCENNZnetToMetaMask(selectedNetwork);
+				await ensureEthereumChain(extension, selectedNetwork);
+			}
+		},
+		[extension, addressType, setNetwork]
+	);
 
 	const onTokenChange = (event: SelectChangeEvent) => {
 		const value = event.target.value;
 		setToken(SUPPORTED_TOKENS.find((token) => token.symbol === value));
 	};
 
-	const onNetworkChange = async (event: SelectChangeEvent) => {
-		const selectedNetwork = event.target.value as CENNZNetNetwork;
-		setNetwork(selectedNetwork);
-
-		await addCENNZnetToMetaMask(selectedNetwork);
-		await ensureEthereumChain(extension, selectedNetwork);
-	};
-
-	const fetchSupplyResponse = useCallback(
+	const onFormSubmit = useCallback(
 		async (event) => {
+			if (!token || !address || !network) return;
 			event.preventDefault();
-			if (!token || !network || !address) return;
 
 			setResponse({
 				message: `Retrieving ${token.symbol} from the Faucet`,
@@ -74,89 +80,155 @@ const Faucet: VFC = () => {
 	);
 
 	return (
-		<form css={styles.faucetWrapper} onSubmit={fetchSupplyResponse}>
-			<div css={styles.faucetContainer}>
-				<div css={styles.headingContainer}>
-					<p css={styles.heading}>Request Tokens</p>
-					<div css={styles.selects}>
+		<form css={styles.root} onSubmit={onFormSubmit}>
+			<div css={styles.header}>
+				<img src={CENNZ_LOGO} css={styles.logoImage} alt="CENNZnet Logo" />
+
+				<p css={styles.description}>
+					Bootstrap your wallet with <em>2000</em> of <em>CENNZ</em> and{" "}
+					<em>CPAY</em> across all of our testnet networks. One claim per day
+					per token,{" "}
+					<Tooltip
+						disableFocusListener
+						title={
+							"Account must have at least 1 tweet, 15 followers, and older than 1 month"
+						}
+						arrow
+						placement="bottom"
+					>
+						<span css={styles.toolTipTrigger}>
+							a legitimate Twitter account
+						</span>
+					</Tooltip>{" "}
+					is required.
+				</p>
+			</div>
+
+			<div css={styles.body}>
+				<div css={styles.formRow}>
+					<div css={styles.formField}>
+						<label>Token</label>
 						<TokenSelect
 							selectedToken={token.symbol}
 							onTokenChange={onTokenChange}
 						/>
+					</div>
+
+					<div css={styles.formField}>
+						<label>Network</label>
 						<NetworkSelect
 							selectedNetwork={network}
 							onNetworkChange={onNetworkChange}
 						/>
 					</div>
 				</div>
-				<Divider css={styles.divider} />
-				<br />
-				<DestinationInput />
-				<FaucetButton />
-				{!!session && <SignOut twitterHandle={session.user.name} />}
-				<FaucetProgress
-					isOpen={isOpen}
-					setIsOpen={setIsOpen}
-					txStatus={{ status: response?.status, message: response?.message }}
-				/>
+
+				<div css={styles.formRow}>
+					<div css={styles.formField}>
+						<label>Address</label>
+						<FaucetAccountInput />
+					</div>
+				</div>
 			</div>
+
+			<div css={styles.footer}>
+				<FaucetButton />
+			</div>
+
+			{!!session && <SignOut twitterHandle={session.user.name} />}
+
+			<FaucetProgress
+				isOpen={isOpen}
+				setIsOpen={setIsOpen}
+				txStatus={{ status: response?.status, message: response?.message }}
+			/>
 		</form>
 	);
 };
 
 export default Faucet;
 
-export const styles = {
-	faucetWrapper: css`
+const styles = {
+	root: css`
 		background-color: white;
-		box-shadow: 4px 8px 8px rgb(17 48 255 / 10%);
-		border-radius: 4px;
+		box-shadow: 4px 8px 8px rgba(0, 0, 0, 0.1);
+		border-radius: 8px;
 		width: 40em;
-		padding: 1em 2em;
-		@media (max-width: 500px) {
-			width: 23em;
-		}
-	`,
-	headingContainer: css`
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		margin: 0.3em 0 1.2em;
-		height: 4em;
-
-		@media (max-width: 500px) {
-			height: 6em;
-			margin-bottom: 2em;
-		}
-	`,
-	faucetContainer: css`
-		width: 36em;
-		margin: 0 auto;
+		padding: 2em;
 		position: relative;
+		overflow: hidden;
 	`,
-	heading: css`
-		font-size: 24px;
-		margin-bottom: 0.5em;
-		letter-spacing: 0.5px;
-		font-weight: bold;
+
+	header: css`
+		display: flex;
+		align-items: flex-start;
 	`,
-	selects: css`
-		margin-top: 0.15em;
-		display: inline-flex;
-		justify-content: space-between;
-		width: 18em;
-		@media (max-width: 500px) {
-			width: 8em;
-			display: block;
+
+	logoImage: css`
+		margin-top: 0.5em;
+		width: 6em;
+	`,
+
+	description: ({ palette }: Theme) => css`
+		font-size: 1.2em;
+		margin: 0 0 0 2em;
+
+		em {
+			font-family: monospace;
+			display: inline-block;
+			font-size: 0.75em;
+			font-weight: bold;
+			padding: 0.2em 0.35em;
+			border: 1px solid ${palette.secondary.main};
+			border-radius: 4px;
+			margin: 0;
+			color: ${palette.primary.main};
+			font-style: normal;
 		}
 	`,
-	divider: css`
-		margin-left: -2rem;
-		width: 40em;
-		margin-top: 2em;
 
-		@media (max-width: 500px) {
-			width: 23em;
+	body: ({ palette }: Theme) => css`
+		border-bottom: 1px solid ${palette.divider};
+		margin: 2em -2em;
+		padding: 0 2em 2em;
+	`,
+
+	formRow: css`
+		display: flex;
+
+		> div:first-child:not(:last-child) {
+			margin-right: 1em;
+		}
+	`,
+
+	formField: ({ palette }: Theme) => css`
+		flex: 1;
+		margin-bottom: 1.5em;
+
+		&:last-child {
+			margin-bottom: 0;
+		}
+
+		label {
+			display: block;
+			text-transform: uppercase;
+			color: ${palette.primary.main};
+			font-weight: bold;
+			margin-bottom: 0.5em;
+		}
+	`,
+
+	footer: css``,
+
+	toolTipTrigger: ({ palette, transitions }: Theme) => css`
+		color: ${palette.primary.main};
+		cursor: pointer;
+		display: inline-block;
+		border-bottom: 2px solid transparent;
+		transition: border-bottom-color ${transitions.duration.short}ms;
+
+		&:hover {
+			border-bottom-color: ${palette.primary.main};
 		}
 	`,
 };

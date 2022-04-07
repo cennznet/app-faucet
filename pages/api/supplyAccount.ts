@@ -9,14 +9,14 @@ import {
 } from "@/libs/constants";
 import { cvmToCENNZAddress, EndowedAccounts } from "@/libs/utils";
 import { fetchClaimStatus, setNewClaim } from "@/libs/utils/claimStatus";
-import { CENNZNetNetwork } from "@/libs/types";
+import { CENNZnetNetwork } from "@/libs/types";
 
 export default async function handler(
 	req: NextApiRequest,
 	res: NextApiResponse
 ) {
 	const { address, addressType, network, assetId } = JSON.parse(req.body);
-	const CENNZNetwork: CENNZNetNetwork = network;
+	const CENNZNetwork: CENNZnetNetwork = network;
 
 	if (!assetId)
 		return res
@@ -49,8 +49,8 @@ export default async function handler(
 
 	try {
 		let networkUrl: string;
-		if (CENNZNetwork === "nikau") networkUrl = CENNZNET_NIKAU_API_URL;
-		else if (CENNZNetwork === "rata") networkUrl = CENNZNET_RATA_API_URL;
+		if (CENNZNetwork === "Nikau") networkUrl = CENNZNET_NIKAU_API_URL;
+		else if (CENNZNetwork === "Rata") networkUrl = CENNZNET_RATA_API_URL;
 		const api = await Api.create({ provider: networkUrl });
 		const endowedAccounts = new EndowedAccounts(api, ENDOWED_ACCOUNT_SEEDS);
 

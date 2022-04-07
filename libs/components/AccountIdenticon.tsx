@@ -31,7 +31,7 @@ const AccountIdenticon: FC<IdentityProps & { fadeOnChange?: boolean }> = ({
 
 export default AccountIdenticon;
 
-export const styles = {
+const styles = {
 	iconContainer: (fadeOnChange: boolean, visible: boolean) => css`
 		opacity: ${!fadeOnChange ? 1 : visible ? 1 : 0};
 		transition: opacity 0.2s;

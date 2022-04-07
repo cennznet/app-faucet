@@ -4,16 +4,7 @@ class MyDocument extends Document {
 	render() {
 		return (
 			<Html>
-				<Head>
-					<link
-						rel="stylesheet"
-						href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
-					/>
-					<link
-						rel="stylesheet"
-						href="https://fonts.googleapis.com/css?family=Roboto+Mono:400,600&display=swap"
-					/>
-				</Head>
+				<Head />
 				<body>
 					<Main />
 					<NextScript />

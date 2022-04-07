@@ -38,12 +38,12 @@ export const CENNZNET_RATA_API_URL: string = String(
 export const REDIS_URL: string = String(process.env.REDIS_URL);
 
 export const NETWORKS: MetamaskNetworks = {
-	nikau: {
+	Nikau: {
 		chainId: "0xbb9",
 		chainName: "CENNZnet Nikau",
 		rpcUrl: "https://nikau.centrality.me/public",
 	},
-	rata: {
+	Rata: {
 		chainId: "0xbb8",
 		chainName: "CENNZnet Rata",
 		rpcUrl: "https://rata.centrality.me/public",

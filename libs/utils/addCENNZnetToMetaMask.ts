@@ -1,7 +1,7 @@
-import { CENNZNetNetwork } from "@/libs/types";
+import { CENNZnetNetwork } from "@/libs/types";
 import { NETWORKS } from "@/libs/constants";
 
-export default async function addCENNZnetToMetaMask(network: CENNZNetNetwork) {
+export default async function addCENNZnetToMetaMask(network: CENNZnetNetwork) {
 	await global.ethereum.request({
 		method: "wallet_addEthereumChain",
 		params: [

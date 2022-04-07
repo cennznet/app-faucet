@@ -2,9 +2,10 @@ import { useState, VFC } from "react";
 import { css } from "@emotion/react";
 import NewWindow from "react-new-window";
 import { useSession } from "next-auth/react";
-import { useMetaMaskWallet } from "@/libs/providers/MetaMaskWalletProvider";
-import { METAMASK } from "@/assets";
+import { Theme } from "@mui/material";
 import { useFaucet } from "@/libs/providers/FaucetProvider";
+import { useMetaMaskWallet } from "@/libs/providers/MetaMaskWalletProvider";
+import { METAMASK } from "@/assets/vectors";
 
 const FaucetButton: VFC = () => {
 	const { data: session } = useSession();
@@ -12,106 +13,80 @@ const FaucetButton: VFC = () => {
 	const { connectWallet, selectedAccount } = useMetaMaskWallet();
 	const [popup, setPopup] = useState<boolean>(false);
 
-	if (selectedAccount || address) {
-		if (session?.validAccount) {
+	if (session?.validAccount) {
+		if (selectedAccount || address) {
 			return (
-				<button css={styles.faucetButton} type="submit">
-					<p>SEND TOKENS</p>
+				<button css={styles.root(false)} type="submit">
+					SEND TOKENS
 				</button>
 			);
 		}
 
 		return (
-			<div>
-				{popup && !session && (
-					<NewWindow
-						url="/sign-in"
-						onUnload={() => setPopup(false)}
-						features={{ height: 600, width: 800 }}
-					/>
-				)}
-				<div css={styles.faucetButton} onClick={() => setPopup(true)}>
-					<p>PLEASE SIGN IN WITH A VALID TWITTER ACCOUNT</p>
-				</div>
-			</div>
+			<button
+				onClick={async () => await connectWallet?.()}
+				type="button"
+				css={styles.root(true)}
+			>
+				<span>
+					<img src={METAMASK} alt="MetaMask Logo" />
+					<p>CONNECT METAMASK</p>
+				</span>
+			</button>
 		);
 	}
 
 	return (
-		<div
-			css={styles.metamaskButton}
-			onClick={async () => await connectWallet?.()}
-		>
-			<img src={METAMASK} alt="MetaMask Logo" css={styles.brandLogo} />
-			<p>CONNECT METAMASK</p>
-		</div>
+		<>
+			{popup && !session && (
+				<NewWindow
+					url="/sign-in"
+					onUnload={() => setPopup(false)}
+					features={{ height: 600, width: 800 }}
+				/>
+			)}
+			<button
+				css={styles.root(false)}
+				type="button"
+				onClick={() => setPopup(true)}
+			>
+				SIGN IN WITH TWITTER
+			</button>
+		</>
 	);
 };
 
 export default FaucetButton;
 
-export const styles = {
-	faucetButton: ({ palette }) => css`
-		cursor: pointer;
-		width: 100%;
-		height: 40px;
-		margin: 15px 0;
-		text-align: center;
-		border-radius: 4px;
-		background-color: white;
-		color: ${palette.primary.main};
-		border: 1px solid ${palette.primary.main};
-		letter-spacing: 0.5px;
-		justify-content: center;
-		align-items: center;
-		display: flex;
-		font-weight: bold;
+const styles = {
+	root:
+		(metaMask?: boolean) =>
+		({ palette, transitions }: Theme) =>
+			css`
+				cursor: pointer;
+				text-align: center;
+				border-radius: 4px;
+				background-color: white;
+				color: ${metaMask ? "#e2761b" : palette.primary.main};
+				font-weight: bold;
+				border: 1px solid ${metaMask ? "#e2761b" : palette.primary.main};
+				transition: background-color ${transitions.duration.short}ms;
+				display: block;
+				margin: 0 auto;
+				padding: ${metaMask ? "0.5em 0.75em" : "1em 1.5em"};
 
-		p {
-			font-size: 14px;
-			@media (max-width: 500px) {
-				font-size: 10px;
-			}
-		}
+				span {
+					display: inline-flex;
+				}
 
-		&:hover {
-			background-color: ${palette.primary.main};
-			color: white;
-			transition-duration: 0.3s;
-		}
-	`,
+				img {
+					height: 2em;
+					margin: 0.65em 0.2em;
+				}
 
-	metamaskButton: css`
-		cursor: pointer;
-		width: 100%;
-		height: 40px;
-		margin: 15px 0;
-		text-align: center;
-		border-radius: 4px;
-		border: 1px solid #e2761b;
-		color: #e2761b;
-		letter-spacing: 0.5px;
-		justify-content: center;
-		align-items: center;
-		display: flex;
-		font-weight: bold;
-
-		p {
-			font-size: 14px;
-			@media (max-width: 500px) {
-				font-size: 10px;
-			}
-		}
-
-		&:hover {
-			background-color: #e2761b;
-			color: white;
-			transition-duration: 0.3s;
-		}
-	`,
-
-	brandLogo: css`
-		width: 28px;
-		margin-right: 0.5em;
-	`,
+				&:hover {
+					background-color: ${metaMask ? "#e2761b" : palette.primary.main};
+					color: white;
+				}
+			`,
 };

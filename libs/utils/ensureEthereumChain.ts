@@ -1,5 +1,5 @@
 import { MetaMaskInpageProvider } from "@metamask/providers";
-import { CENNZNetNetwork } from "@/libs/types";
+import { CENNZnetNetwork } from "@/libs/types";
 import { NETWORKS } from "@/libs/constants";
 import {
 	addCENNZnetToMetaMask,
@@ -8,7 +8,7 @@ import {
 
 export default async function ensureEthereumChain(
 	extension: MetaMaskInpageProvider,
-	network: CENNZNetNetwork
+	network: CENNZnetNetwork
 ): Promise<void> {
 	const ethChainId = await extension.request({ method: "eth_chainId" });
 

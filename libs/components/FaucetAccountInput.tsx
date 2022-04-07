@@ -1,7 +1,7 @@
 import { Dispatch, FC, SetStateAction, useMemo } from "react";
 import { css } from "@emotion/react";
 import { AccountIdenticon } from "@/libs/components";
-import { InputAdornment, TextField } from "@mui/material";
+import { InputAdornment, TextField, Theme } from "@mui/material";
 
 interface FaucetAccountInputProps {
 	setAddress: Dispatch<SetStateAction<string>>;

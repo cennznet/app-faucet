@@ -1,4 +1,4 @@
-import { CENNZnetToken } from "@/libs/types";
+import { CENNZnetToken, MetamaskNetworks } from "@/libs/types";
 
 export const SUPPORTED_TOKENS: CENNZnetToken[] = [
 	{
@@ -36,3 +36,22 @@ export const CENNZNET_RATA_API_URL: string = String(
 );
 
 export const REDIS_URL: string = String(process.env.REDIS_URL);
+
+export const NETWORKS: MetamaskNetworks = {
+	Nikau: {
+		chainId: "0xbb9",
+		chainName: "CENNZnet Nikau",
+		rpcUrl: "https://nikau.centrality.me/public",
+	},
+	Rata: {
+		chainId: "0xbb8",
+		chainName: "CENNZnet Rata",
+		rpcUrl: "https://rata.centrality.me/public",
+	},
+};
+
+export const CPAY_IPFS: string =
+	"https://gateway.pinata.cloud/ipfs/QmehPHqUocYho8FLC2Hs9EgU4vgm698br6RwMEddw1m9VD";
+
+export const CENNZ_IPFS: string =
+	"https://gateway.pinata.cloud/ipfs/QmfDkgrhCFfVJErVVDuU7UYasYsooXMEXFhBzLMNm6pgey";

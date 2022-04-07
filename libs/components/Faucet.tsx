@@ -3,8 +3,12 @@ import { css } from "@emotion/react";
 import { useSession } from "next-auth/react";
 import { SelectChangeEvent, Theme, Tooltip } from "@mui/material";
 import { CENNZnetNetwork, CENNZnetToken, TxStatus } from "@/libs/types";
-import { SUPPORTED_TOKENS, TRANSFER_AMOUNT } from "@/libs/constants";
-import { supplyAccount } from "@/libs/utils";
+import { SUPPORTED_TOKENS } from "@/libs/constants";
+import {
+	addCENNZnetToMetaMask,
+	ensureEthereumChain,
+	supplyAccount,
+} from "@/libs/utils";
 import {
 	FaucetAccountInput,
 	FaucetButton,
@@ -14,19 +18,29 @@ import {
 	SignOut,
 } from "@/libs/components";
 import { CENNZ_LOGO } from "@/assets/vectors";
+import { useMetaMaskExtension } from "@/libs/providers/MetaMaskExtensionProvider";
+import { useFaucet } from "@/libs/providers/FaucetProvider";
 
 const Faucet: FC = () => {
 	const { data: session } = useSession();
+	const { address, addressType, network, setNetwork } = useFaucet();
+	const { extension } = useMetaMaskExtension();
 	const [token, setToken] = useState<CENNZnetToken>(SUPPORTED_TOKENS[0]);
-	const [network, setNetwork] = useState<CENNZnetNetwork>("Nikau");
-	const [address, setAddress] = useState<string>("");
 	const [isOpen, setIsOpen] = useState<boolean>(false);
 	const [response, setResponse] = useState<TxStatus>();
 
-	const onNetworkChange = (event: SelectChangeEvent) => {
-		const value = event.target.value as CENNZnetNetwork;
-		setNetwork(value);
-	};
+	const onNetworkChange = useCallback(
+		async (event: SelectChangeEvent) => {
+			const selectedNetwork = event.target.value as CENNZnetNetwork;
+			setNetwork(selectedNetwork);
+
+			if (!!extension && addressType === "Ethereum") {
+				await addCENNZnetToMetaMask(selectedNetwork);
+				await ensureEthereumChain(extension, selectedNetwork);
+			}
+		},
+		[extension, addressType, setNetwork]
+	);
 
 	const onTokenChange = (event: SelectChangeEvent) => {
 		const value = event.target.value;
@@ -35,7 +49,7 @@ const Faucet: FC = () => {
 
 	const onFormSubmit = useCallback(
 		async (event) => {
-			if (!address || !network) return;
+			if (!token || !address || !network) return;
 			event.preventDefault();
 
 			setResponse({
@@ -45,6 +59,7 @@ const Faucet: FC = () => {
 			setIsOpen(true);
 			const supplyResponse = await supplyAccount(
 				address,
+				addressType,
 				network,
 				token.assetId
 			);
@@ -61,7 +76,7 @@ const Faucet: FC = () => {
 				status: "fail",
 			});
 		},
-		[address, network, token.assetId, token.symbol]
+		[address, addressType, network, token]
 	);
 
 	return (
@@ -111,7 +126,7 @@ const Faucet: FC = () => {
 				<div css={styles.formRow}>
 					<div css={styles.formField}>
 						<label>Address</label>
-						<FaucetAccountInput setAddress={setAddress} address={address} />
+						<FaucetAccountInput />
 					</div>
 				</div>
 			</div>
@@ -144,7 +159,7 @@ const styles = {
 		overflow: hidden;
 	`,
 
-	header: ({ palette }: Theme) => css`
+	header: css`
 		display: flex;
 		align-items: flex-start;
 	`,

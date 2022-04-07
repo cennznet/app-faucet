@@ -11,4 +11,21 @@ export interface TxStatus {
 	message: string;
 }
 
+interface MetaMaskNetwork {
+	chainId: string;
+	chainName: string;
+	rpcUrl: string;
+}
+
+export interface MetamaskNetworks {
+	Nikau: MetaMaskNetwork;
+	Rata: MetaMaskNetwork;
+}
+
+export interface MetaMaskAccount {
+	address: string;
+}
+
+export type Chain = "CENNZnet" | "Ethereum";
+
 declare module "*.svg";

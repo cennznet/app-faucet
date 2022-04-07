@@ -17,11 +17,12 @@ const DestinationInput: VFC = () => {
 	);
 
 	useEffect(() => {
+		if (selectedAccount && !address) setAddress(selectedAccount.address);
 		if (!address) return setAddressType(null);
 
 		if (address.slice(0, 2) === "0x") return setAddressType("Ethereum");
 		setAddressType("CENNZnet");
-	}, [address, setAddressType]);
+	}, [address, setAddressType, selectedAccount, setAddress]);
 
 	const displayJazzicon =
 		(selectedAccount && addressType !== "CENNZnet") ||

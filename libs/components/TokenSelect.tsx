@@ -12,48 +12,35 @@ const NetworkSelect: FC<{
 	onTokenChange: (event: SelectChangeEvent) => void;
 }> = ({ selectedToken, onTokenChange }) => {
 	return (
-		<div css={styles.root}>
-			<Select
-				css={styles.select}
-				value={selectedToken}
-				onChange={onTokenChange}
-				MenuProps={{ sx: styles.selectDropdown as any }}
-				IconComponent={ExpandMore}
-				autoWidth={false}
-			>
-				{SUPPORTED_TOKENS.map((token, i) => (
-					<MenuItem key={i} value={token.symbol} css={styles.selectItem}>
-						<img src={logos[token.symbol]} alt={token.symbol} />
-						<span>{token.symbol}</span>
-					</MenuItem>
-				))}
-			</Select>
-		</div>
+		<Select
+			css={styles.root}
+			value={selectedToken}
+			onChange={onTokenChange}
+			MenuProps={{ sx: styles.selectDropdown as any }}
+			IconComponent={ExpandMore}
+		>
+			{SUPPORTED_TOKENS.map((token, i) => (
+				<MenuItem key={i} value={token.symbol} css={styles.selectItem}>
+					<img src={logos[token.symbol]} alt={token.symbol} />
+					<span>{token.symbol}</span>
+				</MenuItem>
+			))}
+		</Select>
 	);
 };
 
 export default NetworkSelect;
 
-export const styles = {
+const styles = {
 	root: css`
-		width: auto;
-		border: 1px solid black;
-		border-radius: 4px;
-		overflow: hidden;
-		display: flex;
-		align-items: center;
-		transition: border-color 0.2s;
-		margin-top: 10px;
-
-		.MuiOutlinedInput-notchedOutline {
-			border: none;
-		}
+		width: 100%;
+		height: 48px;
 
 		.MuiSelect-select {
 			display: flex;
 			align-items: center;
-			padding-top: 0.75em;
-			padding-bottom: 0.75em;
+			padding-right: 2em !important;
+
 			> img {
 				width: 2em;
 				height: 2em;
@@ -68,38 +55,11 @@ export const styles = {
 			}
 		}
 	`,
-	select: ({ palette, transitions }: Theme) => css`
-		border: none;
-		min-width: 8.5em;
-		height: 3em;
-
-		&:hover,
-		& .MuiSelect-select[aria-expanded="true"] {
-			color: ${palette.text.highlight};
-
-			.MuiSvgIcon-root {
-				color: ${palette.text.highlight};
-			}
-		}
-
-		.MuiList-root {
-			padding: 0;
-		}
-
-		.MuiSvgIcon-root {
-			transition: transform ${transitions.duration.shortest}ms
-				${transitions.easing.easeInOut};
-		}
-
-		.MuiSelect-iconOpen {
-			color: ${palette.primary.main};
-		}
-	`,
 	selectDropdown: ({ palette, shadows }: Theme) => css`
 		.MuiPaper-root {
 			border-radius: 4px;
 			overflow: hidden;
-			transform: translate(-1px, 5px) !important;
+			transform: translate(-1px, 13px) !important;
 			box-shadow: ${shadows[1]};
 			border: 1px solid ${palette.secondary.main};
 		}

@@ -19,6 +19,6 @@ export function errMsgFilter(errMsg, account): string {
 		}
 	});
 
-	newErrMsg.message = `${newErrMsg.message} - Account: ${account}`;
+	// newErrMsg.message = `${newErrMsg.message} - Account: ${account}`;
 	return newErrMsg;
 }

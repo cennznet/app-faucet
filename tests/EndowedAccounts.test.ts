@@ -83,7 +83,7 @@ describe("EndowedAccounts", () => {
 				);
 			} catch (e) {
 				expect(e.message).toEqual(
-					"1010: Invalid Transaction: Inability to pay some fees , e.g. account balance too low - Account: 5HBwpKrRi7Ds4zmZgFjMVupcKtRjee1zyiBkVDmgaNE2TuVx"
+					"1010: Invalid Transaction: Inability to pay some fees , e.g. account balance too low"
 				);
 			}
 		});

@@ -1897,6 +1897,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/gtag.js@npm:^0.0.10":
+  version: 0.0.10
+  resolution: "@types/gtag.js@npm:0.0.10"
+  checksum: 5c18ffdc64418887763ec1a564e73c9fbf222ff3eece1fbc35a182fdd884e7884bb7708f67e6e4939f157bb9f2cb7a4aff42be7834527e35c5aac4f98783164c
+  languageName: node
+  linkType: hard
+
 "@types/istanbul-lib-coverage@npm:*, @types/istanbul-lib-coverage@npm:^2.0.0, @types/istanbul-lib-coverage@npm:^2.0.1":
   version: 2.0.4
   resolution: "@types/istanbul-lib-coverage@npm:2.0.4"
@@ -2308,6 +2315,7 @@ __metadata:
     "@next/env": ^12.1.2
     "@polkadot/react-identicon": ^1.4.1
     "@testing-library/jest-dom": ^5.16.3
+    "@types/gtag.js": ^0.0.10
     "@types/node": 17.0.23
     "@types/react": 17.0.43
     "@types/react-beforeunload": ^2.1.1

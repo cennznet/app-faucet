@@ -1,10 +1,24 @@
-import { FC } from "react";
+import { VFC, useEffect, useState } from "react";
 import { css } from "@emotion/react";
 import { signIn, useSession } from "next-auth/react";
 import { Theme } from "@mui/material";
 
-const FaucetButton: FC = () => {
+const FaucetButton: VFC = () => {
 	const { data: session } = useSession();
+	const [warned, setWarned] = useState<boolean>(false);
+
+	useEffect(() => {
+		if (!session || warned) return;
+
+		if (!session.validAccount) {
+			alert(
+				`${
+					session.user.name ?? "Your Twitter account"
+				} has failed our legitimacy checks. Please ensure your account has at least 1 tweet, 15 followers, and is older than 1 month.`
+			);
+			setWarned(true);
+		}
+	}, [session, warned]);
 
 	return (
 		<>

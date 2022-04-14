@@ -10,11 +10,11 @@ const FaucetButton: VFC = () => {
 	useEffect(() => {
 		if (!session || warned) return;
 
-		if (!session.validAccount) {
+		if (session.validAccount) {
 			alert(
-				`${
-					session.user.name ?? "Your Twitter account"
-				} has failed our legitimacy checks. Please ensure your account has at least 1 tweet, 15 followers, and is older than 1 month.`
+				`Please ensure ${
+					session.user.name ?? "your Twitter account"
+				} has at least 1 tweet, 15 followers, and is older than 1 month.`
 			);
 			setWarned(true);
 		}

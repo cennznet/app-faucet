@@ -10,7 +10,7 @@ const FaucetButton: VFC = () => {
 	useEffect(() => {
 		if (!session || warned) return;
 
-		if (session.validAccount) {
+		if (!session.validAccount) {
 			alert(
 				`Please ensure ${
 					session.user.name ?? "your Twitter account"

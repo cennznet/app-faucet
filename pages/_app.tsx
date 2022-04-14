@@ -9,8 +9,22 @@ import UserAgentProvider from "@/libs/providers/UserAgentProvider";
 import MetaMaskExtensionProvider from "@/libs/providers/MetaMaskExtensionProvider";
 import MetaMaskWalletProvider from "@/libs/providers/MetaMaskWalletProvider";
 import FaucetProvider from "@/libs/providers/FaucetProvider";
+import { useRouter } from "next/router";
+import { trackPageView } from "@/libs/utils";
+import { useEffect } from "react";
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
+	const { events } = useRouter();
+
+	useEffect(() => {
+		if (!events) return;
+
+		events.on("routeChangeComplete", trackPageView);
+		return () => {
+			events.off("routeChangeComplete", trackPageView);
+		};
+	}, [events]);
+
 	return (
 		<SessionProvider session={session}>
 			<CssBaseline />

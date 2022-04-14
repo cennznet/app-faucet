@@ -173,6 +173,15 @@ const styles = {
 		font-size: 1.2em;
 		margin: 0 0 0 2em;
 
+		p {
+			margin-top: 0;
+			margin-bottom: 1em;
+
+			&:last-child {
+				margin-bottom: 0;
+			}
+		}
+
 		em {
 			font-family: monospace;
 			display: inline-block;

@@ -1,4 +1,4 @@
-import { useState, VFC } from "react";
+import { useEffect, useState, VFC } from "react";
 import { css } from "@emotion/react";
 import NewWindow from "react-new-window";
 import { useSession } from "next-auth/react";
@@ -12,6 +12,20 @@ const FaucetButton: VFC = () => {
 	const { address } = useFaucet();
 	const { connectWallet, selectedAccount } = useMetaMaskWallet();
 	const [popup, setPopup] = useState<boolean>(false);
+	const [warned, setWarned] = useState<boolean>(false);
+
+	useEffect(() => {
+		if (!session || warned) return;
+
+		if (!session.validAccount) {
+			alert(
+				`Please ensure ${
+					session.user.name ?? "your Twitter account"
+				} has at least 1 tweet, 15 followers, and is older than 1 month.`
+			);
+			setWarned(true);
+		}
+	}, [session, warned]);
 
 	if (session?.validAccount) {
 		if (selectedAccount || address) {

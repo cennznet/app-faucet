@@ -37,6 +37,8 @@ export const CENNZNET_RATA_API_URL: string = String(
 
 export const REDIS_URL: string = String(process.env.REDIS_URL);
 
+export const GA_ID: string = process.env.NEXT_PUBLIC_GA_ID;
+
 export const NETWORKS: MetamaskNetworks = {
 	Nikau: {
 		chainId: "0xbb9",

@@ -5,7 +5,7 @@ import { SelectChangeEvent, Theme, Tooltip } from "@mui/material";
 import { CENNZnetNetwork, CENNZnetToken, TxStatus } from "@/libs/types";
 import { SUPPORTED_TOKENS } from "@/libs/constants";
 import {
-	addCENNZnetToMetaMask,
+	addCENNZTokenToMetaMask,
 	ensureEthereumChain,
 	supplyAccount,
 } from "@/libs/utils";
@@ -104,6 +104,19 @@ const Faucet: FC = () => {
 						</Tooltip>{" "}
 						is required.
 					</p>
+					{!!extension && (
+						<p>
+							Click{" "}
+							<span
+								css={styles.toolTipTrigger}
+								onClick={() => addCENNZTokenToMetaMask()}
+							>
+								here
+							</span>{" "}
+							to add <em>CENNZ</em> token to MetaMask before using the faucet
+							with an Ethereum address.
+						</p>
+					)}
 				</div>
 			</div>
 

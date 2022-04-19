@@ -7,7 +7,6 @@ import { CssGlobal } from "@/libs/components";
 import { FAVICON } from "@/assets/vectors";
 import UserAgentProvider from "@/libs/providers/UserAgentProvider";
 import MetaMaskExtensionProvider from "@/libs/providers/MetaMaskExtensionProvider";
-import MetaMaskWalletProvider from "@/libs/providers/MetaMaskWalletProvider";
 import FaucetProvider from "@/libs/providers/FaucetProvider";
 import { useRouter } from "next/router";
 import { trackPageView } from "@/libs/utils";
@@ -33,17 +32,15 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
 				<UserAgentProvider>
 					<FaucetProvider>
 						<MetaMaskExtensionProvider>
-							<MetaMaskWalletProvider>
-								<Head>
-									<title>CENNZnet App Faucet</title>
-									<meta
-										name="description"
-										content="Testnet token faucet powered by CENNZnet"
-									/>
-									<link rel="icon" href={FAVICON} />
-								</Head>
-								<Component {...pageProps} />
-							</MetaMaskWalletProvider>
+							<Head>
+								<title>CENNZnet App Faucet</title>
+								<meta
+									name="description"
+									content="Testnet token faucet powered by CENNZnet"
+								/>
+								<link rel="icon" href={FAVICON} />
+							</Head>
+							<Component {...pageProps} />
 						</MetaMaskExtensionProvider>
 					</FaucetProvider>
 				</UserAgentProvider>

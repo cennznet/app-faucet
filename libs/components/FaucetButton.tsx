@@ -4,13 +4,9 @@ import NewWindow from "react-new-window";
 import { useSession } from "next-auth/react";
 import { Theme } from "@mui/material";
 import { useFaucet } from "@/libs/providers/FaucetProvider";
-import { useMetaMaskWallet } from "@/libs/providers/MetaMaskWalletProvider";
-import { METAMASK } from "@/assets/vectors";
 
 const FaucetButton: VFC = () => {
 	const { data: session } = useSession();
-	const { address } = useFaucet();
-	const { connectWallet, selectedAccount } = useMetaMaskWallet();
 	const [popup, setPopup] = useState<boolean>(false);
 	const [warned, setWarned] = useState<boolean>(false);
 
@@ -28,24 +24,9 @@ const FaucetButton: VFC = () => {
 	}, [session, warned]);
 
 	if (session?.validAccount) {
-		if (selectedAccount || address) {
-			return (
-				<button css={styles.root(false)} type="submit">
-					SEND TOKENS
-				</button>
-			);
-		}
-
 		return (
-			<button
-				onClick={async () => await connectWallet?.()}
-				type="button"
-				css={styles.root(true)}
-			>
-				<span>
-					<img src={METAMASK} alt="MetaMask Logo" />
-					<p>CONNECT METAMASK</p>
-				</span>
+			<button css={styles.root(false)} type="submit">
+				SEND TOKENS
 			</button>
 		);
 	}

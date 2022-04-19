@@ -5,7 +5,7 @@ import { SelectChangeEvent, Theme, Tooltip } from "@mui/material";
 import { CENNZnetNetwork, CENNZnetToken, TxStatus } from "@/libs/types";
 import { SUPPORTED_TOKENS } from "@/libs/constants";
 import {
-	addCENNZnetToMetaMask,
+	addCENNZTokenToMetaMask,
 	ensureEthereumChain,
 	supplyAccount,
 } from "@/libs/utils";
@@ -33,13 +33,8 @@ const Faucet: FC = () => {
 		async (event: SelectChangeEvent) => {
 			const selectedNetwork = event.target.value as CENNZnetNetwork;
 			setNetwork(selectedNetwork);
-
-			if (!!extension && addressType === "Ethereum") {
-				await addCENNZnetToMetaMask(selectedNetwork);
-				await ensureEthereumChain(extension, selectedNetwork);
-			}
 		},
-		[extension, addressType, setNetwork]
+		[setNetwork]
 	);
 
 	const onTokenChange = (event: SelectChangeEvent) => {
@@ -51,6 +46,10 @@ const Faucet: FC = () => {
 		async (event) => {
 			if (!token || !address || !network) return;
 			event.preventDefault();
+
+			if (extension && addressType === "Ethereum") {
+				await ensureEthereumChain(extension, network);
+			}
 
 			setResponse({
 				message: `Retrieving ${token.symbol} from the Faucet`,
@@ -76,7 +75,7 @@ const Faucet: FC = () => {
 				status: "fail",
 			});
 		},
-		[address, addressType, network, token]
+		[address, addressType, extension, network, token]
 	);
 
 	return (
@@ -84,24 +83,41 @@ const Faucet: FC = () => {
 			<div css={styles.header}>
 				<img src={CENNZ_LOGO} css={styles.logoImage} alt="CENNZnet Logo" />
 
-				<p css={styles.description}>
-					Bootstrap your wallet with <em>2000</em> of <em>CENNZ</em> and{" "}
-					<em>CPAY</em> across all of our testnet networks. One claim per day
-					per token,{" "}
-					<Tooltip
-						disableFocusListener
-						title={
-							"Account must have at least 1 tweet, 15 followers, and older than 1 month"
-						}
-						arrow
-						placement="bottom"
-					>
-						<span css={styles.toolTipTrigger}>
-							a legitimate Twitter account
-						</span>
-					</Tooltip>{" "}
-					is required.
-				</p>
+				<div css={styles.description}>
+					<p>
+						Bootstrap your wallet with <strong>2000</strong> <em>CENNZ</em> and{" "}
+						<em>CPAY</em> across our testnet networks.
+					</p>
+					<p>
+						One claim per day per token is allowed. <br />
+						<Tooltip
+							disableFocusListener
+							title={
+								"Account must have at least 1 tweet, 15 followers, and be older than 1 month"
+							}
+							arrow
+							placement="bottom"
+						>
+							<span css={styles.toolTipTrigger}>
+								A legitimate Twitter account
+							</span>
+						</Tooltip>{" "}
+						is required.
+					</p>
+					{!!extension && (
+						<p>
+							Click{" "}
+							<span
+								css={styles.toolTipTrigger}
+								onClick={() => addCENNZTokenToMetaMask()}
+							>
+								here
+							</span>{" "}
+							to add <em>CENNZ</em> token to MetaMask before using the faucet
+							with an Ethereum address.
+						</p>
+					)}
+				</div>
 			</div>
 
 			<div css={styles.body}>

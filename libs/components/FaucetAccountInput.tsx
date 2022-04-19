@@ -2,47 +2,33 @@ import { VFC, useMemo, useEffect } from "react";
 import { css } from "@emotion/react";
 import { AccountIdenticon } from "@/libs/components";
 import { InputAdornment, TextField } from "@mui/material";
-import { useMetaMaskWallet } from "@/libs/providers/MetaMaskWalletProvider";
 import { useFaucet } from "@/libs/providers/FaucetProvider";
 import useAddressValidation from "@/libs/hooks/useAddressValidation";
 import Jazzicon, { jsNumberForAddress } from "react-jazzicon";
+import { useMetaMaskExtension } from "@/libs/providers/MetaMaskExtensionProvider";
+import { isEthereumAddress } from "@/libs/utils";
 
 const FaucetAccountInput: VFC = () => {
-	const { selectedAccount } = useMetaMaskWallet();
 	const { address, setAddress, addressType, setAddressType } = useFaucet();
-	const { inputRef } = useAddressValidation(
-		address ?? selectedAccount?.address,
-		addressType
-	);
+	const { inputRef } = useAddressValidation(address, addressType);
+	const { extension } = useMetaMaskExtension();
 
 	useEffect(() => {
-		if (selectedAccount && !address) setAddress(selectedAccount.address);
 		if (!address) return setAddressType(null);
-
-		if (address.slice(0, 2) === "0x") return setAddressType("Ethereum");
+		if (isEthereumAddress(address)) return setAddressType("Ethereum");
 		setAddressType("CENNZnet");
-	}, [address, setAddressType, selectedAccount, setAddress]);
-
-	const displayJazzicon =
-		(selectedAccount && addressType !== "CENNZnet") ||
-		(address && addressType === "Ethereum");
+	}, [address, setAddressType, setAddress]);
 
 	const startAdornment = useMemo(() => {
 		if (!address) return null;
 
-		if (addressType === "CENNZnet")
-			return <AccountIdenticon theme="beachball" size={28} value={address} />;
-
-		if (displayJazzicon)
+		if (addressType === "Ethereum")
 			return (
-				<Jazzicon
-					diameter={28}
-					seed={jsNumberForAddress(
-						(selectedAccount?.address as string) ?? (address as string)
-					)}
-				/>
+				<Jazzicon diameter={28} seed={jsNumberForAddress(address as string)} />
 			);
-	}, [address, addressType, displayJazzicon, selectedAccount]);
+
+		return <AccountIdenticon theme="beachball" size={28} value={address} />;
+	}, [address, addressType]);
 
 	return (
 		<TextField
@@ -52,7 +38,11 @@ const FaucetAccountInput: VFC = () => {
 			value={address}
 			inputRef={inputRef}
 			required
-			placeholder="Enter CENNZnet Address or Connect MetaMask"
+			placeholder={
+				!!extension
+					? "Enter an Ethereum address or a CENNZnet address"
+					: "Enter a CENNZnet address"
+			}
 			onChange={(e) => setAddress(e.target.value)}
 			InputProps={{
 				startAdornment: (

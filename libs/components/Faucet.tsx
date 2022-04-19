@@ -135,7 +135,7 @@ const Faucet: FC = () => {
 				<FaucetButton />
 			</div>
 
-			{!!session && <SignOut twitterHandle={session.user.name} />}
+			{session?.validAccount && <SignOut twitterHandle={session.user.name} />}
 
 			<FaucetProgress
 				isOpen={isOpen}

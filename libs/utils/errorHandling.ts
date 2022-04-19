@@ -1,4 +1,4 @@
-export function errMsgFilter(errMsg, account): string {
+export function errMsgFilter(errMsg, _account): string {
 	const errors = {
 		"Invalid Transaction (0)": "Bad signature",
 		"Invalid Transaction (1)": "Nonce too low",

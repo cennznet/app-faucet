@@ -7,16 +7,16 @@ import {
 	ENDOWED_ACCOUNT_SEEDS,
 	TRANSFER_AMOUNT,
 } from "@/libs/constants";
-import { EndowedAccounts } from "@/libs/utils";
-import { CENNZnetNetwork } from "@/libs/types";
+import { cvmToCENNZAddress, EndowedAccounts } from "@/libs/utils";
 import { fetchClaimStatus, setNewClaim } from "@/libs/utils/claimStatus";
+import { CENNZnetNetwork } from "@/libs/types";
 
 export default async function handler(
 	req: NextApiRequest,
 	res: NextApiResponse
 ) {
-	const { address, network, assetId } = JSON.parse(req.body);
-	const CENNZnetNetwork: CENNZnetNetwork = network;
+	const { address, addressType, network, assetId } = JSON.parse(req.body);
+	const CENNZNetwork: CENNZnetNetwork = network;
 
 	if (!assetId)
 		return res
@@ -26,6 +26,10 @@ export default async function handler(
 		return res
 			.status(400)
 			.json({ success: false, error: "address param not provided" });
+	if (!addressType)
+		return res
+			.status(400)
+			.json({ success: false, error: "addressType param not provided" });
 	if (!network)
 		return res
 			.status(400)
@@ -37,28 +41,29 @@ export default async function handler(
 			.status(401)
 			.json({ success: false, error: "Invalid Twitter account" });
 
-	const claimed = await fetchClaimStatus(address, network, assetId);
+	const CENNZAddress =
+		addressType === "CENNZnet" ? address : cvmToCENNZAddress(address);
+	const claimed = await fetchClaimStatus(CENNZAddress, network, assetId);
 	if (claimed)
 		return res.status(400).send({ error: "Already claimed in 24h window" });
 
 	try {
 		let networkUrl: string;
-		if (CENNZnetNetwork === "Nikau") networkUrl = CENNZNET_NIKAU_API_URL;
-		else if (CENNZnetNetwork === "Rata") networkUrl = CENNZNET_RATA_API_URL;
-
-		const api = await Api.create({ provider: networkUrl.toLowerCase() });
+		if (CENNZNetwork === "Nikau") networkUrl = CENNZNET_NIKAU_API_URL;
+		else if (CENNZNetwork === "Rata") networkUrl = CENNZNET_RATA_API_URL;
+		const api = await Api.create({ provider: networkUrl });
 		const endowedAccounts = new EndowedAccounts(api, ENDOWED_ACCOUNT_SEEDS);
 
 		await endowedAccounts.init();
 		await endowedAccounts.send(
 			endowedAccounts.api.tx.genericAsset.transfer(
 				assetId,
-				address,
+				CENNZAddress,
 				TRANSFER_AMOUNT
 			)
 		);
 
-		await setNewClaim(address, network, assetId);
+		await setNewClaim(CENNZAddress, network, assetId);
 		await api.disconnect();
 
 		return res.status(200).json({ success: true });

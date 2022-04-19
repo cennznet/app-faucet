@@ -5,6 +5,9 @@ import CssBaseline from "@mui/material/CssBaseline";
 import ThemeProvider from "@/libs/providers/ThemeProvider";
 import { CssGlobal } from "@/libs/components";
 import { FAVICON } from "@/assets/vectors";
+import UserAgentProvider from "@/libs/providers/UserAgentProvider";
+import MetaMaskExtensionProvider from "@/libs/providers/MetaMaskExtensionProvider";
+import FaucetProvider from "@/libs/providers/FaucetProvider";
 import { useRouter } from "next/router";
 import { trackPageView } from "@/libs/utils";
 import { useEffect } from "react";
@@ -26,15 +29,21 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
 			<CssBaseline />
 			<ThemeProvider>
 				<CssGlobal />
-				<Head>
-					<title>CENNZnet Faucet</title>
-					<meta
-						name="description"
-						content="Testnet token faucet powered by CENNZnet"
-					/>
-					<link rel="icon" href={FAVICON} />
-				</Head>
-				<Component {...pageProps} />
+				<UserAgentProvider>
+					<FaucetProvider>
+						<MetaMaskExtensionProvider>
+							<Head>
+								<title>CENNZnet App Faucet</title>
+								<meta
+									name="description"
+									content="Testnet token faucet powered by CENNZnet"
+								/>
+								<link rel="icon" href={FAVICON} />
+							</Head>
+							<Component {...pageProps} />
+						</MetaMaskExtensionProvider>
+					</FaucetProvider>
+				</UserAgentProvider>
 			</ThemeProvider>
 		</SessionProvider>
 	);

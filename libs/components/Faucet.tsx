@@ -4,7 +4,11 @@ import { useSession } from "next-auth/react";
 import { SelectChangeEvent, Theme, Tooltip } from "@mui/material";
 import { CENNZnetNetwork, CENNZnetToken, TxStatus } from "@/libs/types";
 import { SUPPORTED_TOKENS } from "@/libs/constants";
-import { supplyAccount } from "@/libs/utils";
+import {
+	addCENNZTokenToMetaMask,
+	ensureEthereumChain,
+	supplyAccount,
+} from "@/libs/utils";
 import {
 	FaucetAccountInput,
 	FaucetButton,
@@ -14,19 +18,24 @@ import {
 	SignOut,
 } from "@/libs/components";
 import { CENNZ_LOGO } from "@/assets/vectors";
+import { useMetaMaskExtension } from "@/libs/providers/MetaMaskExtensionProvider";
+import { useFaucet } from "@/libs/providers/FaucetProvider";
 
 const Faucet: FC = () => {
 	const { data: session } = useSession();
+	const { address, addressType, network, setNetwork } = useFaucet();
+	const { extension } = useMetaMaskExtension();
 	const [token, setToken] = useState<CENNZnetToken>(SUPPORTED_TOKENS[0]);
-	const [network, setNetwork] = useState<CENNZnetNetwork>("Nikau");
-	const [address, setAddress] = useState<string>("");
 	const [isOpen, setIsOpen] = useState<boolean>(false);
 	const [response, setResponse] = useState<TxStatus>();
 
-	const onNetworkChange = (event: SelectChangeEvent) => {
-		const value = event.target.value as CENNZnetNetwork;
-		setNetwork(value);
-	};
+	const onNetworkChange = useCallback(
+		async (event: SelectChangeEvent) => {
+			const selectedNetwork = event.target.value as CENNZnetNetwork;
+			setNetwork(selectedNetwork);
+		},
+		[setNetwork]
+	);
 
 	const onTokenChange = (event: SelectChangeEvent) => {
 		const value = event.target.value;
@@ -35,8 +44,12 @@ const Faucet: FC = () => {
 
 	const onFormSubmit = useCallback(
 		async (event) => {
-			if (!address || !network) return;
+			if (!token || !address || !network) return;
 			event.preventDefault();
+
+			if (extension && addressType === "Ethereum") {
+				await ensureEthereumChain(extension, network);
+			}
 
 			setResponse({
 				message: `Retrieving ${token.symbol} from the Faucet`,
@@ -45,6 +58,7 @@ const Faucet: FC = () => {
 			setIsOpen(true);
 			const supplyResponse = await supplyAccount(
 				address,
+				addressType,
 				network,
 				token.assetId
 			);
@@ -61,7 +75,7 @@ const Faucet: FC = () => {
 				status: "fail",
 			});
 		},
-		[address, network, token.assetId, token.symbol]
+		[address, addressType, extension, network, token]
 	);
 
 	return (
@@ -90,6 +104,19 @@ const Faucet: FC = () => {
 						</Tooltip>{" "}
 						is required.
 					</p>
+					{!!extension && (
+						<p>
+							Click{" "}
+							<span
+								css={styles.toolTipTrigger}
+								onClick={() => addCENNZTokenToMetaMask()}
+							>
+								here
+							</span>{" "}
+							to add <em>CENNZ</em> token to MetaMask before using the faucet
+							with an Ethereum address.
+						</p>
+					)}
 				</div>
 			</div>
 
@@ -115,7 +142,7 @@ const Faucet: FC = () => {
 				<div css={styles.formRow}>
 					<div css={styles.formField}>
 						<label>Address</label>
-						<FaucetAccountInput setAddress={setAddress} address={address} />
+						<FaucetAccountInput />
 					</div>
 				</div>
 			</div>

@@ -1,20 +1,34 @@
-import { Dispatch, FC, SetStateAction, useMemo } from "react";
+import { VFC, useMemo, useEffect } from "react";
 import { css } from "@emotion/react";
 import { AccountIdenticon } from "@/libs/components";
-import { InputAdornment, TextField, Theme } from "@mui/material";
+import { InputAdornment, TextField } from "@mui/material";
+import { useFaucet } from "@/libs/providers/FaucetProvider";
+import useAddressValidation from "@/libs/hooks/useAddressValidation";
+import Jazzicon, { jsNumberForAddress } from "react-jazzicon";
+import { useMetaMaskExtension } from "@/libs/providers/MetaMaskExtensionProvider";
+import { isEthereumAddress } from "@/libs/utils";
 
-interface FaucetAccountInputProps {
-	setAddress: Dispatch<SetStateAction<string>>;
-	address: string;
-}
-const FaucetAccountInput: FC<FaucetAccountInputProps> = ({
-	setAddress,
-	address,
-}) => {
+const FaucetAccountInput: VFC = () => {
+	const { address, setAddress, addressType, setAddressType } = useFaucet();
+	const { inputRef } = useAddressValidation(address, addressType);
+	const { extension } = useMetaMaskExtension();
+
+	useEffect(() => {
+		if (!address) return setAddressType(null);
+		if (isEthereumAddress(address)) return setAddressType("Ethereum");
+		setAddressType("CENNZnet");
+	}, [address, setAddressType, setAddress]);
+
 	const startAdornment = useMemo(() => {
 		if (!address) return null;
+
+		if (addressType === "Ethereum")
+			return (
+				<Jazzicon diameter={28} seed={jsNumberForAddress(address as string)} />
+			);
+
 		return <AccountIdenticon theme="beachball" size={28} value={address} />;
-	}, [address]);
+	}, [address, addressType]);
 
 	return (
 		<TextField
@@ -22,7 +36,13 @@ const FaucetAccountInput: FC<FaucetAccountInputProps> = ({
 			type="text"
 			css={styles.root}
 			value={address}
+			inputRef={inputRef}
 			required
+			placeholder={
+				!!extension
+					? "Enter an Ethereum address or a CENNZnet address"
+					: "Enter a CENNZnet address"
+			}
 			onChange={(e) => setAddress(e.target.value)}
 			InputProps={{
 				startAdornment: (
@@ -42,7 +62,7 @@ const styles = {
 		width: 100%;
 	`,
 
-	adornment: ({ palette }: Theme) => css`
+	adornment: css`
 		margin-right: 0;
 		> div {
 			margin-right: 0.5em !important;

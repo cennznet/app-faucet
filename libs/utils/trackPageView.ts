@@ -3,7 +3,7 @@ import { GA_ID } from "@/libs/constants";
 /**
  * Track page view using `gtag`
  *
- * @param {string}
+ * @param url {string}
  */
 export default function trackPageView(url: string) {
 	if (!window.gtag) return;

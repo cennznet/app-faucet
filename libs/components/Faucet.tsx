@@ -84,24 +84,28 @@ const Faucet: FC = () => {
 			<div css={styles.header}>
 				<img src={CENNZ_LOGO} css={styles.logoImage} alt="CENNZnet Logo" />
 
-				<p css={styles.description}>
-					Bootstrap your wallet with <em>2000</em> of <em>CENNZ</em> and{" "}
-					<em>CPAY</em> across all of our testnet networks. One claim per day
-					per token,{" "}
-					<Tooltip
-						disableFocusListener
-						title={
-							"Account must have at least 1 tweet, 15 followers, and older than 1 month"
-						}
-						arrow
-						placement="bottom"
-					>
-						<span css={styles.toolTipTrigger}>
-							a legitimate Twitter account
-						</span>
-					</Tooltip>{" "}
-					is required.
-				</p>
+				<div css={styles.description}>
+					<p>
+						Bootstrap your wallet with <strong>2000</strong> <em>CENNZ</em> and{" "}
+						<em>CPAY</em> across our testnet networks.
+					</p>
+					<p>
+						One claim per day per token is allowed. <br />
+						<Tooltip
+							disableFocusListener
+							title={
+								"Account must have at least 1 tweet, 15 followers, and be older than 1 month"
+							}
+							arrow
+							placement="bottom"
+						>
+							<span css={styles.toolTipTrigger}>
+								A legitimate Twitter account
+							</span>
+						</Tooltip>{" "}
+						is required.
+					</p>
+				</div>
 			</div>
 
 			<div css={styles.body}>

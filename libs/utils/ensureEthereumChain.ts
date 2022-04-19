@@ -13,12 +13,12 @@ export default async function ensureEthereumChain(
 	const ethChainId = await extension.request({ method: "eth_chainId" });
 
 	if (ethChainId === NETWORKS[network].chainId) return;
+	await addCENNZTokenToMetaMask();
+
 	await addCENNZnetToMetaMask(network);
 
 	await extension.request({
 		method: "wallet_switchEthereumChain",
 		params: [{ chainId: NETWORKS[network].chainId }],
 	});
-
-	await addCENNZTokenToMetaMask();
 }

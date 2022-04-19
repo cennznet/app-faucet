@@ -33,13 +33,8 @@ const Faucet: FC = () => {
 		async (event: SelectChangeEvent) => {
 			const selectedNetwork = event.target.value as CENNZnetNetwork;
 			setNetwork(selectedNetwork);
-
-			if (!!extension && addressType === "Ethereum") {
-				await addCENNZnetToMetaMask(selectedNetwork);
-				await ensureEthereumChain(extension, selectedNetwork);
-			}
 		},
-		[extension, addressType, setNetwork]
+		[setNetwork]
 	);
 
 	const onTokenChange = (event: SelectChangeEvent) => {
@@ -51,6 +46,10 @@ const Faucet: FC = () => {
 		async (event) => {
 			if (!token || !address || !network) return;
 			event.preventDefault();
+
+			if (extension && addressType === "Ethereum") {
+				await ensureEthereumChain(extension, network);
+			}
 
 			setResponse({
 				message: `Retrieving ${token.symbol} from the Faucet`,
@@ -76,7 +75,7 @@ const Faucet: FC = () => {
 				status: "fail",
 			});
 		},
-		[address, addressType, network, token]
+		[address, addressType, extension, network, token]
 	);
 
 	return (

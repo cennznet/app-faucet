@@ -20,7 +20,11 @@ export default function useAddressValidation(
 				? isEthereumAddress(address)
 				: isCENNZAddress(address);
 
-		input.setCustomValidity(!isValid ? `Invalid ${addressType} address` : "");
+		input.setCustomValidity(
+			!isValid
+				? `Invalid ${addressType ? `${addressType} address` : "address"}`
+				: ""
+		);
 	}, [addressType, address]);
 
 	return { inputRef };

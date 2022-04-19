@@ -3,7 +3,7 @@ import { css } from "@emotion/react";
 import { useSession } from "next-auth/react";
 import { SelectChangeEvent, Theme, Tooltip } from "@mui/material";
 import { CENNZnetNetwork, CENNZnetToken, TxStatus } from "@/libs/types";
-import { SUPPORTED_TOKENS, TRANSFER_AMOUNT } from "@/libs/constants";
+import { SUPPORTED_TOKENS } from "@/libs/constants";
 import { supplyAccount } from "@/libs/utils";
 import {
 	FaucetAccountInput,
@@ -124,7 +124,7 @@ const Faucet: FC = () => {
 				<FaucetButton />
 			</div>
 
-			{!!session && <SignOut twitterHandle={session.user.name} />}
+			{session?.validAccount && <SignOut twitterHandle={session.user.name} />}
 
 			<FaucetProgress
 				isOpen={isOpen}
@@ -148,7 +148,7 @@ const styles = {
 		overflow: hidden;
 	`,
 
-	header: ({ palette }: Theme) => css`
+	header: css`
 		display: flex;
 		align-items: flex-start;
 	`,

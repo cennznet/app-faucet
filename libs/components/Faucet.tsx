@@ -14,12 +14,13 @@ import {
 	FaucetButton,
 	FaucetProgress,
 	NetworkSelect,
-	TokenSelect,
 	SignOut,
+	TokenSelect,
 } from "@/libs/components";
 import { CENNZ_LOGO } from "@/assets/vectors";
 import { useMetaMaskExtension } from "@/libs/providers/MetaMaskExtensionProvider";
 import { useFaucet } from "@/libs/providers/FaucetProvider";
+import useBalance from "@/libs/hooks/useBalance";
 
 const Faucet: FC = () => {
 	const { data: session } = useSession();
@@ -28,6 +29,8 @@ const Faucet: FC = () => {
 	const [token, setToken] = useState<CENNZnetToken>(SUPPORTED_TOKENS[0]);
 	const [isOpen, setIsOpen] = useState<boolean>(false);
 	const [response, setResponse] = useState<TxStatus>();
+
+	const fetchBalance = useBalance();
 
 	const onNetworkChange = useCallback(
 		async (event: SelectChangeEvent) => {
@@ -52,10 +55,16 @@ const Faucet: FC = () => {
 			}
 
 			setResponse({
-				message: `Retrieving ${token.symbol} from the Faucet`,
+				message: (
+					<div>
+						Retrieving <span css={styles.token}>{token.symbol}</span> from the
+						Faucet
+					</div>
+				),
 				status: "in-progress",
 			});
 			setIsOpen(true);
+
 			const supplyResponse = await supplyAccount(
 				address,
 				addressType,
@@ -64,18 +73,31 @@ const Faucet: FC = () => {
 			);
 
 			if (supplyResponse.success) {
-				setResponse({
-					message: `${token.symbol} sent successfully!`,
+				const balance = await fetchBalance(token);
+
+				return setResponse({
+					message: (
+						<>
+							<div>
+								<span css={styles.token}>{token.symbol}</span> sent
+								successfully!
+							</div>
+							<div>
+								New balance: <strong>{balance}</strong>{" "}
+								<span css={styles.token}>{token.symbol}</span>
+							</div>
+						</>
+					),
 					status: "success",
 				});
-				return;
 			}
+
 			setResponse({
 				message: `Error: ${supplyResponse.error}`,
 				status: "fail",
 			});
 		},
-		[address, addressType, extension, network, token]
+		[address, addressType, extension, network, token, fetchBalance]
 	);
 
 	return (
@@ -210,6 +232,18 @@ const styles = {
 			color: ${palette.primary.main};
 			font-style: normal;
 		}
+	`,
+
+	token: ({ palette }: Theme) => css`
+		font-family: monospace;
+		display: inline-block;
+		font-weight: bold;
+		padding: 0.2em 0.35em;
+		border: 1px solid ${palette.secondary.main};
+		border-radius: 4px;
+		margin: 0;
+		color: ${palette.primary.main};
+		font-style: normal;
 	`,
 
 	body: ({ palette }: Theme) => css`

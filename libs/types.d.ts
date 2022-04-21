@@ -1,4 +1,4 @@
-import { EmotionJSX } from "@emotion/react/types/jsx-namespace";
+import { ReactNode } from "react";
 
 export type CENNZnetNetwork = "Nikau" | "Rata";
 
@@ -11,7 +11,7 @@ export interface CENNZnetToken {
 
 export interface TxStatus {
 	status: "in-progress" | "success" | "fail";
-	message: EmotionJSX.Element | string;
+	message: ReactNode;
 	balance?: string;
 }
 

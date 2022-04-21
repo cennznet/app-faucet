@@ -1,14 +1,18 @@
+import { ReactNode } from "react";
+
 export type CENNZnetNetwork = "Nikau" | "Rata";
 
 export interface CENNZnetToken {
 	symbol: string;
 	assetId: number;
 	logo: string;
+	decimals: number;
 }
 
 export interface TxStatus {
 	status: "in-progress" | "success" | "fail";
-	message: string;
+	message: ReactNode;
+	balance?: string;
 }
 
 interface MetaMaskNetwork {
@@ -27,5 +31,11 @@ export interface MetaMaskAccount {
 }
 
 export type Chain = "CENNZnet" | "Ethereum";
+
+export interface GenericCoin {
+	decimals: number;
+	decimalsValue: number;
+	symbol: string;
+}
 
 declare module "*.svg";

@@ -133,7 +133,11 @@ const Faucet: FC = () => {
 							Click{" "}
 							<span
 								css={styles.toolTipTrigger}
-								onClick={() => addCENNZTokenToMetaMask()}
+								onClick={() =>
+									ensureEthereumChain(extension, network).then(
+										addCENNZTokenToMetaMask
+									)
+								}
 							>
 								here
 							</span>{" "}

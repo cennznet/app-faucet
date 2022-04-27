@@ -8,6 +8,7 @@ import {
 	addCENNZTokenToMetaMask,
 	ensureEthereumChain,
 	supplyAccount,
+	isCorrectApiProvider,
 } from "@/libs/utils";
 import {
 	FaucetAccountInput,
@@ -49,8 +50,15 @@ const Faucet: FC = () => {
 
 	const onFormSubmit = useCallback(
 		async (event) => {
-			if (!token || !address || !network || !api) return;
 			event.preventDefault();
+			if (
+				!token ||
+				!address ||
+				!network ||
+				!api ||
+				!isCorrectApiProvider(api, network)
+			)
+				return;
 
 			if (extension && addressType === "Ethereum") {
 				await ensureEthereumChain(extension, network);

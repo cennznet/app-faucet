@@ -10,3 +10,4 @@ export { default as ensureEthereumChain } from "@/libs/utils/ensureEthereumChain
 export { default as isCENNZAddress } from "@/libs/utils/isCENNZAddress";
 export { default as isEthereumAddress } from "@/libs/utils/isEthereumAddress";
 export { default as trackPageView } from "@/libs/utils/trackPageView";
+export { default as isCorrectApiProvider } from "@/libs/utils/isCorrectApiProvider";

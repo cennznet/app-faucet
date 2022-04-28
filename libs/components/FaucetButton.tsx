@@ -1,13 +1,10 @@
 import { useEffect, useState, VFC } from "react";
 import { css } from "@emotion/react";
-import NewWindow from "react-new-window";
 import { useSession } from "next-auth/react";
 import { Theme } from "@mui/material";
-import { useFaucet } from "@/libs/providers/FaucetProvider";
 
 const FaucetButton: VFC = () => {
 	const { data: session } = useSession();
-	const [popup, setPopup] = useState<boolean>(false);
 	const [warned, setWarned] = useState<boolean>(false);
 
 	useEffect(() => {
@@ -32,22 +29,13 @@ const FaucetButton: VFC = () => {
 	}
 
 	return (
-		<>
-			{popup && !session && (
-				<NewWindow
-					url="/sign-in"
-					onUnload={() => setPopup(false)}
-					features={{ height: 600, width: 800 }}
-				/>
-			)}
-			<button
-				css={styles.root(false)}
-				type="button"
-				onClick={() => setPopup(true)}
-			>
-				SIGN IN WITH TWITTER
-			</button>
-		</>
+		<button
+			css={styles.root(false)}
+			type="button"
+			onClick={() => window.open("/sign-in")}
+		>
+			SIGN IN WITH TWITTER
+		</button>
 	);
 };
 

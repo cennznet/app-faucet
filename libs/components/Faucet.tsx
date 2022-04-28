@@ -51,12 +51,14 @@ const Faucet: FC = () => {
 	const onFormSubmit = useCallback(
 		async (event) => {
 			event.preventDefault();
-			if (!token || !address || !network || !api) return;
-
-			if (!isCorrectApiProvider(api, network))
-				return alert(
-					"Please wait a few seconds while networks switch then try again."
-				);
+			if (
+				!token ||
+				!address ||
+				!network ||
+				!api ||
+				!isCorrectApiProvider(api, network)
+			)
+				return;
 
 			if (extension && addressType === "Ethereum") {
 				await ensureEthereumChain(extension, network);

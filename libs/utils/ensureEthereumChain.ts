@@ -13,7 +13,7 @@ export default async function ensureEthereumChain(
 	try {
 		await extension.request({
 			method: "wallet_switchEthereumChain",
-			params: [{ chainId: NETWORKS[network].chainId }]
+			params: [{ chainId: NETWORKS[network].chainId }],
 		});
 	} catch (error) {
 		if (error.code === 4902) {
@@ -27,11 +27,11 @@ export default async function ensureEthereumChain(
 						nativeCurrency: {
 							name: "CPAY",
 							symbol: "CPAY",
-							decimals: 18
+							decimals: 18,
 						},
-						rpcUrls: [NETWORKS[network].rpcUrl]
-					}
-				]
+						rpcUrls: [NETWORKS[network].rpcUrl],
+					},
+				],
 			});
 		}
 	}

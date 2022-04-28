@@ -10,8 +10,29 @@ export default async function ensureEthereumChain(
 
 	if (ethChainId === NETWORKS[network].chainId) return;
 
-	await extension.request({
-		method: "wallet_switchEthereumChain",
-		params: [{ chainId: NETWORKS[network].chainId }],
-	});
+	try {
+		await extension.request({
+			method: "wallet_switchEthereumChain",
+			params: [{ chainId: NETWORKS[network].chainId }]
+		});
+	} catch (error) {
+		if (error.code === 4902) {
+			await extension.request({
+				method: "wallet_addEthereumChain",
+				params: [
+					{
+						chainId: NETWORKS[network].chainId,
+						blockExplorerUrls: ["https://uncoverexplorer.com"],
+						chainName: NETWORKS[network].chainName,
+						nativeCurrency: {
+							name: "CPAY",
+							symbol: "CPAY",
+							decimals: 18
+						},
+						rpcUrls: [NETWORKS[network].rpcUrl]
+					}
+				]
+			});
+		}
+	}
 }

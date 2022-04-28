@@ -55,10 +55,11 @@ const Faucet: FC = () => {
 				!token ||
 				!address ||
 				!network ||
-				!api ||
-				!isCorrectApiProvider(api, network)
+				!api
 			)
 				return;
+
+			if (!isCorrectApiProvider(api, network)) return alert("Please wait a few seconds while networks switch then try again.");
 
 			if (extension && addressType === "Ethereum") {
 				await ensureEthereumChain(extension, network);

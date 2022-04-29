@@ -1,10 +1,7 @@
 import { VFC } from "react";
-import { version } from "@/package.json";
-import { COMMIT_SHA } from "@/libs/constants";
+import { COMMIT_SHA, APP_VERSION } from "@/libs/constants";
 import { css } from "@emotion/react";
 import { Theme } from "@mui/material";
-
-console.log("Footer", process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA);
 
 const Footer: VFC<{}> = () => {
 	const shortenCommitSha = COMMIT_SHA ? COMMIT_SHA.substring(0, 10) : "";
@@ -12,7 +9,7 @@ const Footer: VFC<{}> = () => {
 	return (
 		<div css={styles.root}>
 			<pre>
-				v{version}
+				v{APP_VERSION}
 				{shortenCommitSha ? ` @ ${shortenCommitSha}` : ""}
 			</pre>
 		</div>

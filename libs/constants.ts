@@ -60,4 +60,6 @@ export const CPAY_IPFS: string =
 export const CENNZ_IPFS: string =
 	"https://gateway.pinata.cloud/ipfs/QmfDkgrhCFfVJErVVDuU7UYasYsooXMEXFhBzLMNm6pgey";
 
+export const APP_VERSION: string = process.env.APP_VERSION;
+
 export const COMMIT_SHA: string = process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA;

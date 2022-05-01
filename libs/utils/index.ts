@@ -2,6 +2,7 @@ export { EndowedAccounts } from "@/libs/utils/EndowedAccounts";
 export { errMsgFilter } from "@/libs/utils/errorHandling";
 export { default as supplyAccount } from "@/libs/utils/supplyAccount";
 export { default as fetchValidAccount } from "@/libs/utils/fetchValidAccount";
+export { default as addCENNZnetToMetaMask } from "@/libs/utils/addCENNZnetToMetaMask";
 export { default as addCENNZTokenToMetaMask } from "@/libs/utils/addCENNZTokenToMetaMask";
 export { default as Balance } from "@/libs/utils/Balance";
 export { default as cvmToCENNZAddress } from "@/libs/utils/cvmToCENNZAddress";

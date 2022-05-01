@@ -1,6 +1,7 @@
 import { MetaMaskInpageProvider } from "@metamask/providers";
 import { CENNZnetNetwork } from "@/libs/types";
 import { NETWORKS } from "@/libs/constants";
+import { addCENNZnetToMetaMask } from "@/libs/utils";
 
 export default async function ensureEthereumChain(
 	extension: MetaMaskInpageProvider,
@@ -10,29 +11,5 @@ export default async function ensureEthereumChain(
 
 	if (ethChainId === NETWORKS[network].chainId) return;
 
-	try {
-		await extension.request({
-			method: "wallet_switchEthereumChain",
-			params: [{ chainId: NETWORKS[network].chainId }],
-		});
-	} catch (error) {
-		if (error.code === 4902) {
-			await extension.request({
-				method: "wallet_addEthereumChain",
-				params: [
-					{
-						chainId: NETWORKS[network].chainId,
-						blockExplorerUrls: ["https://uncoverexplorer.com"],
-						chainName: NETWORKS[network].chainName,
-						nativeCurrency: {
-							name: "CPAY",
-							symbol: "CPAY",
-							decimals: 18,
-						},
-						rpcUrls: [NETWORKS[network].rpcUrl],
-					},
-				],
-			});
-		}
-	}
+	await addCENNZnetToMetaMask(extension, network);
 }

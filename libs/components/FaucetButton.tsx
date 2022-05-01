@@ -1,6 +1,6 @@
 import { useEffect, useState, VFC } from "react";
 import { css } from "@emotion/react";
-import { useSession } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import { Theme } from "@mui/material";
 
 const FaucetButton: VFC = () => {
@@ -32,7 +32,7 @@ const FaucetButton: VFC = () => {
 		<button
 			css={styles.root(false)}
 			type="button"
-			onClick={() => window.open("/sign-in")}
+			onClick={() => signIn("twitter")}
 		>
 			SIGN IN WITH TWITTER
 		</button>

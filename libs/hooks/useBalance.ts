@@ -1,36 +1,42 @@
 import { useCallback } from "react";
-import { useCENNZApi } from "@/libs/providers/CENNZApiProvider";
 import { useFaucet } from "@/libs/providers/FaucetProvider";
 import { Balance, cvmToCENNZAddress } from "@/libs/utils";
-import { Codec } from "@cennznet/types";
 import { CENNZnetToken } from "@/libs/types";
 
 export default function useBalance(): (
 	asset: CENNZnetToken
 ) => Promise<string> {
-	const { api } = useCENNZApi();
 	const { address, addressType } = useFaucet();
 
 	return useCallback(
 		async (asset) => {
-			if (!api || !address || !addressType) return;
+			if (!address || !addressType) return;
 
-			let balanceRaw: Codec;
-			if (addressType === "CENNZnet")
-				balanceRaw = await api.query.genericAsset.freeBalance(
-					asset.assetId,
-					address
+			const balance = await fetch("https://nikau.centrality.me/public", {
+				method: "POST",
+				body: JSON.stringify({
+					id: 1,
+					jsonrpc: "2.0",
+					method: "genericAsset_getBalance",
+					params: [
+						addressType === "CENNZnet" ? address : cvmToCENNZAddress(address),
+						asset.assetId,
+					],
+				}),
+				headers: {
+					"Content-Type": "application/json",
+				},
+			})
+				.then((response) => response.json())
+				.then((response) =>
+					Balance.fromApiBalance(response?.result.available, asset)
+				)
+				.catch((error) =>
+					console.log("error fetching balance:", error.message)
 				);
 
-			if (addressType === "Ethereum")
-				balanceRaw = await api.query.genericAsset.freeBalance(
-					asset.assetId,
-					cvmToCENNZAddress(address)
-				);
-
-			const balance = new Balance(balanceRaw.toString(), asset);
-			return balance.toPretty();
+			return (balance as Balance).toPretty();
 		},
-		[api, address, addressType]
+		[address, addressType]
 	);
 }

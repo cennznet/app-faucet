@@ -50,10 +50,6 @@ const Faucet: FC = () => {
 			event.preventDefault();
 			if (!token || !address || !network) return;
 
-			if (extension && addressType === "Ethereum") {
-				await ensureEthereumChain(extension, network);
-			}
-
 			setResponse({
 				message: (
 					<div>
@@ -99,7 +95,7 @@ const Faucet: FC = () => {
 				status: "fail",
 			});
 		},
-		[address, addressType, extension, network, token, fetchBalance]
+		[address, addressType, network, token, fetchBalance]
 	);
 
 	return (

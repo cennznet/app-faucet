@@ -3,7 +3,7 @@ import { SessionProvider } from "next-auth/react";
 import Head from "next/head";
 import CssBaseline from "@mui/material/CssBaseline";
 import ThemeProvider from "@/libs/providers/ThemeProvider";
-import { CssGlobal } from "@/libs/components";
+import { CssGlobal, Footer } from "@/libs/components";
 import { FAVICON } from "@/assets/vectors";
 import UserAgentProvider from "@/libs/providers/UserAgentProvider";
 import MetaMaskExtensionProvider from "@/libs/providers/MetaMaskExtensionProvider";
@@ -43,6 +43,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
 									<link rel="icon" href={FAVICON} />
 								</Head>
 								<Component {...pageProps} />
+								<Footer />
 							</MetaMaskExtensionProvider>
 						</CENNZApiProvider>
 					</FaucetProvider>

@@ -11,7 +11,6 @@ import FaucetProvider from "@/libs/providers/FaucetProvider";
 import { useRouter } from "next/router";
 import { trackPageView } from "@/libs/utils";
 import { useEffect } from "react";
-import CENNZApiProvider from "@/libs/providers/CENNZApiProvider";
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
 	const { events } = useRouter();
@@ -32,19 +31,17 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
 				<CssGlobal />
 				<UserAgentProvider>
 					<FaucetProvider>
-						<CENNZApiProvider>
-							<MetaMaskExtensionProvider>
-								<Head>
-									<title>CENNZnet App Faucet</title>
-									<meta
-										name="description"
-										content="Testnet token faucet powered by CENNZnet"
-									/>
-									<link rel="icon" href={FAVICON} />
-								</Head>
-								<Component {...pageProps} />
-							</MetaMaskExtensionProvider>
-						</CENNZApiProvider>
+						<MetaMaskExtensionProvider>
+							<Head>
+								<title>CENNZnet App Faucet</title>
+								<meta
+									name="description"
+									content="Testnet token faucet powered by CENNZnet"
+								/>
+								<link rel="icon" href={FAVICON} />
+							</Head>
+							<Component {...pageProps} />
+						</MetaMaskExtensionProvider>
 					</FaucetProvider>
 				</UserAgentProvider>
 			</ThemeProvider>

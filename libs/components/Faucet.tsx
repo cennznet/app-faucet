@@ -8,7 +8,6 @@ import {
 	addCENNZTokenToMetaMask,
 	ensureEthereumChain,
 	supplyAccount,
-	isCorrectApiProvider,
 } from "@/libs/utils";
 import {
 	FaucetAccountInput,
@@ -22,12 +21,10 @@ import { CENNZ_LOGO } from "@/assets/vectors";
 import { useMetaMaskExtension } from "@/libs/providers/MetaMaskExtensionProvider";
 import { useFaucet } from "@/libs/providers/FaucetProvider";
 import useBalance from "@/libs/hooks/useBalance";
-import { useCENNZApi } from "@/libs/providers/CENNZApiProvider";
 
 const Faucet: FC = () => {
 	const { data: session } = useSession();
 	const { address, addressType, network, setNetwork } = useFaucet();
-	const { api } = useCENNZApi();
 	const { extension } = useMetaMaskExtension();
 	const [token, setToken] = useState<CENNZnetToken>(SUPPORTED_TOKENS[0]);
 	const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -51,14 +48,7 @@ const Faucet: FC = () => {
 	const onFormSubmit = useCallback(
 		async (event) => {
 			event.preventDefault();
-			if (
-				!token ||
-				!address ||
-				!network ||
-				!api ||
-				!isCorrectApiProvider(api, network)
-			)
-				return;
+			if (!token || !address || !network) return;
 
 			if (extension && addressType === "Ethereum") {
 				await ensureEthereumChain(extension, network);
@@ -92,10 +82,12 @@ const Faucet: FC = () => {
 								<span css={styles.token}>{token.symbol}</span> sent
 								successfully!
 							</div>
-							<div>
-								New balance: <strong>{balance}</strong>{" "}
-								<span css={styles.token}>{token.symbol}</span>
-							</div>
+							{!!balance && (
+								<div>
+									New balance: <strong>{balance}</strong>{" "}
+									<span css={styles.token}>{token.symbol}</span>
+								</div>
+							)}
 						</>
 					),
 					status: "success",
@@ -107,7 +99,7 @@ const Faucet: FC = () => {
 				status: "fail",
 			});
 		},
-		[address, addressType, extension, network, token, fetchBalance, api]
+		[address, addressType, extension, network, token, fetchBalance]
 	);
 
 	return (

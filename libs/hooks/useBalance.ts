@@ -1,6 +1,6 @@
 import { useCallback } from "react";
 import { useFaucet } from "@/libs/providers/FaucetProvider";
-import { Balance, cvmToCENNZAddress } from "@/libs/utils";
+import { Balance, cvmToCENNZAddress, fetchBalance } from "@/libs/utils";
 import { CENNZnetToken } from "@/libs/types";
 
 export default function useBalance(): (
@@ -12,30 +12,14 @@ export default function useBalance(): (
 		async (asset) => {
 			if (!address || !addressType) return;
 
-			const balance = await fetch("https://nikau.centrality.me/public", {
-				method: "POST",
-				body: JSON.stringify({
-					id: 1,
-					jsonrpc: "2.0",
-					method: "genericAsset_getBalance",
-					params: [
-						addressType === "CENNZnet" ? address : cvmToCENNZAddress(address),
-						asset.assetId,
-					],
-				}),
-				headers: {
-					"Content-Type": "application/json",
-				},
-			})
-				.then((response) => response.json())
-				.then((response) =>
-					Balance.fromApiBalance(response?.result.available, asset)
-				)
-				.catch((error) =>
-					console.log("error fetching balance:", error.message)
-				);
+			const balanceRaw = await fetchBalance(
+				addressType === "CENNZnet" ? address : cvmToCENNZAddress(address),
+				asset.assetId
+			);
 
-			return (balance as Balance).toPretty();
+			const balance = Balance.fromApiBalance(balanceRaw, asset);
+
+			return balance.toPretty();
 		},
 		[address, addressType]
 	);

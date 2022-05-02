@@ -1,7 +1,7 @@
 import { FC, useCallback, useState } from "react";
 import { css } from "@emotion/react";
 import { useSession } from "next-auth/react";
-import { SelectChangeEvent, Theme, Tooltip } from "@mui/material";
+import { SelectChangeEvent, Theme } from "@mui/material";
 import { CENNZnetNetwork, CENNZnetToken, TxStatus } from "@/libs/types";
 import { SUPPORTED_TOKENS } from "@/libs/constants";
 import {
@@ -17,11 +17,11 @@ import {
 	SignOut,
 	TokenSelect,
 } from "@/libs/components";
-import { CENNZ_LOGO } from "@/assets/vectors";
 import { useMetaMaskExtension } from "@/libs/providers/MetaMaskExtensionProvider";
 import { useFaucet } from "@/libs/providers/FaucetProvider";
 import useBalance from "@/libs/hooks/useBalance";
 import { useCENNZApi } from "@/libs/providers/CENNZApiProvider";
+import Copy from "@/libs/components/Copy";
 
 const Faucet: FC = () => {
 	const { data: session } = useSession();
@@ -104,49 +104,25 @@ const Faucet: FC = () => {
 
 	return (
 		<form css={styles.root} onSubmit={onFormSubmit}>
-			<div css={styles.header}>
-				<img src={CENNZ_LOGO} css={styles.logoImage} alt="CENNZnet Logo" />
-
-				<div css={styles.description}>
+			<Copy>
+				{!!extension && (
 					<p>
-						Bootstrap your wallet with <strong>2000</strong> <em>CENNZ</em> and{" "}
-						<em>CPAY</em> across our testnet networks.
-					</p>
-					<p>
-						One claim per day per token is allowed. <br />
-						<Tooltip
-							disableFocusListener
-							title={
-								"Account must have at least 1 tweet, 15 followers, and be older than 1 month"
+						Click{" "}
+						<span
+							css={styles.toolTipTrigger}
+							onClick={() =>
+								ensureEthereumChain(extension, network).then(
+									addCENNZTokenToMetaMask
+								)
 							}
-							arrow
-							placement="bottom"
 						>
-							<span css={styles.toolTipTrigger}>
-								A legitimate Twitter account
-							</span>
-						</Tooltip>{" "}
-						is required.
+							here
+						</span>{" "}
+						to add <em>CENNZ</em> token to MetaMask before using the faucet with
+						an Ethereum address.
 					</p>
-					{!!extension && (
-						<p>
-							Click{" "}
-							<span
-								css={styles.toolTipTrigger}
-								onClick={() =>
-									ensureEthereumChain(extension, network).then(
-										addCENNZTokenToMetaMask
-									)
-								}
-							>
-								here
-							</span>{" "}
-							to add <em>CENNZ</em> token to MetaMask before using the faucet
-							with an Ethereum address.
-						</p>
-					)}
-				</div>
-			</div>
+				)}
+			</Copy>
 
 			<div css={styles.body}>
 				<div css={styles.formRow}>
@@ -201,43 +177,6 @@ const styles = {
 		padding: 2em;
 		position: relative;
 		overflow: hidden;
-	`,
-
-	header: css`
-		display: flex;
-		align-items: flex-start;
-	`,
-
-	logoImage: css`
-		margin-top: 0.5em;
-		width: 6em;
-	`,
-
-	description: ({ palette }: Theme) => css`
-		font-size: 1.2em;
-		margin: 0 0 0 2em;
-
-		p {
-			margin-top: 0;
-			margin-bottom: 1em;
-
-			&:last-child {
-				margin-bottom: 0;
-			}
-		}
-
-		em {
-			font-family: monospace;
-			display: inline-block;
-			font-size: 0.75em;
-			font-weight: bold;
-			padding: 0.2em 0.35em;
-			border: 1px solid ${palette.secondary.main};
-			border-radius: 4px;
-			margin: 0;
-			color: ${palette.primary.main};
-			font-style: normal;
-		}
 	`,
 
 	token: ({ palette }: Theme) => css`

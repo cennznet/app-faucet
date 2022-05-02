@@ -2177,6 +2177,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/react-dom@npm:17.0.2":
+  version: 17.0.2
+  resolution: "@types/react-dom@npm:17.0.2"
+  dependencies:
+    "@types/react": "*"
+  checksum: 1725928a1c3a0026044e6401e6b53729e1a88849034fc67138d7784ec44a5132fe2e9056a19b741ccb462ff0ec0d8c2c01ef316bda19be0e31f2ead9346f600b
+  languageName: node
+  linkType: hard
+
 "@types/react-is@npm:^16.7.1 || ^17.0.0":
   version: 17.0.3
   resolution: "@types/react-is@npm:17.0.3"
@@ -2485,6 +2494,7 @@ __metadata:
     "@types/node": 17.0.23
     "@types/react": 17.0.2
     "@types/react-beforeunload": ^2.1.1
+    "@types/react-dom": 17.0.2
     "@types/ua-parser-js": ^0.7.36
     babel-jest: ^27.5.1
     big.js: ^6.1.1

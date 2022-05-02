@@ -36,6 +36,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.17.9",
+    "@cennznet/types": "^2.1.0",
     "@types/babel__core": "^7.1.19",
     "@types/big.js": "^6",
     "@types/gtag.js": "^0.0.10",

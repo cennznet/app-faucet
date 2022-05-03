@@ -1,6 +1,7 @@
 import { MetaMaskInpageProvider } from "@metamask/providers";
 import { CENNZnetNetwork } from "@/libs/types";
 import { NETWORKS } from "@/libs/constants";
+import { addCENNZnetToMetaMask } from "@/libs/utils";
 
 export default async function ensureEthereumChain(
 	extension: MetaMaskInpageProvider,
@@ -10,8 +11,5 @@ export default async function ensureEthereumChain(
 
 	if (ethChainId === NETWORKS[network].chainId) return;
 
-	await extension.request({
-		method: "wallet_switchEthereumChain",
-		params: [{ chainId: NETWORKS[network].chainId }],
-	});
+	await addCENNZnetToMetaMask(extension, network);
 }

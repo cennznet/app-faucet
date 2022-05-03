@@ -2436,6 +2436,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/react-dom@npm:17.0.2":
+  version: 17.0.2
+  resolution: "@types/react-dom@npm:17.0.2"
+  dependencies:
+    "@types/react": "*"
+  checksum: 1725928a1c3a0026044e6401e6b53729e1a88849034fc67138d7784ec44a5132fe2e9056a19b741ccb462ff0ec0d8c2c01ef316bda19be0e31f2ead9346f600b
+  languageName: node
+  linkType: hard
+
 "@types/react-is@npm:^16.7.1 || ^17.0.0":
   version: 17.0.3
   resolution: "@types/react-is@npm:17.0.3"
@@ -2753,6 +2762,7 @@ __metadata:
     "@types/node": 17.0.23
     "@types/react": 17.0.2
     "@types/react-beforeunload": ^2.1.1
+    "@types/react-dom": 17.0.2
     "@types/ua-parser-js": ^0.7.36
     babel-jest: ^27.5.1
     big.js: ^6.1.1
@@ -2768,7 +2778,6 @@ __metadata:
     react: 17.0.2
     react-dom: 17.0.2
     react-jazzicon: ^1.0.3
-    react-new-window: ^0.2.1
     typescript: 4.6.3
     ua-parser-js: ^1.0.2
   languageName: unknown
@@ -7137,18 +7146,6 @@ __metadata:
   peerDependencies:
     react: ^17.0.0
   checksum: cd6ef64ab2c46e0f800b9caa1bbfbc473d6855ff8aeaff7e613ba5d5807de1720cdddbe04264d4764c3f138578cbb23ef1d3f5b442ec2981183abf1790592b24
-  languageName: node
-  linkType: hard
-
-"react-new-window@npm:^0.2.1":
-  version: 0.2.1
-  resolution: "react-new-window@npm:0.2.1"
-  dependencies:
-    prop-types: ^15.7.2
-  peerDependencies:
-    react: ^16.0.0 || ^17.0.0
-    react-dom: ^16.0.0 || ^17.0.0
-  checksum: b35af2b84ed0201e11cf0463d9619de74268a790130ad5fc56a5006da5f787b215e27ff3482b096cf7f82c61314998a09b01ed62fb1b9466a840f8c9beb83c7e
   languageName: node
   linkType: hard
 

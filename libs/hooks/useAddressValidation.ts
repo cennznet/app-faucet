@@ -1,5 +1,4 @@
-import isCENNZAddress from "@/libs/utils/isCENNZAddress";
-import isEthereumAddress from "@/libs/utils/isEthereumAddress";
+import { isEthereumAddress, isCENNZAddress } from "@/libs/utils";
 import { MutableRefObject, useEffect, useRef } from "react";
 
 interface AddressValidationHook {

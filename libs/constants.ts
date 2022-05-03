@@ -43,11 +43,13 @@ export const GA_ID: string = process.env.NEXT_PUBLIC_GA_ID;
 
 export const NETWORKS: MetamaskNetworks = {
 	Nikau: {
+		blockExplorerUrl: "https://nikau.uncoverexplorer.com",
 		chainId: "0xbb9",
 		chainName: "CENNZnet Nikau",
 		rpcUrl: "https://nikau.centrality.me/public",
 	},
 	Rata: {
+		blockExplorerUrl: "https://rata.uncoverexplorer.com",
 		chainId: "0xbb8",
 		chainName: "CENNZnet Rata",
 		rpcUrl: "https://rata.centrality.me/public",
@@ -59,3 +61,7 @@ export const CPAY_IPFS: string =
 
 export const CENNZ_IPFS: string =
 	"https://gateway.pinata.cloud/ipfs/QmfDkgrhCFfVJErVVDuU7UYasYsooXMEXFhBzLMNm6pgey";
+
+export const APP_VERSION: string = process.env.APP_VERSION;
+
+export const COMMIT_SHA: string = process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA;

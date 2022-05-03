@@ -29,11 +29,7 @@ const FaucetButton: VFC = () => {
 	}
 
 	return (
-		<button
-			css={styles.root}
-			type="button"
-			onClick={() => signIn("twitter")}
-		>
+		<button css={styles.root} type="button" onClick={() => signIn("twitter")}>
 			SIGN IN WITH TWITTER
 		</button>
 	);

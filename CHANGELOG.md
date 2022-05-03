@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+## [1.1.1] - 2022-05-05
+
+- Fetch account balance via CENNZnet JSON-RPC [#40](https://github.com/cennznet/app-faucet/pull/40)
+- Handle twitter authorization in same window [#46](https://github.com/cennznet/app-faucet/pull/46)
+- Display app version and commit hash [#47](https://github.com/cennznet/app-faucet/pull/47)
+
 ## [1.1.0] - 2022-04-28
 
 - Faucet can now send CENNZ/CPAY to a Metamask Address

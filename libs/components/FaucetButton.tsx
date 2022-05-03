@@ -1,7 +1,9 @@
 import { useEffect, useState, VFC } from "react";
 import { css } from "@emotion/react";
-import { signIn, useSession } from "next-auth/react";
+import NewWindow from "react-new-window";
+import { useSession } from "next-auth/react";
 import { Theme } from "@mui/material";
+import { useFaucet } from "@/libs/providers/FaucetProvider";
 
 const FaucetButton: VFC = () => {
 	const { data: session } = useSession();

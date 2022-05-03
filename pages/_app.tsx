@@ -11,6 +11,7 @@ import FaucetProvider from "@/libs/providers/FaucetProvider";
 import { useRouter } from "next/router";
 import { trackPageView } from "@/libs/utils";
 import { useEffect } from "react";
+import CENNZApiProvider from "@/libs/providers/CENNZApiProvider";
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
 	const { events } = useRouter();

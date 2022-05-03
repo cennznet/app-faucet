@@ -50,10 +50,6 @@ const Faucet: FC = () => {
 			event.preventDefault();
 			if (!token || !address || !network) return;
 
-			if (extension && addressType === "Ethereum") {
-				await ensureEthereumChain(extension, network);
-			}
-
 			setResponse({
 				message: (
 					<div>
@@ -177,18 +173,6 @@ const styles = {
 		padding: 2em;
 		position: relative;
 		overflow: hidden;
-	`,
-
-	token: ({ palette }: Theme) => css`
-		font-family: monospace;
-		display: inline-block;
-		font-weight: bold;
-		padding: 0.2em 0.35em;
-		border: 1px solid ${palette.secondary.main};
-		border-radius: 4px;
-		margin: 0;
-		color: ${palette.primary.main};
-		font-style: normal;
 	`,
 
 	token: ({ palette }: Theme) => css`

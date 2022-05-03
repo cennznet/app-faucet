@@ -22,7 +22,7 @@ const FaucetButton: VFC = () => {
 
 	if (session?.validAccount) {
 		return (
-			<button css={styles.root(false)} type="submit">
+			<button css={styles.root} type="submit">
 				SEND TOKENS
 			</button>
 		);
@@ -30,7 +30,7 @@ const FaucetButton: VFC = () => {
 
 	return (
 		<button
-			css={styles.root(false)}
+			css={styles.root}
 			type="button"
 			onClick={() => signIn("twitter")}
 		>
@@ -42,34 +42,32 @@ const FaucetButton: VFC = () => {
 export default FaucetButton;
 
 const styles = {
-	root:
-		(metaMask?: boolean) =>
-		({ palette, transitions }: Theme) =>
-			css`
-				cursor: pointer;
-				text-align: center;
-				border-radius: 4px;
-				background-color: white;
-				color: ${metaMask ? "#e2761b" : palette.primary.main};
-				font-weight: bold;
-				border: 1px solid ${metaMask ? "#e2761b" : palette.primary.main};
-				transition: background-color ${transitions.duration.short}ms;
-				display: block;
-				margin: 0 auto;
-				padding: ${metaMask ? "0.5em 0.75em" : "1em 1.5em"};
+	root: ({ palette, transitions }: Theme) =>
+		css`
+			cursor: pointer;
+			text-align: center;
+			border-radius: 4px;
+			background-color: white;
+			color: ${palette.primary.main};
+			font-weight: bold;
+			border: 1px solid ${palette.primary.main};
+			transition: background-color ${transitions.duration.short}ms;
+			display: block;
+			margin: 0 auto;
+			padding: 1em 1.5em;
 
-				span {
-					display: inline-flex;
-				}
+			span {
+				display: inline-flex;
+			}
 
-				img {
-					height: 2em;
-					margin: 0.65em 0.2em;
-				}
+			img {
+				height: 2em;
+				margin: 0.65em 0.2em;
+			}
 
-				&:hover {
-					background-color: ${metaMask ? "#e2761b" : palette.primary.main};
-					color: white;
-				}
-			`,
+			&:hover {
+				background-color: ${palette.primary.main};
+				color: white;
+			}
+		`,
 };

@@ -1,36 +1,26 @@
 import { useCallback } from "react";
-import { useCENNZApi } from "@/libs/providers/CENNZApiProvider";
 import { useFaucet } from "@/libs/providers/FaucetProvider";
-import { Balance, cvmToCENNZAddress } from "@/libs/utils";
-import { Codec } from "@cennznet/types";
+import { Balance, cvmToCENNZAddress, fetchBalance } from "@/libs/utils";
 import { CENNZnetToken } from "@/libs/types";
 
 export default function useBalance(): (
 	asset: CENNZnetToken
 ) => Promise<string> {
-	const { api } = useCENNZApi();
 	const { address, addressType } = useFaucet();
 
 	return useCallback(
 		async (asset) => {
-			if (!api || !address || !addressType) return;
+			if (!address || !addressType) return;
 
-			let balanceRaw: Codec;
-			if (addressType === "CENNZnet")
-				balanceRaw = await api.query.genericAsset.freeBalance(
-					asset.assetId,
-					address
-				);
+			const balanceRaw = await fetchBalance(
+				addressType === "CENNZnet" ? address : cvmToCENNZAddress(address),
+				asset.assetId
+			);
 
-			if (addressType === "Ethereum")
-				balanceRaw = await api.query.genericAsset.freeBalance(
-					asset.assetId,
-					cvmToCENNZAddress(address)
-				);
+			const balance = Balance.fromApiBalance(balanceRaw, asset);
 
-			const balance = new Balance(balanceRaw.toString(), asset);
 			return balance.toPretty();
 		},
-		[api, address, addressType]
+		[address, addressType]
 	);
 }

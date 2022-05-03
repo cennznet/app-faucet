@@ -16,6 +16,7 @@ export interface TxStatus {
 }
 
 interface MetaMaskNetwork {
+	blockExplorerUrl: string;
 	chainId: string;
 	chainName: string;
 	rpcUrl: string;

@@ -43,11 +43,13 @@ export const GA_ID: string = process.env.NEXT_PUBLIC_GA_ID;
 
 export const NETWORKS: MetamaskNetworks = {
 	Nikau: {
+		blockExplorerUrl: "https://nikau.uncoverexplorer.com",
 		chainId: "0xbb9",
 		chainName: "CENNZnet Nikau",
 		rpcUrl: "https://nikau.centrality.me/public",
 	},
 	Rata: {
+		blockExplorerUrl: "https://rata.uncoverexplorer.com",
 		chainId: "0xbb8",
 		chainName: "CENNZnet Rata",
 		rpcUrl: "https://rata.centrality.me/public",

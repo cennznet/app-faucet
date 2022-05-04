@@ -17,10 +17,10 @@ import {
 	NetworkSelect,
 	SignOut,
 	TokenSelect,
+	SuccessResponse
 } from "@/libs/components";
 import { useMetaMaskExtension } from "@/libs/providers/MetaMaskExtensionProvider";
 import { useFaucet } from "@/libs/providers/FaucetProvider";
-import SuccessResponse from "@/libs/components/SuccessResponse";
 import useBalance from "@/libs/hooks/useBalance";
 
 const Faucet: FC = () => {

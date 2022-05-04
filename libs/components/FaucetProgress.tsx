@@ -107,12 +107,13 @@ const styles = {
 			font-weight: bold;
 		}
 	`,
-	button: ({ palette }) => css`
+	button: ({ palette, transitions }) => css`
 		margin-top: 2em;
 		text-align: center;
 		border-radius: 4px;
 		border: transparent;
 		background-color: ${palette.primary.main};
+		transition: background-color ${transitions.duration.short}ms;
 		color: white;
 		letter-spacing: 0.5px;
 		justify-content: center;
@@ -122,5 +123,11 @@ const styles = {
 		cursor: pointer;
 		display: flex;
 		font-weight: bold;
+
+		&:hover {
+			border: ${palette.primary.main} 1px solid;
+			color: ${palette.primary.main};
+			background-color: white;
+		}
 	`,
 };

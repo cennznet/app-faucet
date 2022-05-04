@@ -10,6 +10,7 @@ import {
 	supplyAccount,
 } from "@/libs/utils";
 import {
+	Copy,
 	FaucetAccountInput,
 	FaucetButton,
 	FaucetProgress,
@@ -19,8 +20,8 @@ import {
 } from "@/libs/components";
 import { useMetaMaskExtension } from "@/libs/providers/MetaMaskExtensionProvider";
 import { useFaucet } from "@/libs/providers/FaucetProvider";
+import SuccessResponse from "@/libs/components/SuccessResponse";
 import useBalance from "@/libs/hooks/useBalance";
-import Copy from "@/libs/components/Copy";
 
 const Faucet: FC = () => {
 	const { data: session } = useSession();
@@ -72,20 +73,7 @@ const Faucet: FC = () => {
 				const balance = await fetchBalance(token);
 
 				return setResponse({
-					message: (
-						<>
-							<div>
-								<span css={styles.token}>{token.symbol}</span> sent
-								successfully!
-							</div>
-							{!!balance && (
-								<div>
-									New balance: <strong>{balance}</strong>{" "}
-									<span css={styles.token}>{token.symbol}</span>
-								</div>
-							)}
-						</>
-					),
+					message: <SuccessResponse balance={balance} token={token} />,
 					status: "success",
 				});
 			}

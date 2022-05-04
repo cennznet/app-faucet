@@ -1,10 +1,12 @@
 import { Balance } from "@cennznet/types";
+import { CENNZnetNetwork } from "@/libs/types";
 
 export default async function fetchBalance(
 	address: string,
-	assetId: number
+	assetId: number,
+	network: CENNZnetNetwork
 ): Promise<Balance> {
-	return fetch("https://nikau.centrality.me/public", {
+	return fetch(`https://${network.toLowerCase()}.centrality.me/public`, {
 		method: "POST",
 		body: JSON.stringify({
 			id: 1,

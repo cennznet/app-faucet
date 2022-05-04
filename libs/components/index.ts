@@ -7,3 +7,4 @@ export { default as FaucetProgress } from "@/libs/components/FaucetProgress";
 export { default as NetworkSelect } from "@/libs/components/NetworkSelect";
 export { default as SignOut } from "@/libs/components/SignOut";
 export { default as TokenSelect } from "@/libs/components/TokenSelect";
+export { default as Footer } from "@/libs/components/Footer";

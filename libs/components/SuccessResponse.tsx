@@ -30,7 +30,7 @@ const SuccessResponse: VFC<SuccessResponseProps> = ({ balance, token }) => {
 						<div css={styles.copy}>
 							Can&apos;t see it in your MetaMask wallet?
 							<br />
-							<ToolTip isCENNZ={token.symbol === "CENNZ"} />
+							<MetaMaskPrompt isCENNZ={token.symbol === "CENNZ"} />
 						</div>
 					)}
 				</>
@@ -39,11 +39,7 @@ const SuccessResponse: VFC<SuccessResponseProps> = ({ balance, token }) => {
 	);
 };
 
-interface ToolTipProps {
-	isCENNZ: boolean;
-}
-
-const ToolTip: VFC<ToolTipProps> = ({ isCENNZ }) => {
+const MetaMaskPrompt: VFC<{ isCENNZ: boolean }> = ({ isCENNZ }) => {
 	const { network } = useFaucet();
 	const { extension } = useMetaMaskExtension();
 

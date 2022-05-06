@@ -17,7 +17,7 @@ import {
 	NetworkSelect,
 	SignOut,
 	TokenSelect,
-	SuccessResponse
+	SuccessResponse,
 } from "@/libs/components";
 import { useMetaMaskExtension } from "@/libs/providers/MetaMaskExtensionProvider";
 import { useFaucet } from "@/libs/providers/FaucetProvider";
@@ -33,13 +33,10 @@ const Faucet: FC = () => {
 
 	const fetchBalance = useBalance();
 
-	const onNetworkChange = useCallback(
-		async (event: SelectChangeEvent) => {
-			const selectedNetwork = event.target.value as CENNZnetNetwork;
-			setNetwork(selectedNetwork);
-		},
-		[setNetwork]
-	);
+	const onNetworkChange = (event: SelectChangeEvent) => {
+		const selectedNetwork = event.target.value as CENNZnetNetwork;
+		setNetwork(selectedNetwork);
+	};
 
 	const onTokenChange = (event: SelectChangeEvent) => {
 		const value = event.target.value;

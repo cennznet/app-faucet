@@ -10,17 +10,18 @@ import {
 	supplyAccount,
 } from "@/libs/utils";
 import {
+	Copy,
 	FaucetAccountInput,
 	FaucetButton,
 	FaucetProgress,
 	NetworkSelect,
 	SignOut,
 	TokenSelect,
+	SuccessResponse,
 } from "@/libs/components";
 import { useMetaMaskExtension } from "@/libs/providers/MetaMaskExtensionProvider";
 import { useFaucet } from "@/libs/providers/FaucetProvider";
 import useBalance from "@/libs/hooks/useBalance";
-import Copy from "@/libs/components/Copy";
 
 const Faucet: FC = () => {
 	const { data: session } = useSession();
@@ -32,13 +33,10 @@ const Faucet: FC = () => {
 
 	const fetchBalance = useBalance();
 
-	const onNetworkChange = useCallback(
-		async (event: SelectChangeEvent) => {
-			const selectedNetwork = event.target.value as CENNZnetNetwork;
-			setNetwork(selectedNetwork);
-		},
-		[setNetwork]
-	);
+	const onNetworkChange = (event: SelectChangeEvent) => {
+		const selectedNetwork = event.target.value as CENNZnetNetwork;
+		setNetwork(selectedNetwork);
+	};
 
 	const onTokenChange = (event: SelectChangeEvent) => {
 		const value = event.target.value;
@@ -72,20 +70,7 @@ const Faucet: FC = () => {
 				const balance = await fetchBalance(token);
 
 				return setResponse({
-					message: (
-						<>
-							<div>
-								<span css={styles.token}>{token.symbol}</span> sent
-								successfully!
-							</div>
-							{!!balance && (
-								<div>
-									New balance: <strong>{balance}</strong>{" "}
-									<span css={styles.token}>{token.symbol}</span>
-								</div>
-							)}
-						</>
-					),
+					message: <SuccessResponse balance={balance} token={token} />,
 					status: "success",
 				});
 			}

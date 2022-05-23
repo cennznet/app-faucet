@@ -5,13 +5,11 @@ import { InputAdornment, TextField } from "@mui/material";
 import { useFaucet } from "@/libs/providers/FaucetProvider";
 import useAddressValidation from "@/libs/hooks/useAddressValidation";
 import Jazzicon, { jsNumberForAddress } from "react-jazzicon";
-import { useMetaMaskExtension } from "@/libs/providers/MetaMaskExtensionProvider";
 import { isEthereumAddress } from "@/libs/utils";
 
 const FaucetAccountInput: VFC = () => {
 	const { address, setAddress, addressType, setAddressType } = useFaucet();
 	const { inputRef } = useAddressValidation(address, addressType);
-	const { extension } = useMetaMaskExtension();
 
 	useEffect(() => {
 		if (!address) return setAddressType(null);
@@ -38,11 +36,7 @@ const FaucetAccountInput: VFC = () => {
 			value={address}
 			inputRef={inputRef}
 			required
-			placeholder={
-				!!extension
-					? "Enter an Ethereum address or a CENNZnet address"
-					: "Enter a CENNZnet address"
-			}
+			placeholder={"Enter a CENNZnet or Ethereum address"}
 			onChange={(e) => setAddress(e.target.value)}
 			InputProps={{
 				startAdornment: (

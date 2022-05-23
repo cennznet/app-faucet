@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { memo, ReactElement } from "react";
 import {
 	ThemeProvider as MuiThemeProvider,
 	createTheme,
@@ -50,7 +50,7 @@ const config = {
 	},
 } as Partial<Theme>;
 
-const ThemeProvider: FC = (props) => {
+function ThemeProvider(props): ReactElement {
 	const theme = createTheme({
 		...config,
 		palette: {
@@ -78,6 +78,6 @@ const ThemeProvider: FC = (props) => {
 	});
 
 	return <MuiThemeProvider {...props} theme={theme} />;
-};
+}
 
-export default ThemeProvider;
+export default memo(ThemeProvider);

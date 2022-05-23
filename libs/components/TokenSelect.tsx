@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { memo, ReactElement } from "react";
 import { css } from "@emotion/react";
 import { Select, SelectChangeEvent, MenuItem, Theme } from "@mui/material";
 import ExpandMore from "@mui/icons-material/ExpandMore";
@@ -7,10 +7,15 @@ import { CENNZ, CPAY } from "@/assets/vectors";
 
 const logos = { CENNZ, CPAY };
 
-const NetworkSelect: FC<{
+interface Props {
 	selectedToken: string;
 	onTokenChange: (event: SelectChangeEvent) => void;
-}> = ({ selectedToken, onTokenChange }) => {
+}
+
+function NetworkSelect({
+	selectedToken,
+	onTokenChange,
+}: Props): ReactElement<Props> {
 	return (
 		<Select
 			css={styles.root}
@@ -27,9 +32,9 @@ const NetworkSelect: FC<{
 			))}
 		</Select>
 	);
-};
+}
 
-export default NetworkSelect;
+export default memo(NetworkSelect);
 
 const styles = {
 	root: css`
@@ -55,6 +60,7 @@ const styles = {
 			}
 		}
 	`,
+
 	selectDropdown: ({ palette, shadows }: Theme) => css`
 		.MuiPaper-root {
 			border-radius: 4px;
@@ -68,6 +74,7 @@ const styles = {
 			padding: 0;
 		}
 	`,
+
 	selectItem: css`
 		display: flex;
 		padding-top: 0.75em;

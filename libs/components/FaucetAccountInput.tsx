@@ -1,4 +1,4 @@
-import { VFC, useMemo, useEffect } from "react";
+import { useMemo, useEffect, ReactElement } from "react";
 import { css } from "@emotion/react";
 import { AccountIdenticon } from "@/libs/components";
 import { InputAdornment, TextField } from "@mui/material";
@@ -8,7 +8,7 @@ import Jazzicon, { jsNumberForAddress } from "react-jazzicon";
 import { useMetaMaskExtension } from "@/libs/providers/MetaMaskExtensionProvider";
 import { isEthereumAddress } from "@/libs/utils";
 
-const FaucetAccountInput: VFC = () => {
+function FaucetAccountInput(): ReactElement {
 	const { address, setAddress, addressType, setAddressType } = useFaucet();
 	const { inputRef } = useAddressValidation(address, addressType);
 	const { extension } = useMetaMaskExtension();
@@ -53,7 +53,7 @@ const FaucetAccountInput: VFC = () => {
 			}}
 		/>
 	);
-};
+}
 
 export default FaucetAccountInput;
 

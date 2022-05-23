@@ -1,9 +1,9 @@
-import { VFC } from "react";
+import { ReactElement } from "react";
 import { COMMIT_SHA, APP_VERSION } from "@/libs/constants";
 import { css } from "@emotion/react";
 import { Theme } from "@mui/material";
 
-const Footer: VFC<{}> = () => {
+function Footer(): ReactElement {
 	const shortenCommitSha = COMMIT_SHA ? COMMIT_SHA.substring(0, 10) : "";
 
 	return (
@@ -14,7 +14,7 @@ const Footer: VFC<{}> = () => {
 			</pre>
 		</div>
 	);
-};
+}
 
 export default Footer;
 

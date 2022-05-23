@@ -1,9 +1,11 @@
-import { FC } from "react";
+import { memo, PropsWithChildren, ReactElement } from "react";
 import { css } from "@emotion/react";
 import { CENNZ_LOGO } from "@/assets/vectors";
 import { Theme, Tooltip } from "@mui/material";
 
-const Copy: FC = ({ children }) => {
+interface Props {}
+
+function Copy({ children }: PropsWithChildren<Props>): ReactElement<Props> {
 	return (
 		<div css={styles.header}>
 			<img src={CENNZ_LOGO} css={styles.logoImage} alt="CENNZnet Logo" />
@@ -32,9 +34,9 @@ const Copy: FC = ({ children }) => {
 			</div>
 		</div>
 	);
-};
+}
 
-export default Copy;
+export default memo(Copy);
 
 const styles = {
 	header: css`

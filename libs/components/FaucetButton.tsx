@@ -1,9 +1,9 @@
-import { useEffect, useState, VFC } from "react";
+import { ReactElement, useEffect, useState } from "react";
 import { css } from "@emotion/react";
 import { signIn, useSession } from "next-auth/react";
 import { Theme } from "@mui/material";
 
-const FaucetButton: VFC = () => {
+function FaucetButton(): ReactElement {
 	const { data: session } = useSession();
 	const [warned, setWarned] = useState<boolean>(false);
 
@@ -33,7 +33,7 @@ const FaucetButton: VFC = () => {
 			SIGN IN WITH TWITTER
 		</button>
 	);
-};
+}
 
 export default FaucetButton;
 

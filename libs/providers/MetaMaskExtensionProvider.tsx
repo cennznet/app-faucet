@@ -1,7 +1,8 @@
 import {
 	createContext,
-	FC,
-	useCallback,
+	memo,
+	PropsWithChildren,
+	ReactElement,
 	useContext,
 	useEffect,
 	useState,
@@ -19,9 +20,9 @@ const MetaMaskExtensionContext = createContext<MetaMaskExtensionContextType>(
 
 interface MetaMaskExtensionProviderProps {}
 
-const MetaMaskExtensionProvider: FC<MetaMaskExtensionProviderProps> = ({
+function MetaMaskExtensionProvider({
 	children,
-}) => {
+}: PropsWithChildren<MetaMaskExtensionProviderProps>): ReactElement<MetaMaskExtensionProviderProps> {
 	const [extension, setExtension] =
 		useState<MetaMaskExtensionContextType["extension"]>();
 
@@ -34,9 +35,9 @@ const MetaMaskExtensionProvider: FC<MetaMaskExtensionProviderProps> = ({
 			{children}
 		</MetaMaskExtensionContext.Provider>
 	);
-};
+}
 
-export default MetaMaskExtensionProvider;
+export default memo(MetaMaskExtensionProvider);
 
 export function useMetaMaskExtension(): MetaMaskExtensionContextType {
 	return useContext(MetaMaskExtensionContext);

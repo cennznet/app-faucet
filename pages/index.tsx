@@ -1,8 +1,8 @@
-import { FC } from "react";
+import { ReactElement } from "react";
 import { css } from "@emotion/react";
 import { Faucet } from "@/libs/components";
 
-const Home: FC = () => {
+function Home(): ReactElement {
 	return (
 		<div css={styles.background}>
 			<div css={styles.container}>
@@ -10,7 +10,7 @@ const Home: FC = () => {
 			</div>
 		</div>
 	);
-};
+}
 
 export default Home;
 

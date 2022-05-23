@@ -57,5 +57,5 @@
     "@polkadot/util": "^8.7.1",
     "@polkadot/util-crypto": "^8.7.1"
   },
-  "packageManager": "yarn@3.2.0"
+  "packageManager": "yarn@3.2.1"
 }

@@ -548,11 +548,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@cennznet/api@npm:^2.1.0":
-  version: 2.1.0
-  resolution: "@cennznet/api@npm:2.1.0"
+"@cennznet/api@npm:^2.1.1-alpha.2":
+  version: 2.1.1-alpha.4
+  resolution: "@cennznet/api@npm:2.1.1-alpha.4"
   dependencies:
-    "@cennznet/types": ^2.1.0
+    "@cennznet/types": ^2.1.1-alpha.4
+    "@depay/web3-blockchains": ^4.3.0
+    "@depay/web3-mock": ^11.7.0
     "@ethersproject/keccak256": ^5.5.0
     "@ethersproject/signing-key": ^5.5.0
     "@polkadot/api": ^7.7.1
@@ -561,20 +563,38 @@ __metadata:
     "@polkadot/rpc-provider": ^7.7.1
     "@polkadot/types": ^7.7.1
     "@polkadot/x-rxjs": ^6.11.2-6
+    ethers: ^5.6.4
     eventemitter3: ^4.0.0
-  checksum: 574824cb883e862860687531ea555241c9026b8056082e0b0f2184e788283e446ccf346c15ae732ff9ed28404ac87a33a95fe55487535ef8c39595ea04ee2b1b
+  checksum: b8bc63fcb694c4603eedb95a5869228221dfeb884582aa8e9378322fda17682f8f859fb0582af8c9c255c836ecc87be963a3fae7a9fc1fe0ead6ef643af02203
   languageName: node
   linkType: hard
 
-"@cennznet/types@npm:^2.1.0":
-  version: 2.1.0
-  resolution: "@cennznet/types@npm:2.1.0"
+"@cennznet/types@npm:^2.1.1-alpha.2, @cennznet/types@npm:^2.1.1-alpha.4":
+  version: 2.1.1-alpha.4
+  resolution: "@cennznet/types@npm:2.1.1-alpha.4"
   dependencies:
     "@polkadot/keyring": ^8.3.3
     "@polkadot/types": ^7.7.1
     "@polkadot/util": ^8.3.3
     "@polkadot/util-crypto": ^8.3.3
-  checksum: f229817c40f5632d7b9cecddd577edeb247c37421e1edb482cfc46a7c8ab90828cc5df4e4fc594eaac4510ab616ced4b521ebb1f6d273a84cbf58f2aadf5b3eb
+  checksum: ce01a3a2955413ae0fede69902dc489e081ea8f28dcd1c188e62c3641e1456ae3fd8672d0df25a76267daf7b6b515f2ada9b36177cc9f7bb30d6f3d6538ce5a0
+  languageName: node
+  linkType: hard
+
+"@depay/web3-blockchains@npm:^4.3.0":
+  version: 4.5.0
+  resolution: "@depay/web3-blockchains@npm:4.5.0"
+  checksum: 77183d466c7b3989090b96a6100e410efbd94dad3a40bdda999cfb5f79b58b54ec21646c80c49d59b7a0b8919c77bcc35a756affb5eb462bef372908f86904ab
+  languageName: node
+  linkType: hard
+
+"@depay/web3-mock@npm:^11.7.0":
+  version: 11.8.1
+  resolution: "@depay/web3-mock@npm:11.8.1"
+  peerDependencies:
+    "@depay/web3-blockchains": ^4.5.0
+    ethers: ^5.6.5
+  checksum: 398f73735cd9a660bb1469258ed688bf4d79a1cd03295f3240a528c4969ac4812a71f23c39ad124900e7d835f31c6318df0a96a5fe4632f6800f221e5a530dd2
   languageName: node
   linkType: hard
 
@@ -3006,7 +3026,8 @@ __metadata:
   resolution: "app-faucet@workspace:."
   dependencies:
     "@babel/core": ^7.18.0
-    "@cennznet/api": ^2.1.0
+    "@cennznet/api": ^2.1.1-alpha.2
+    "@cennznet/types": ^2.1.1-alpha.2
     "@emotion/react": ^11.9.0
     "@emotion/styled": ^11.8.1
     "@metamask/detect-provider": ^1.2.0
@@ -4516,7 +4537,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ethers@npm:^5.6.7":
+"ethers@npm:^5.6.4, ethers@npm:^5.6.7":
   version: 5.6.7
   resolution: "ethers@npm:5.6.7"
   dependencies:
@@ -8142,7 +8163,7 @@ __metadata:
 
 "typescript@patch:typescript@4.6.4#~builtin<compat/typescript>":
   version: 4.6.4
-  resolution: "typescript@patch:typescript@npm%3A4.6.4#~builtin<compat/typescript>::version=4.6.4&hash=bda367"
+  resolution: "typescript@patch:typescript@npm%3A4.6.4#~builtin<compat/typescript>::version=4.6.4&hash=7ad353"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver

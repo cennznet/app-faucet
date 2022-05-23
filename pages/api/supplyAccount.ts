@@ -7,9 +7,10 @@ import {
 	ENDOWED_ACCOUNT_SEEDS,
 	TRANSFER_AMOUNT,
 } from "@/libs/constants";
-import { cvmToCENNZAddress, EndowedAccounts } from "@/libs/utils";
+import { EndowedAccounts } from "@/libs/utils";
 import { fetchClaimStatus, setNewClaim } from "@/libs/utils/claimStatus";
 import { CENNZnetNetwork } from "@/libs/types";
+import { cvmToAddress } from "@cennznet/types/utils";
 
 export default async function handler(
 	req: NextApiRequest,
@@ -42,7 +43,7 @@ export default async function handler(
 			.json({ success: false, error: "Invalid Twitter account" });
 
 	const CENNZAddress =
-		addressType === "CENNZnet" ? address : cvmToCENNZAddress(address);
+		addressType === "CENNZnet" ? address : cvmToAddress(address);
 	const claimed = await fetchClaimStatus(CENNZAddress, network, assetId);
 	if (claimed)
 		return res.status(400).send({ error: "Already claimed in 24h window" });

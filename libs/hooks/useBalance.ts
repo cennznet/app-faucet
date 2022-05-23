@@ -1,7 +1,8 @@
 import { useCallback } from "react";
 import { useFaucet } from "@/libs/providers/FaucetProvider";
-import { Balance, cvmToCENNZAddress, fetchBalance } from "@/libs/utils";
+import { Balance, fetchBalance } from "@/libs/utils";
 import { CENNZnetToken } from "@/libs/types";
+import { cvmToAddress } from "@cennznet/types/utils";
 
 export default function useBalance(): (
 	asset: CENNZnetToken
@@ -13,7 +14,7 @@ export default function useBalance(): (
 			if (!address || !addressType || !network) return;
 
 			const balanceRaw = await fetchBalance(
-				addressType === "CENNZnet" ? address : cvmToCENNZAddress(address),
+				addressType === "CENNZnet" ? address : cvmToAddress(address),
 				asset.assetId,
 				network
 			);

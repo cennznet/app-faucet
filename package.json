@@ -14,7 +14,8 @@
     "format": "prettier --config .prettierrc.json ./ --write"
   },
   "dependencies": {
-    "@cennznet/api": "^2.1.0",
+    "@cennznet/api": "^2.1.1-alpha.2",
+    "@cennznet/types": "^2.1.1-alpha.2",
     "@emotion/react": "^11.9.0",
     "@emotion/styled": "^11.8.1",
     "@metamask/detect-provider": "^1.2.0",

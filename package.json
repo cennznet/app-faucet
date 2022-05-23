@@ -11,7 +11,7 @@
     "start": "next start",
     "lint": "next lint",
     "test": "jest",
-    "prettier-format": "prettier --config .prettierrc.json ./ --write"
+    "format": "prettier --config .prettierrc.json ./ --write"
   },
   "dependencies": {
     "@cennznet/api": "^2.1.0",

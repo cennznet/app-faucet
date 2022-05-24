@@ -1,4 +1,4 @@
-import { memo, ReactElement } from "react";
+import { FC } from "react";
 import { css } from "@emotion/react";
 import { CENNZnetToken } from "@/libs/types";
 import { Theme } from "@mui/material";
@@ -11,7 +11,7 @@ interface Props {
 	token: CENNZnetToken;
 }
 
-function SuccessResponse({ balance, token }: Props): ReactElement<Props> {
+const SuccessResponse: FC<Props> = ({ balance, token }) => {
 	const { addressType } = useFaucet();
 	const { extension } = useMetaMaskExtension();
 
@@ -37,9 +37,9 @@ function SuccessResponse({ balance, token }: Props): ReactElement<Props> {
 			)}
 		</div>
 	);
-}
+};
 
-export default memo(SuccessResponse);
+export default SuccessResponse;
 
 const styles = {
 	root: css``,

@@ -1,4 +1,4 @@
-import { ReactElement, useCallback, useState } from "react";
+import { FC, useCallback, useState } from "react";
 import { css } from "@emotion/react";
 import { useSession } from "next-auth/react";
 import { SelectChangeEvent, Theme } from "@mui/material";
@@ -23,7 +23,7 @@ import { useMetaMaskExtension } from "@/libs/providers/MetaMaskExtensionProvider
 import { useFaucet } from "@/libs/providers/FaucetProvider";
 import useBalance from "@/libs/hooks/useBalance";
 
-function Faucet(): ReactElement {
+const Faucet: FC = () => {
 	const { data: session } = useSession();
 	const { address, addressType, network, setNetwork } = useFaucet();
 	const { extension } = useMetaMaskExtension();
@@ -145,7 +145,7 @@ function Faucet(): ReactElement {
 			/>
 		</form>
 	);
-}
+};
 
 export default Faucet;
 

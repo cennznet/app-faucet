@@ -10,12 +10,9 @@ import MetaMaskExtensionProvider from "@/libs/providers/MetaMaskExtensionProvide
 import FaucetProvider from "@/libs/providers/FaucetProvider";
 import { useRouter } from "next/router";
 import { trackPageView } from "@/libs/utils";
-import { memo, ReactElement, useEffect } from "react";
+import { useEffect } from "react";
 
-function MyApp({
-	Component,
-	pageProps: { session, ...pageProps },
-}: AppProps): ReactElement<AppProps> {
+function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
 	const { events } = useRouter();
 
 	useEffect(() => {
@@ -53,4 +50,4 @@ function MyApp({
 	);
 }
 
-export default memo(MyApp);
+export default MyApp;

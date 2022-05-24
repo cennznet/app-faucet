@@ -1,4 +1,4 @@
-import { memo, ReactElement } from "react";
+import { FC } from "react";
 import { css } from "@emotion/react";
 import { CircularProgress } from "@mui/material";
 import ErrorOutlineOutlinedIcon from "@mui/icons-material/ErrorOutlineOutlined";
@@ -11,11 +11,7 @@ interface Props {
 	setIsOpen: Function;
 }
 
-function FaucetProgress({
-	isOpen,
-	txStatus,
-	setIsOpen,
-}: Props): ReactElement<Props> {
+const FaucetProgress: FC<Props> = ({ isOpen, txStatus, setIsOpen }) => {
 	return (
 		<div css={styles.root(isOpen)}>
 			{!!txStatus && (
@@ -53,9 +49,9 @@ function FaucetProgress({
 			)}
 		</div>
 	);
-}
+};
 
-export default memo(FaucetProgress);
+export default FaucetProgress;
 
 const styles = {
 	root: (show: boolean) =>

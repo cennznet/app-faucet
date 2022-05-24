@@ -1,4 +1,4 @@
-import { memo, ReactElement, useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { css } from "@emotion/react";
 import dynamic from "next/dynamic";
 import type { IdentityProps } from "@polkadot/react-identicon/types";
@@ -11,11 +11,7 @@ interface Props extends IdentityProps {
 	fadeOnChange?: boolean;
 }
 
-function AccountIdenticon({
-	value,
-	fadeOnChange,
-	...props
-}: Props): ReactElement<Props> {
+const AccountIdenticon: FC<Props> = ({ value, fadeOnChange, ...props }) => {
 	const [visible, setVisible] = useState<boolean>(false);
 
 	useEffect(() => {
@@ -31,9 +27,9 @@ function AccountIdenticon({
 			{...props}
 		/>
 	);
-}
+};
 
-export default memo(AccountIdenticon);
+export default AccountIdenticon;
 
 const styles = {
 	iconContainer: (fadeOnChange: boolean, visible: boolean) => css`

@@ -1,8 +1,8 @@
-import { ReactElement } from "react";
+import { FC } from "react";
 import { css } from "@emotion/react";
 import { GlobalStyles, Theme } from "@mui/material";
 
-function CssGlobal(): ReactElement {
+const CssGlobal: FC = () => {
 	return (
 		<GlobalStyles
 			styles={({ palette, transitions }: Theme) => css`
@@ -124,6 +124,6 @@ function CssGlobal(): ReactElement {
 			`}
 		/>
 	);
-}
+};
 
 export default CssGlobal;

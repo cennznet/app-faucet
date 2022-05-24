@@ -1,4 +1,4 @@
-import { memo, ReactElement } from "react";
+import { FC } from "react";
 import { css } from "@emotion/react";
 import { signOut } from "next-auth/react";
 
@@ -6,7 +6,7 @@ interface Props {
 	twitterHandle: string;
 }
 
-function SignOut({ twitterHandle }: Props): ReactElement<Props> {
+const SignOut: FC<Props> = ({ twitterHandle }) => {
 	return (
 		<div css={styles.root}>
 			<span onClick={async () => await signOut({ redirect: false })}>
@@ -14,9 +14,9 @@ function SignOut({ twitterHandle }: Props): ReactElement<Props> {
 			</span>
 		</div>
 	);
-}
+};
 
-export default memo(SignOut);
+export default SignOut;
 
 const styles = {
 	root: ({ palette, transitions }) => css`

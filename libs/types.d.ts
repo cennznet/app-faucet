@@ -27,16 +27,16 @@ export interface MetamaskNetworks {
 	Rata: MetaMaskNetwork;
 }
 
-export interface MetaMaskAccount {
-	address: string;
-}
-
 export type Chain = "CENNZnet" | "Ethereum";
 
 export interface GenericCoin {
 	decimals: number;
 	decimalsValue: number;
 	symbol: string;
+}
+
+export interface PropsWithChildren {
+	children?: ReactNode;
 }
 
 declare module "*.svg";

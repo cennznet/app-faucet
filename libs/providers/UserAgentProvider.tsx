@@ -1,13 +1,6 @@
-import {
-	createContext,
-	memo,
-	ReactElement,
-	useContext,
-	useEffect,
-	useState,
-	PropsWithChildren,
-} from "react";
+import { createContext, FC, useContext, useEffect, useState } from "react";
 import type { IBrowser, IOS, IDevice } from "ua-parser-js";
+import { PropsWithChildren } from "@/libs/types";
 
 type AgentContext = {
 	browser: IBrowser;
@@ -17,14 +10,11 @@ type AgentContext = {
 
 const UserAgentContext = createContext<AgentContext>({} as AgentContext);
 
-interface ProviderProps {
+interface UserAgentProviderProps extends PropsWithChildren {
 	value?: string;
 }
 
-function UserAgentProvider({
-	children,
-	value,
-}: PropsWithChildren<ProviderProps>): ReactElement<ProviderProps> {
+const UserAgentProvider: FC<UserAgentProviderProps> = ({ children, value }) => {
 	const [userAgent, setUserAgent] = useState<AgentContext>({} as AgentContext);
 
 	useEffect(() => {
@@ -43,9 +33,9 @@ function UserAgentProvider({
 			{children}
 		</UserAgentContext.Provider>
 	);
-}
+};
 
-export default memo(UserAgentProvider);
+export default UserAgentProvider;
 
 export function useUserAgent(): AgentContext {
 	return useContext(UserAgentContext);

@@ -1,9 +1,9 @@
-import { ReactElement } from "react";
+import { FC } from "react";
 import { COMMIT_SHA, APP_VERSION } from "@/libs/constants";
 import { css } from "@emotion/react";
 import { Theme } from "@mui/material";
 
-function Footer(): ReactElement {
+const Footer: FC = () => {
 	const shortenCommitSha = COMMIT_SHA ? COMMIT_SHA.substring(0, 10) : "";
 
 	return (
@@ -14,7 +14,7 @@ function Footer(): ReactElement {
 			</pre>
 		</div>
 	);
-}
+};
 
 export default Footer;
 

@@ -1,4 +1,4 @@
-import { memo, ReactElement } from "react";
+import { FC } from "react";
 import { useFaucet } from "@/libs/providers/FaucetProvider";
 import { useMetaMaskExtension } from "@/libs/providers/MetaMaskExtensionProvider";
 import { addCENNZTokenToMetaMask, ensureEthereumChain } from "@/libs/utils";
@@ -9,7 +9,7 @@ interface Props {
 	isCENNZ: boolean;
 }
 
-function MetaMaskPrompt({ isCENNZ }: Props): ReactElement<Props> {
+const MetaMaskPrompt: FC<Props> = ({ isCENNZ }) => {
 	const { network } = useFaucet();
 	const { extension } = useMetaMaskExtension();
 
@@ -43,9 +43,9 @@ function MetaMaskPrompt({ isCENNZ }: Props): ReactElement<Props> {
 			to switch to CENNZnet {network} in MetaMask.
 		</>
 	);
-}
+};
 
-export default memo(MetaMaskPrompt);
+export default MetaMaskPrompt;
 
 const styles = {
 	toolTipTrigger: ({ palette, transitions }: Theme) => css`

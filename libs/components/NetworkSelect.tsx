@@ -1,4 +1,4 @@
-import { memo, ReactElement } from "react";
+import { FC } from "react";
 import { css } from "@emotion/react";
 import { MenuItem, Select, SelectChangeEvent, Theme } from "@mui/material";
 import ExpandMore from "@mui/icons-material/ExpandMore";
@@ -12,10 +12,7 @@ interface Props {
 	onNetworkChange: (event: SelectChangeEvent) => void;
 }
 
-function NetworkSelect({
-	selectedNetwork,
-	onNetworkChange,
-}: Props): ReactElement<Props> {
+const NetworkSelect: FC<Props> = ({ selectedNetwork, onNetworkChange }) => {
 	return (
 		<Select
 			css={styles.root}
@@ -32,9 +29,9 @@ function NetworkSelect({
 			))}
 		</Select>
 	);
-}
+};
 
-export default memo(NetworkSelect);
+export default NetworkSelect;
 
 const styles = {
 	root: css`

@@ -1,14 +1,11 @@
 import {
 	createContext,
-	memo,
-	ReactElement,
 	Dispatch,
 	SetStateAction,
 	useContext,
 	useState,
-	PropsWithChildren,
 } from "react";
-import { CENNZnetNetwork, Chain } from "@/libs/types";
+import { CENNZnetNetwork, Chain, PropsWithChildren } from "@/libs/types";
 
 interface FaucetContextType {
 	address: string;
@@ -23,11 +20,9 @@ interface FaucetContextType {
 
 const FaucetContext = createContext<FaucetContextType>({} as FaucetContextType);
 
-interface FaucetProviderProps {}
+interface FaucetProviderProps extends PropsWithChildren {}
 
-function FaucetProvider({
-	children,
-}: PropsWithChildren<FaucetProviderProps>): ReactElement<FaucetProviderProps> {
+const FaucetProvider = ({ children }: FaucetProviderProps) => {
 	const [address, setAddress] = useState<string>();
 	const [addressType, setAddressType] = useState<Chain>();
 	const [network, setNetwork] = useState<CENNZnetNetwork>("Nikau");
@@ -48,9 +43,9 @@ function FaucetProvider({
 			{children}
 		</FaucetContext.Provider>
 	);
-}
+};
 
-export default memo(FaucetProvider);
+export default FaucetProvider;
 
 export function useFaucet(): FaucetContextType {
 	return useContext(FaucetContext);

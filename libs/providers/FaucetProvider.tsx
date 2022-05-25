@@ -1,6 +1,7 @@
 import {
 	createContext,
 	Dispatch,
+	FC,
 	SetStateAction,
 	useContext,
 	useState,
@@ -22,7 +23,7 @@ const FaucetContext = createContext<FaucetContextType>({} as FaucetContextType);
 
 interface FaucetProviderProps extends PropsWithChildren {}
 
-const FaucetProvider = ({ children }: FaucetProviderProps) => {
+const FaucetProvider: FC<FaucetProviderProps> = ({ children }) => {
 	const [address, setAddress] = useState<string>();
 	const [addressType, setAddressType] = useState<Chain>();
 	const [network, setNetwork] = useState<CENNZnetNetwork>("Nikau");

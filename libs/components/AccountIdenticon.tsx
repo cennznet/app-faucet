@@ -36,14 +36,12 @@ const AccountIdenticon: FC<Props> = ({ value, fadeOnChange, ...props }) => {
 				/>
 			)}
 			{addressType === "Ethereum" && (
-				<span
-					css={[styles.iconContainer(fadeOnChange, visible), styles.metamask]}
-				>
+				<div css={styles.iconContainer(fadeOnChange, visible)}>
 					<Jazzicon
 						diameter={28}
 						seed={jsNumberForAddress(address as string)}
 					/>
-				</span>
+				</div>
 			)}
 		</>
 	);
@@ -55,9 +53,5 @@ const styles = {
 	iconContainer: (fadeOnChange: boolean, visible: boolean) => css`
 		opacity: ${!fadeOnChange ? 1 : visible ? 1 : 0};
 		transition: opacity 0.2s;
-	`,
-
-	metamask: css`
-		margin-right: 0.5em;
 	`,
 };

@@ -1,9 +1,9 @@
-import { useEffect, useState, VFC } from "react";
+import { FC, useEffect, useState } from "react";
 import { css } from "@emotion/react";
 import { signIn, useSession } from "next-auth/react";
 import { Theme } from "@mui/material";
 
-const FaucetButton: VFC = () => {
+const FaucetButton: FC = () => {
 	const { data: session } = useSession();
 	const [warned, setWarned] = useState<boolean>(false);
 

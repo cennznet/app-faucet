@@ -1,31 +1,49 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useLayoutEffect, useState, useDeferredValue } from "react";
 import { css } from "@emotion/react";
 import dynamic from "next/dynamic";
 import type { IdentityProps } from "@polkadot/react-identicon/types";
+import { useFaucet } from "@/libs/providers/FaucetProvider";
+import Jazzicon, { jsNumberForAddress } from "react-jazzicon";
 
 const Identicon = dynamic(() => import("@polkadot/react-identicon"), {
 	ssr: false,
 });
 
-const AccountIdenticon: FC<IdentityProps & { fadeOnChange?: boolean }> = ({
-	value,
-	fadeOnChange,
-	...props
-}) => {
-	const [visible, setVisible] = useState<boolean>(false);
+interface Props extends IdentityProps {
+	fadeOnChange?: boolean;
+}
 
-	useEffect(() => {
-		if (!value || !fadeOnChange) return;
+const AccountIdenticon: FC<Props> = ({ value, fadeOnChange, ...props }) => {
+	const { addressType } = useFaucet();
+	const [visible, setVisible] = useState<boolean>(false);
+	const address = useDeferredValue(value);
+
+	useLayoutEffect(() => {
+		if (!address || !addressType || !fadeOnChange) return;
 		setVisible(false);
 		setTimeout(() => setVisible(true), 200);
-	}, [value, fadeOnChange]);
+	}, [address, addressType, fadeOnChange]);
 
 	return (
-		<Identicon
-			css={styles.iconContainer(fadeOnChange, visible)}
-			value={value}
-			{...props}
-		/>
+		<>
+			{addressType === "CENNZnet" && (
+				<Identicon
+					css={styles.iconContainer(fadeOnChange, visible)}
+					value={address}
+					size={28}
+					theme={"beachball"}
+					{...props}
+				/>
+			)}
+			{addressType === "Ethereum" && (
+				<div css={styles.iconContainer(fadeOnChange, visible)}>
+					<Jazzicon
+						diameter={28}
+						seed={jsNumberForAddress(address as string)}
+					/>
+				</div>
+			)}
+		</>
 	);
 };
 

@@ -1,17 +1,17 @@
-import { VFC } from "react";
+import { FC } from "react";
 import { css } from "@emotion/react";
 import { CENNZnetToken } from "@/libs/types";
 import { Theme } from "@mui/material";
 import { useFaucet } from "@/libs/providers/FaucetProvider";
 import { useMetaMaskExtension } from "../providers/MetaMaskExtensionProvider";
-import { addCENNZTokenToMetaMask, ensureEthereumChain } from "@/libs/utils";
+import { MetaMaskPrompt } from "@/libs/components";
 
-interface SuccessResponseProps {
+interface Props {
 	balance: string;
 	token: CENNZnetToken;
 }
 
-const SuccessResponse: VFC<SuccessResponseProps> = ({ balance, token }) => {
+const SuccessResponse: FC<Props> = ({ balance, token }) => {
 	const { addressType } = useFaucet();
 	const { extension } = useMetaMaskExtension();
 
@@ -36,42 +36,6 @@ const SuccessResponse: VFC<SuccessResponseProps> = ({ balance, token }) => {
 				</>
 			)}
 		</div>
-	);
-};
-
-const MetaMaskPrompt: VFC<{ isCENNZ: boolean }> = ({ isCENNZ }) => {
-	const { network } = useFaucet();
-	const { extension } = useMetaMaskExtension();
-
-	if (isCENNZ)
-		return (
-			<>
-				Click{" "}
-				<span
-					css={styles.toolTipTrigger}
-					onClick={() =>
-						ensureEthereumChain(extension, network).then(
-							addCENNZTokenToMetaMask
-						)
-					}
-				>
-					here
-				</span>{" "}
-				to add <span css={styles.tokenSymbol}>CENNZ</span> to your wallet.
-			</>
-		);
-
-	return (
-		<>
-			Click{" "}
-			<span
-				css={styles.toolTipTrigger}
-				onClick={() => ensureEthereumChain(extension, network)}
-			>
-				here
-			</span>{" "}
-			to switch to CENNZnet {network} in MetaMask.
-		</>
 	);
 };
 
@@ -102,17 +66,5 @@ const styles = {
 		margin: 0;
 		color: ${palette.primary.main};
 		font-style: normal;
-	`,
-
-	toolTipTrigger: ({ palette, transitions }: Theme) => css`
-		color: ${palette.primary.main};
-		cursor: pointer;
-		display: inline-block;
-		border-bottom: 2px solid transparent;
-		transition: border-bottom-color ${transitions.duration.short}ms;
-
-		&:hover {
-			border-bottom-color: ${palette.primary.main};
-		}
 	`,
 };

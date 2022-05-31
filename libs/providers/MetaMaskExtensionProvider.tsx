@@ -1,13 +1,7 @@
-import {
-	createContext,
-	FC,
-	useCallback,
-	useContext,
-	useEffect,
-	useState,
-} from "react";
+import { createContext, FC, useContext, useEffect, useState } from "react";
 import { MetaMaskInpageProvider } from "@metamask/providers";
 import detectEthereumProvider from "@metamask/detect-provider";
+import { PropsWithChildren } from "@/libs/types";
 
 interface MetaMaskExtensionContextType {
 	extension: MetaMaskInpageProvider;
@@ -17,7 +11,7 @@ const MetaMaskExtensionContext = createContext<MetaMaskExtensionContextType>(
 	{} as MetaMaskExtensionContextType
 );
 
-interface MetaMaskExtensionProviderProps {}
+interface MetaMaskExtensionProviderProps extends PropsWithChildren {}
 
 const MetaMaskExtensionProvider: FC<MetaMaskExtensionProviderProps> = ({
 	children,

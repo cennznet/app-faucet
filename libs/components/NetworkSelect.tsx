@@ -7,10 +7,12 @@ import { CENNZnetNetwork } from "@/libs/types";
 const NIKAU: CENNZnetNetwork = "Nikau";
 const RATA: CENNZnetNetwork = "Rata";
 
-const NetworkSelect: FC<{
+interface Props {
 	selectedNetwork: CENNZnetNetwork;
 	onNetworkChange: (event: SelectChangeEvent) => void;
-}> = ({ selectedNetwork, onNetworkChange }) => {
+}
+
+const NetworkSelect: FC<Props> = ({ selectedNetwork, onNetworkChange }) => {
 	return (
 		<Select
 			css={styles.root}

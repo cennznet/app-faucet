@@ -2,7 +2,11 @@ import { FC } from "react";
 import { css } from "@emotion/react";
 import { signOut } from "next-auth/react";
 
-const SignOut: FC<{ twitterHandle: string }> = ({ twitterHandle }) => {
+interface Props {
+	twitterHandle: string;
+}
+
+const SignOut: FC<Props> = ({ twitterHandle }) => {
 	return (
 		<div css={styles.root}>
 			<span onClick={async () => await signOut({ redirect: false })}>

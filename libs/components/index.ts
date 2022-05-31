@@ -10,3 +10,4 @@ export { default as SignOut } from "@/libs/components/SignOut";
 export { default as TokenSelect } from "@/libs/components/TokenSelect";
 export { default as Footer } from "@/libs/components/Footer";
 export { default as SuccessResponse } from "@/libs/components/SuccessResponse";
+export { default as MetaMaskPrompt } from "@/libs/components/MetaMaskPrompt";

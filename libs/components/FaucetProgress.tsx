@@ -5,11 +5,13 @@ import ErrorOutlineOutlinedIcon from "@mui/icons-material/ErrorOutlineOutlined";
 import CheckCircleOutlinedIcon from "@mui/icons-material/CheckCircleOutlined";
 import { TxStatus } from "@/libs/types";
 
-const FaucetProgress: FC<{
+interface Props {
 	isOpen: boolean;
 	txStatus: TxStatus;
 	setIsOpen: Function;
-}> = ({ isOpen, txStatus, setIsOpen }) => {
+}
+
+const FaucetProgress: FC<Props> = ({ isOpen, txStatus, setIsOpen }) => {
 	return (
 		<div css={styles.root(isOpen)}>
 			{!!txStatus && (

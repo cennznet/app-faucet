@@ -2,8 +2,11 @@ import { FC } from "react";
 import { css } from "@emotion/react";
 import { CENNZ_LOGO } from "@/assets/vectors";
 import { Theme, Tooltip } from "@mui/material";
+import { PropsWithChildren } from "@/libs/types";
 
-const Copy: FC = ({ children }) => {
+interface Props extends PropsWithChildren {}
+
+const Copy: FC<Props> = ({ children }) => {
 	return (
 		<div css={styles.header}>
 			<img src={CENNZ_LOGO} css={styles.logoImage} alt="CENNZnet Logo" />

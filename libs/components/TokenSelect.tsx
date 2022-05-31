@@ -7,10 +7,12 @@ import { CENNZ, CPAY } from "@/assets/vectors";
 
 const logos = { CENNZ, CPAY };
 
-const NetworkSelect: FC<{
+interface Props {
 	selectedToken: string;
 	onTokenChange: (event: SelectChangeEvent) => void;
-}> = ({ selectedToken, onTokenChange }) => {
+}
+
+const NetworkSelect: FC<Props> = ({ selectedToken, onTokenChange }) => {
 	return (
 		<Select
 			css={styles.root}
@@ -55,6 +57,7 @@ const styles = {
 			}
 		}
 	`,
+
 	selectDropdown: ({ palette, shadows }: Theme) => css`
 		.MuiPaper-root {
 			border-radius: 4px;
@@ -68,6 +71,7 @@ const styles = {
 			padding: 0;
 		}
 	`,
+
 	selectItem: css`
 		display: flex;
 		padding-top: 0.75em;

@@ -5,11 +5,11 @@ import { NextApiRequest, NextApiResponse } from "next";
 const client = new Redis(REDIS_URL);
 
 export async function setValidAccount(id: string) {
-	await client.set(id, true);
+	await client.set(id, "true");
 }
 
-export async function fetchValidAccount(id: string) {
-	return await client.get(id);
+export function fetchValidAccount(id: string) {
+	return client.get(id);
 }
 
 export default async function handler(

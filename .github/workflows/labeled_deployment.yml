@@ -11,12 +11,12 @@ jobs:
   deploy-uat:
     name: "UAT"
     if: ${{ github.event.label.name == 'deploy:uat' }}
-    uses: cennznet/gh-workflows/.github/workflows/_labeled_deployment.yml
+    uses: cennznet/gh-workflows/.github/workflows/_labeled_deployment.yml@develop
     with:
       branch: uat
   deploy-main:
     name: "Main"
     if: ${{ github.event.label.name == 'deploy:main' }}
-    uses: cennznet/gh-workflows/.github/workflows/_labeled_deployment.yml
+    uses: cennznet/gh-workflows/.github/workflows/_labeled_deployment.yml@develop
     with:
       branch: main

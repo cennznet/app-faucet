@@ -11,7 +11,7 @@ jobs:
   deploy-uat:
     name: "UAT"
     if: ${{ github.event.label.name == 'deploy:uat' }}
-    uses: cennznet/gh-workflows/.github/workflows/_labeled_deployment.yml@develop
+    uses: cennznet/gh-workflows/.github/workflows/_labeled_preview.yml@develop
     with:
       branch: uat
   deploy-main:

@@ -2,10 +2,14 @@
 
 ## [Unreleased]
 
+## [1.1.3] - TBC
+
+- Update to React 18 [#60]
+
 ## [1.1.2] - 2022-05-26
 
- - Offer to add CENNZ token and corresponding network on transaction success [#56](https://github.com/cennznet/app-faucet/pull/56)
- - Update address input placeholder [#59](https://github.com/cennznet/app-faucet/pull/59)
+- Offer to add CENNZ token and corresponding network on transaction success [#56](https://github.com/cennznet/app-faucet/pull/56)
+- Update address input placeholder [#59](https://github.com/cennznet/app-faucet/pull/59)
 
 ## [1.1.1] - 2022-05-05
 

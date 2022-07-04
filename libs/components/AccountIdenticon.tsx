@@ -39,7 +39,7 @@ const AccountIdenticon: FC<Props> = ({ value, fadeOnChange, ...props }) => {
 				<div css={styles.iconContainer(fadeOnChange, visible)}>
 					<Jazzicon
 						diameter={28}
-						seed={jsNumberForAddress(address as string)}
+						seed={jsNumberForAddress((address as string) || "")}
 					/>
 				</div>
 			)}

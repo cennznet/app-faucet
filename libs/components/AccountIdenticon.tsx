@@ -1,4 +1,4 @@
-import { FC, useLayoutEffect, useState, useDeferredValue } from "react";
+import { FC, useEffect, useState, useDeferredValue } from "react";
 import { css } from "@emotion/react";
 import dynamic from "next/dynamic";
 import type { IdentityProps } from "@polkadot/react-identicon/types";
@@ -18,7 +18,7 @@ const AccountIdenticon: FC<Props> = ({ value, fadeOnChange, ...props }) => {
 	const [visible, setVisible] = useState<boolean>(false);
 	const address = useDeferredValue(value);
 
-	useLayoutEffect(() => {
+	useEffect(() => {
 		if (!address || !addressType || !fadeOnChange) return;
 		setVisible(false);
 		setTimeout(() => setVisible(true), 200);
@@ -39,7 +39,7 @@ const AccountIdenticon: FC<Props> = ({ value, fadeOnChange, ...props }) => {
 				<div css={styles.iconContainer(fadeOnChange, visible)}>
 					<Jazzicon
 						diameter={28}
-						seed={jsNumberForAddress(address as string)}
+						seed={jsNumberForAddress((address as string) || "")}
 					/>
 				</div>
 			)}

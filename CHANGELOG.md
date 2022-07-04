@@ -2,7 +2,11 @@
 
 ## [Unreleased]
 
-## [1.1.3] - TBC
+## [1.1.4] - 2022-07-05
+
+- Hotfix: prevent app crashes from deferred `address` value [#69]
+
+## [1.1.3] - 2022-06-30
 
 - Update to React 18 [#60]
 

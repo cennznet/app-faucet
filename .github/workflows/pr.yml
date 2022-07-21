@@ -1,18 +1,20 @@
-name: CI
+name: PR
 
 on:
   push:
     branches:
       - develop
+      - "prod/**"
   pull_request:
     branches:
       - develop
+      - "prod/**"
 
   workflow_dispatch:
 
 jobs:
   lint:
-    name: Linting & Testing
+    name: Linting
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -40,4 +42,3 @@ jobs:
         run: |
           yarn install --immutable
           yarn lint
-          ENDOWED_ACCOUNT_SEEDS=${{ secrets.ENDOWED_ACCOUNT_SEEDS}} yarn run test
